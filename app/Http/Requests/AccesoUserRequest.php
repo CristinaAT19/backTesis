@@ -24,7 +24,7 @@ class AccesoUserRequest extends FormRequest
     public function rules()
     {
         return [
-            "dni" => "required",
+            "dni" => "required|min:8|max:8",
             "password" => "required"
         ];
     }

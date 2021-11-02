@@ -9,15 +9,18 @@ use App\Models\Empleado;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Hash;
+
+
 
 class AutenticarController extends Controller
 {
     public function registro(RegistroUserRequest $request)
     {
         $user = new User();
-        $user->usu_Id_Emp_fk = $request->usu_Id_Emp_fk;
-        $user->usu_Password = sha1($request->usu_Password);
-        $user->usu_Tipo_User_Id_fk = $request->usu_Tipo_User_Id_fk;
+        $user->usu_Id_Emp_fk = $request->id;
+        $user->usu_Password = bcrypt($request->password);
+        $user->usu_Tipo_User_Id_fk = $request->tipoUsuario;
         $user->save();
 
         return response()->json([
@@ -29,21 +32,28 @@ class AutenticarController extends Controller
     public function acceso(AccesoUserRequest $request)
     {
         $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
-        // $usuario = DB::select("call pa_verificar_login('$request->dni', '$request->password')");
-
-        $user = User::where('usu_Id_Emp_fk', $empleado->Emp_Id)->first();
-
-        if ($user == null) {
+        if ($empleado == null) {
             throw ValidationException::withMessages([
-                'smg' => ['El correo o la contraseña es incorrecto'],
+                'smg' => ['El dni es incorrecto'],
             ]);
         }
 
+        $user = User::where('usu_Id_Emp_fk', $empleado->Emp_Id)->first();
+
+        if (!$user || !Hash::check($request->password, $user->usu_Password)) {
+            throw ValidationException::withMessages([
+                'smg' => ['La contraseña es incorrecto'],
+            ]);
+        }
         $token = $user->createToken($request->dni)->plainTextToken;
+        // $asis_estado = DB::select("select fu_verificar_puntualidad('$request->dni','$hora')");
+
+        $asis_empleado = DB::select("call pa_listar_asistencia_empleados_dni('$empleado->Emp_Dni')");
+
         return response()->json([
             'res' => 'true',
             'token' => $token,
-            'usuario' => $user
+            'asistencias' => $asis_empleado
         ], 200);
     }
 
