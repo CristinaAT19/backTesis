@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AutenticarController;
 use App\Http\Controllers\Api\AsistenciaController;
+use App\Http\Controllers\Api\AdministradorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +17,15 @@ use App\Http\Controllers\Api\AsistenciaController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+// Route::middleware('auth:sanctum')->get('administrador', [AdministradorController::class, 'dashboardAdministrador']);
+
 Route::post('marcar', [AsistenciaController::class, 'marcarAsistencia']);
 Route::post('registro', [AutenticarController::class, 'registro']);
 Route::post('acceso', [AutenticarController::class, 'acceso']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('dashboard_ma', [AdministradorController::class, 'dashboard_ma']); //mostrar el dashboard de asistencia del turno mañana 
+    Route::get('dashboard_ta', [AdministradorController::class, 'dashboard_ta']); //mostrar el dashboard de asistencia del turno tarde
+    Route::get('tablas_administrador/{turno}', [AdministradorController::class, 'tablas_administrador']); //mostrar las tablas de asistencias y sin marcar al administrador
+    // Route::get('dashboard_usu/{dni}', [AdministradorController::class, 'dashboard_usu']);
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
 });
