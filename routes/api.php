@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AutenticarController;
+use App\Http\Controllers\Api\AdministradorController;
 use App\Http\Controllers\Api\AsistenciaController;
 use App\Http\Controllers\Api\AdministradorController;
 use App\Http\Controllers\Api\UsuarioController;
@@ -30,4 +31,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //Route::get('dashboardUsuario/{dni}', [UsuarioController::class, 'dashboardUsuario']);
     Route::get('calendario/{dni}', [UsuarioController::class, 'calendarioUsuario']); //mostrar el calendario del usuario
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
+    Route::post('insertarEmpleado', [AdministradorController::class, 'insertarEmpleado']);
 });
