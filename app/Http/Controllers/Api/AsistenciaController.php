@@ -39,7 +39,7 @@ class AsistenciaController extends Controller
         if ($asis_estado[0]->$atributo == "2" || $asis_estado[0]->$atributo == "1") {
             $detalle_asi = (int)$asis_estado[0]->$atributo;
             if (!$empleado == null) {
-                $msg2 = DB::select("select fu_verificar_intentos('$fecha', '$hora', $empleado->Emp_Id, '$request->plataforma', '$SO', '$dispo', '$request->useragent', '$request->usertime', '$ipv4', $detalle_asi) AS respuesta");
+                $msg2 = DB::select("select fu_verificar_intentos('$fecha', '$hora', $empleado->Emp_Id, '$request->plataforma', '$SO', '$dispo', '$request->useragent', '$request->usertime', '$ipv6', $detalle_asi) AS respuesta");
                 if ($msg2[0]->respuesta == 1) {
                     if ($detalle_asi == 1) {
                         $msg = "Gracias " . $empleado->Emp_Nombre . ", marcaste asistencia puntual ";
@@ -54,12 +54,9 @@ class AsistenciaController extends Controller
             $msg = $asis_estado[0]->$atributo;
         }
 
-
-
         return response()->json([
             'respuesta' => 'true',
             'mensaje' => $msg
-
 
         ], 200);
     }
