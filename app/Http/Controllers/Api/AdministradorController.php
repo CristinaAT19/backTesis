@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class AdministradorController extends Controller
 {
-    public function insertarUsuario(EmpleadoRequest $request)
+    public function insertarEmpleado(EmpleadoRequest $request)
     {
          DB::statement("call pa_insertar_empleado('$request->emp_nombre', '$request->emp_apellido', 
         '$request->emp_fechabaja', '$request->emp_fec_inicio_prueba', '$request->emp_Fec_fin_prueba', 
