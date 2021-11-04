@@ -28,4 +28,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('tablas_administrador/{turno}', [AdministradorController::class, 'tablas_administrador']); //mostrar las tablas de asistencias y sin marcar al administrador
     // Route::get('dashboard_usu/{dni}', [AdministradorController::class, 'dashboard_usu']);
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
+    //Manejo de faltas
+    Route::get('tabla_faltas',[AdministradorController::class,'listar_faltas']);
+    Route::patch('tabla_faltas/{id}', [AdministradorController::class,'actualizar_estado_faltas']);
 });
