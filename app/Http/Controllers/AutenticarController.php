@@ -33,32 +33,25 @@ class AutenticarController extends Controller
     /**************************/
     public function acceso(AccesoUserRequest $request)
     {
-        $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
-        if ($empleado == null) {
+        $validacion_login = DB::select("SELECT fu_verificar_login('$request->dni', '$request->password') AS validacion");
+        $atributo = "validacion";
+        if ($validacion_login[0]->$atributo == 1) {
             throw ValidationException::withMessages([
-                'smg' => ['El dni es incorrecto'],
+                'smg' => ['El dni o la contraseña es incorrecto'],
             ]);
-        }
-
-        $user = User::where('usu_Id_Emp_fk', $empleado->Emp_Id)->first();
-        if (!$user || !Hash::check($request->password, $user->usu_Password)) {
-            throw ValidationException::withMessages([
-                'smg' => ['La contraseña es incorrecto'],
-            ]);
-        }
-
-        //creacion del token
-        $token = $user->createToken($request->dni)->plainTextToken;
-
-        //mostrar el tipo de usuario en respuesta json
-        $tipoUser = $user->usu_Tipo_User_Id_fk;
-        if ($tipoUser == 1) {
-            $msg = "Administrador";
         } else {
-            $msg = "Usuario";
+            $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
+            $user = User::where('usu_Id_Emp_fk', $empleado->Emp_Id)->first();
+            //creacion del token
+            $token = $user->createToken($request->dni)->plainTextToken;
+            //mostrar el tipo de usuario en respuesta json
+            $tipoUser = $user->usu_Tipo_User_Id_fk;
+            if ($tipoUser == 1) {
+                $msg = "Administrador";
+            } else {
+                $msg = "Usuario";
+            }
         }
-        // $asis_m = DB::select("call pa_listar_asistencia_empleados_dni('$empleado->Emp_Dni')");
-        // $asis_empleado = DB::select("call pa_listar_asistencia_empleados_dni('$empleado->Emp_Dni')");
 
         return response()->json([
             'res' => 'true',
