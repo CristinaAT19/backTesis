@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class AdministradorController extends Controller
 {
+
     public function insertarEmpleado(EmpleadoRequest $request)
     {
         DB::statement("call pa_insertar_empleado('$request->emp_nombre', '$request->emp_apellido', 
@@ -34,5 +35,6 @@ class AdministradorController extends Controller
             'respuesta' => 'true',
             'empleados' => $empleados
         ], 200);     
+
     }
 }
