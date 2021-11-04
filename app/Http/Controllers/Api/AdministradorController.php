@@ -45,7 +45,7 @@ class AdministradorController extends Controller
         emp_fechanac,
         Emp_UnidadId,									
         emp_dias_extra*/
-
+    }
     public function dashboard_ma()
     {
         $turno_m = DB::select("call pa_contar_asistenciaDiaria('1')");
