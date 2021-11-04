@@ -26,4 +26,5 @@ Route::post('acceso', [AutenticarController::class, 'acceso']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
     Route::post('insertarEmpleado', [AdministradorController::class, 'insertarEmpleado']);
+    Route::get('listarEmpleados', [AdministradorController::class, 'listarEmpleados']);
 });
