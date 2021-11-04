@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\EmpleadoRequest;
-use App\Models\Empleado;
 use Illuminate\Support\Facades\DB;
 
 class AdministradorController extends Controller
@@ -24,13 +22,20 @@ class AdministradorController extends Controller
         return response()->json([
             'respuesta' => 'true',
             'mensaje' => "insertado correctamente"
-        ], 200);        
+        ], 200);
+        
+    }
+    public function dashboard_ma()
+    {
+        $turno_m = DB::select("call pa_contar_asistenciaDiaria('1')");
+        return response()->json([
+            'Asistencia Turno Mañana' => $turno_m
+        ], 200);
     }
 
     public function listarEmpleados()
     {
         $empleados=DB::select("call pa_listar_empleados"); 
-        //return $empleados;
         return response()->json([
             'respuesta' => 'true',
             'empleados' => $empleados
