@@ -31,7 +31,7 @@ class EmpleadoRequest extends FormRequest
             "emp_Fec_fin_prueba"=> "required",	
             "emp_TurnoId"=> "required",
             "emp_AreaId"=> "required",
-            "emp_dni" => "required|min:8|max:8",
+            "emp_dni" => "required|min:8|max:8|unique:empleados,Emp_dni",
             "emp_carrera"=> "required",
             "emp_email"=> "required",
             "emp_telefono"=> "required",
