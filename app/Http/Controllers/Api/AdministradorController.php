@@ -44,10 +44,10 @@ class AdministradorController extends Controller
             'Asistencia Turno Tarde' => $turno_t
         ], 200);
     }
-    public function tablas_administrador($turno)
+    public function tablas_administrador()
     {
         $asistencia = DB::select("call pa_listar_asistencia_diaria()");
-        $sin_marcar = DB::select("call pa_listar_empleados_sin_marcar('$turno')");
+        $sin_marcar = DB::select("call pa_listar_empleados_sin_marcar()");
         return response()->json([
             'Asistencia de empleados Diario' => $asistencia,
             'Empleados sin marcar diario' => $sin_marcar

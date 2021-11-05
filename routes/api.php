@@ -14,12 +14,12 @@ Route::post('acceso', [AutenticarController::class, 'acceso']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('dashboard_ma', [AdministradorController::class, 'dashboard_ma']); //mostrar el dashboard de asistencia del turno mañana 
     Route::get('dashboard_ta', [AdministradorController::class, 'dashboard_ta']); //mostrar el dashboard de asistencia del turno tarde
-    Route::get('tablas_administrador/{turno}', [AdministradorController::class, 'tablas_administrador']); //mostrar las tablas de asistencias y sin marcar al administrador
+    Route::get('tablas_administrador', [AdministradorController::class, 'tablas_administrador']); //mostrar las tablas de asistencias y sin marcar al administrador
     //Manejo de faltas
     Route::get('tabla_faltas', [AdministradorController::class, 'listar_faltas']);
     Route::post('tabla_faltas/{id}', [AdministradorController::class, 'actualizar_estado_faltas']);
 
-    Route::get('dashboardUsuario/{dni}', [UsuarioController::class, 'dashboardUsuario']);
+    Route::get('dashboardUsuario/{dni}', [UsuarioController::class, 'dashboardUsuario']); //mostrar el dashboard de un usuario
     Route::get('calendario/{dni}', [UsuarioController::class, 'calendarioUsuario']); //mostrar el calendario del usuario
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
     Route::post('insertarEmpleado', [AdministradorController::class, 'insertarEmpleado']);
