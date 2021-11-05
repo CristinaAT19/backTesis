@@ -45,14 +45,25 @@ class AdministradorController extends Controller
 
     public function actualizarEmpleado(ActualizarEmpleadoRequest $request,$id)
     {
-
+        
         $todas_empleados = DB::select("call pa_listar_empleados");
         $resultadoEncontrado = false;
         foreach ($todas_empleados as $empleado) {
             if((int)$id == (int)$empleado->Id )
             {
-                $resultadoEncontrado = true;                
-                break;
+                $resultadoEncontrado = true;
+            }
+            if((string)$request->emp_dni == (string)$empleado->Dni)
+            {
+                if($resultadoEncontrado)
+                {
+                    continue;
+                }else{
+                    return response()->json([
+                        "res"=>false,
+                        "msg"=>"Ese DNI insertado ya existe, intente con otro."
+                    ]);
+                }
             }
         }
         if($resultadoEncontrado == false){
