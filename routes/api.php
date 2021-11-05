@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AutenticarController;
 use App\Http\Controllers\Api\AdministradorController;
 use App\Http\Controllers\Api\AsistenciaController;
+use App\Http\Controllers\Api\UsuarioController;
 
 Route::post('marcar', [AsistenciaController::class, 'marcarAsistencia']);
 Route::post('registro', [AutenticarController::class, 'registro']);
