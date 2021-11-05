@@ -23,13 +23,12 @@ class AdministradorController extends Controller
         '$request->emp_email', '$request->emp_telefono', '$request->emp_link_cv', 
         $request->Emp_Id_Condicion_capacitacion_fk, '$request->emp_link_calificaciones',
         $request->Emp_Id_Convenio_fk, '$request->emp_link_convenio', '$request->emp_fechanac',
-        $request->emp_dias_extra)"); 
-        
+        $request->emp_dias_extra)");
+
         return response()->json([
             'respuesta' => 'true',
             'mensaje' => "insertado correctamente"
         ], 200);
-        
     }
     public function dashboard_ma()
     {
@@ -38,10 +37,17 @@ class AdministradorController extends Controller
             'Asistencia Turno Mañana' => $turno_m
         ], 200);
     }
+    public function dashboard_ta()
+    {
+        $turno_t = DB::select("call pa_contar_asistenciaDiaria('2')");
+        return response()->json([
+            'Asistencia Turno Tarde' => $turno_t
+        ], 200);
+    }
 
     public function listarEmpleados()
     {
-        $empleados=DB::select("call pa_listar_empleados"); 
+        $empleados = DB::select("call pa_listar_empleados");
         return response()->json([
             'respuesta' => 'true',
             'empleados' => $empleados
@@ -116,6 +122,7 @@ class AdministradorController extends Controller
             ]);   
 
         }
+
 
     }
 }
