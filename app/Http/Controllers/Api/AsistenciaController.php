@@ -19,13 +19,8 @@ class AsistenciaController extends Controller
         $validaciones = new Validaciones();
         date_default_timezone_set('America/Lima');
         $fecha = date('Y-m-d');
-        // $fecha = '2021-10-31';
         $hora = date('H:i:s');
-        // $hora = "14:00:00";
         $dispo = $validaciones->idDis();
-        // $ip = request()->ip();       
-        // $ip = inet_ntop(request()->ip());
-        // $ipv6 = $validaciones->getRealIP();
         $ipv6 = $validaciones->getRealIP();
         $ipv4 = hexdec(substr($ipv6, 0, 2)) . "." . hexdec(substr($ipv6, 2, 2)) . "." . hexdec(substr($ipv6, 5, 2)) . "." . hexdec(substr($ipv6, 7, 2));
         $SO = $validaciones->getSO($request->useragent);
