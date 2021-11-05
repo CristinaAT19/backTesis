@@ -24,7 +24,7 @@ class FaltasCambioEstadoRequest extends FormRequest
     public function rules()
     {
         return [
-            'cambio_estado'=>'required|integer'
+            'cambio_estado'=>'required|integer|between:3,4'
         ];
     }
 }
