@@ -15,7 +15,6 @@ class UsuarioController extends Controller
             'Datos de asistencia' => $asistencias
         ], 200);
     }
-
     public function dashboardUsuario($dni)
     {
         $asistencias_usuario = DB::select("call pa_contar_asistenciaDiaria_Dni('$dni')");
@@ -23,4 +22,5 @@ class UsuarioController extends Controller
             'Datos de asistencia' => $asistencias_usuario
         ], 200);
     }
+
 }
