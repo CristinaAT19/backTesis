@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ActualizarEmpleadoRequest;
 use App\Http\Requests\EmpleadoRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -39,7 +40,39 @@ class AdministradorController extends Controller
         return response()->json([
             'respuesta' => 'true',
             'empleados' => $empleados
-        ], 200);     
+        ], 200); 
+    }
 
+    public function actualizarEmpleado(ActualizarEmpleadoRequest $request,$id)
+    {
+
+        $todas_empleados = DB::select("call pa_listar_empleados");
+        $resultadoEncontrado = false;
+        foreach ($todas_empleados as $empleado) {
+            if((int)$id == (int)$empleado->Id )
+            {
+                $resultadoEncontrado = true;                
+                break;
+            }
+        }
+        if($resultadoEncontrado == false){
+            return response()->json([
+                "res"=>false,
+                "msg"=>"No se encontro el registro. Vuelva a intentarlo"
+            ]);
+        }
+
+
+        DB::statement("call pa_actualizar_empleados('$id','$request->emp_nombre',
+        '$request->emp_apellido','$request->emp_fechabaja','$request->emp_fec_inicio_prueba',
+        '$request->emp_Fec_fin_prueba',$request->emp_TurnoId,$request->emp_AreaId,
+        '$request->emp_dni','$request->emp_carrera','$request->emp_email',
+        '$request->emp_telefono','$request->emp_link_cv',$request->Emp_Id_Condicion_capacitacion_fk,
+        '$request->emp_link_calificaciones',$request->Emp_Id_Convenio_fk,'$request->emp_link_convenio',
+        '$request->emp_fechanac',$request->emp_dias_extra)"); 
+        return response()->json([
+            'respuesta' => 'true',
+            'msg' =>'empleado actualizado correctamente'
+        ], 200);   
     }
 }
