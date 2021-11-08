@@ -1,33 +1,33 @@
 <?php
 
-use App\Http\Controllers\api\AdministradorController;
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AutenticarController;
+use App\Http\Controllers\Api\AdministradorController;
 use App\Http\Controllers\Api\AsistenciaController;
-use Illuminate\Support\Facades\DB;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+use App\Http\Controllers\Api\UsuarioController;
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+
+
 Route::post('marcar', [AsistenciaController::class, 'marcarAsistencia']);
 Route::post('registro', [AutenticarController::class, 'registro']);
 Route::post('acceso', [AutenticarController::class, 'acceso']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('dashboard_ma', [AdministradorController::class, 'dashboard_ma']); //mostrar el dashboard de asistencia del turno mañana 
+    Route::get('dashboard_ta', [AdministradorController::class, 'dashboard_ta']); //mostrar el dashboard de asistencia del turno tarde
+    Route::get('tablas_administrador', [AdministradorController::class, 'tablas_administrador']); //mostrar las tablas de asistencias y sin marcar al administrador
+    //Manejo de faltas
+    Route::get('tabla_faltas', [AdministradorController::class, 'listar_faltas']);
+    Route::post('tabla_faltas/{id}', [AdministradorController::class, 'actualizar_estado_faltas']);
+
+    Route::get('dashboardUsuario/{dni}', [UsuarioController::class, 'dashboardUsuario']); //mostrar el dashboard de un usuario
+    Route::get('calendario/{dni}', [UsuarioController::class, 'calendarioUsuario']); //mostrar el calendario del usuario
+    Route::post('cambiarPassword', [UsuarioController::class, 'cambiarPassword']);
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
     Route::get('listarAdministrador', [AdministradorController::class, 'listarAdministrador']);
     Route::post('resetearPassword', [AdministradorController::class, 'resetPassword']);
     Route::post('cambiarTipoUsuario', [AdministradorController::class, 'cambiarTipoUsuario']);
+    Route::post('insertarEmpleado', [AdministradorController::class, 'insertarEmpleado']);
+    Route::get('listarEmpleados', [AdministradorController::class, 'listarEmpleados']);
+
 });
