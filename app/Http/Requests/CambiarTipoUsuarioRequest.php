@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdministradorRequest extends FormRequest
+class CambiarTipoUsuarioRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class AdministradorRequest extends FormRequest
     {
         return [
             "dni" => "required|min:8|max:8",
-            "tipoUsuario"=> "required|integer|between:1,2"
+            "tipoUsuario" => "required|integer|between:1,2"
         ];
     }
 }
