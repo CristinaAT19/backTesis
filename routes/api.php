@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdministradorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AutenticarController;
 use App\Http\Controllers\Api\AsistenciaController;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +27,6 @@ Route::post('acceso', [AutenticarController::class, 'acceso']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
 });
+Route::get('listarAdministrador', [AdministradorController::class, 'listarAdministrador']);
+Route::post('resetearPassword', [AdministradorController::class, 'resetPassword']);
+Route::post('cambiarTipoUsuario', [AdministradorController::class, 'cambiarTipoUsuario']);
