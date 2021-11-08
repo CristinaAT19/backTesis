@@ -11,7 +11,9 @@ return array(
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Api\\AdministradorController' => $baseDir . '/app/Http/Controllers/Api/AdministradorController.php',
     'App\\Http\\Controllers\\Api\\AsistenciaController' => $baseDir . '/app/Http/Controllers/Api/AsistenciaController.php',
+
     'App\\Http\\Controllers\\Api\\UsuarioController' => $baseDir . '/app/Http/Controllers/Api/UsuarioController.php',
+
     'App\\Http\\Controllers\\AutenticarController' => $baseDir . '/app/Http/Controllers/AutenticarController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
@@ -24,8 +26,12 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Requests\\AccesoUserRequest' => $baseDir . '/app/Http/Requests/AccesoUserRequest.php',
+
     'App\\Http\\Requests\\ActualizarEmpleadoRequest' => $baseDir . '/app/Http/Requests/ActualizarEmpleadoRequest.php',
     'App\\Http\\Requests\\EmpleadoRequest' => $baseDir . '/app/Http/Requests/EmpleadoRequest.php',
+
+    'App\\Http\\Requests\\FaltasCambioEstadoRequest' => $baseDir . '/app/Http/Requests/FaltasCambioEstadoRequest.php',
+
     'App\\Http\\Requests\\MarcarAsistenciaRequest' => $baseDir . '/app/Http/Requests/MarcarAsistenciaRequest.php',
     'App\\Http\\Requests\\RegistroUserRequest' => $baseDir . '/app/Http/Requests/RegistroUserRequest.php',
     'App\\Models\\Asistencia' => $baseDir . '/app/Models/Asistencia.php',

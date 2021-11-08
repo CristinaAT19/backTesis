@@ -1637,17 +1637,19 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.12.3",
-            "version_normalized": "1.12.3.0",
+
+            "version": "v1.12.2",
+            "version_normalized": "1.12.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "f335277677188b79d12f4caad88577cf76e54dfa"
+                "reference": "1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/f335277677188b79d12f4caad88577cf76e54dfa",
-                "reference": "f335277677188b79d12f4caad88577cf76e54dfa",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a",
+                "reference": "1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a",
+
                 "shasum": ""
             },
             "require": {
@@ -1656,7 +1658,9 @@
                 "illuminate/support": "^8.0|^9.0",
                 "php": "^7.3|^8.0"
             },
-            "time": "2021-11-05T13:35:24+00:00",
+
+            "time": "2021-10-26T21:37:54+00:00",
+
             "bin": [
                 "bin/sail"
             ],
