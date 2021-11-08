@@ -75,7 +75,7 @@ class AdministradorController extends Controller
                 'msg' => $e->getMessage()
             ]);
         }
-        if (!isset($todas_faltas)) {
+        if ($todas_faltas==null) {
             return response()->json([
                 'res' => false,
                 'msg' => 'No se encontraron registros'
