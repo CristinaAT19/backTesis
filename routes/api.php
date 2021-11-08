@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('dashboardUsuario/{dni}', [UsuarioController::class, 'dashboardUsuario']); //mostrar el dashboard de un usuario
     Route::get('calendario/{dni}', [UsuarioController::class, 'calendarioUsuario']); //mostrar el calendario del usuario
+    Route::post('cambiarPassword', [UsuarioController::class, 'cambiarPassword']);
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
     Route::post('insertarEmpleado', [AdministradorController::class, 'insertarEmpleado']);
     Route::get('listarEmpleados', [AdministradorController::class, 'listarEmpleados']);
