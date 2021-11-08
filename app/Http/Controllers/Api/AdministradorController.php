@@ -16,7 +16,7 @@ class AdministradorController extends Controller
         $admin = DB::select("call pa_listar_administradores");
         // return response()->json($admin);
         return response()->json([
-            'res' => true."dentro",
+            'res' => 'true',
             // 'msg' => 'Listado Correcto :)',
             'administradores' => $admin
 
