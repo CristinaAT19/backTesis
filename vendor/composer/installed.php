@@ -6,7 +6,9 @@
     'aliases' => 
     array (
     ),
+
     'reference' => '98f0c970d7abc3f3b1350e2ee31b1e14ec702ad0',
+
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -436,6 +438,7 @@
       'aliases' => 
       array (
       ),
+
       'reference' => '98f0c970d7abc3f3b1350e2ee31b1e14ec702ad0',
     ),
     'laravel/sail' => 
@@ -446,6 +449,7 @@
       array (
       ),
       'reference' => '1acae00ddb5c6ec4a2957fe42c0004f13cd17a7a',
+
     ),
     'laravel/sanctum' => 
     array (
@@ -577,12 +581,14 @@
     ),
     'nikic/php-parser' => 
     array (
+
       'pretty_version' => 'v4.13.0',
       'version' => '4.13.0.0',
       'aliases' => 
       array (
       ),
       'reference' => '50953a2691a922aa1769461637869a0a2faa3f53',
+
     ),
     'nunomaduro/collision' => 
     array (
@@ -721,12 +727,14 @@
     ),
     'psr/container' => 
     array (
+
       'pretty_version' => '1.1.1',
       'version' => '1.1.1.0',
       'aliases' => 
       array (
       ),
       'reference' => '8622567409010282b7aeebe4bb841fe98b58dcaf',
+
     ),
     'psr/container-implementation' => 
     array (
@@ -812,8 +820,10 @@
     array (
       'provided' => 
       array (
+
         0 => '1.0|2.0',
         1 => '1.0.0 || 2.0.0 || 3.0.0',
+
       ),
     ),
     'psr/simple-cache' => 

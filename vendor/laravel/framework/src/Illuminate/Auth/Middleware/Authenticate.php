@@ -80,9 +80,7 @@ class Authenticate implements AuthenticatesRequests
     protected function unauthenticated($request, array $guards)
     {
         throw new AuthenticationException(
-            'No tiene acceso a esta ruta',
-            $guards,
-            $this->redirectTo($request)
+            'Unauthenticated.', $guards, $this->redirectTo($request)
         );
     }
 

@@ -526,6 +526,9 @@ class ComposerStaticInit4ac9e5a453ba496125489b39b75ad7ae
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Api\\AdministradorController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/AdministradorController.php',
         'App\\Http\\Controllers\\Api\\AsistenciaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/AsistenciaController.php',
+
+        'App\\Http\\Controllers\\Api\\UsuarioController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/UsuarioController.php',
+
         'App\\Http\\Controllers\\AutenticarController' => __DIR__ . '/../..' . '/app/Http/Controllers/AutenticarController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -538,7 +541,12 @@ class ComposerStaticInit4ac9e5a453ba496125489b39b75ad7ae
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\AccesoUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/AccesoUserRequest.php',
+
+        'App\\Http\\Requests\\ActualizarEmpleadoRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ActualizarEmpleadoRequest.php',
+        'App\\Http\\Requests\\EmpleadoRequest' => __DIR__ . '/../..' . '/app/Http/Requests/EmpleadoRequest.php',
+
         'App\\Http\\Requests\\FaltasCambioEstadoRequest' => __DIR__ . '/../..' . '/app/Http/Requests/FaltasCambioEstadoRequest.php',
+
         'App\\Http\\Requests\\MarcarAsistenciaRequest' => __DIR__ . '/../..' . '/app/Http/Requests/MarcarAsistenciaRequest.php',
         'App\\Http\\Requests\\RegistroUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/RegistroUserRequest.php',
         'App\\Models\\Asistencia' => __DIR__ . '/../..' . '/app/Models/Asistencia.php',
