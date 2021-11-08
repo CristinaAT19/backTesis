@@ -1,11 +1,12 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AutenticarController;
 use App\Http\Controllers\Api\AdministradorController;
 use App\Http\Controllers\Api\AsistenciaController;
+
 use App\Http\Controllers\Api\UsuarioController;
+
 
 
 Route::post('marcar', [AsistenciaController::class, 'marcarAsistencia']);
@@ -23,6 +24,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('calendario/{dni}', [UsuarioController::class, 'calendarioUsuario']); //mostrar el calendario del usuario
     Route::post('cambiarPassword', [UsuarioController::class, 'cambiarPassword']);
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
+    Route::get('listarAdministrador', [AdministradorController::class, 'listarAdministrador']);
+    Route::post('resetearPassword', [AdministradorController::class, 'resetPassword']);
+    Route::post('cambiarTipoUsuario', [AdministradorController::class, 'cambiarTipoUsuario']);
     Route::post('insertarEmpleado', [AdministradorController::class, 'insertarEmpleado']);
     Route::get('listarEmpleados', [AdministradorController::class, 'listarEmpleados']);
+
 });

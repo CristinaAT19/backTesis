@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -11,10 +12,44 @@ use App\Models\Empleado;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\FaltasCambioEstadoRequest;
-
+use App\Http\Requests\CambiarTipoUsuarioRequest;
+use App\Http\Requests\ResetearPasswordRequest;
+  
 class AdministradorController extends Controller
 {
+    public function listarAdministrador()
+    {
+        $admin = DB::select("call pa_listar_administradores");
+        // return response()->json($admin);
+        return response()->json([
+            'res' => 'true',
+            // 'msg' => 'Listado Correcto :)',
+            'administradores' => $admin
 
+        ], 200);
+    }
+
+    public function resetPassword(ResetearPasswordRequest $request)
+    {
+        $submit = DB::select("select fu_reestablecer_password('$request->dni')");
+        // return $submit;
+
+        // return response()->json($submit);
+        return response()->json([
+            'res' => 'true',
+            'msg' => $submit,
+        ], 200);
+    }
+
+    public function cambiarTipoUsuario(CambiarTipoUsuarioRequest $request)
+    {
+        $admin = DB::select("select fu_cambiar_tipoUsuario('$request->dni','$request->tipoUsuario')");
+        // return response()->json($admin);
+        return response()->json([
+            'res' => 'true',
+            'msg' => $admin,
+        ], 200);
+    }
     public function insertarEmpleado(EmpleadoRequest $request)
     {
         DB::statement("call pa_insertar_empleado('$request->emp_nombre', '$request->emp_apellido', 
@@ -133,4 +168,5 @@ class AdministradorController extends Controller
             ]);
         }
     }
+
 }
