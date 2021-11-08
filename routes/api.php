@@ -27,7 +27,7 @@ Route::post('registro', [AutenticarController::class, 'registro']);
 Route::post('acceso', [AutenticarController::class, 'acceso']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
+    Route::get('listarAdministrador', [AdministradorController::class, 'listarAdministrador']);
+    Route::post('resetearPassword', [AdministradorController::class, 'resetPassword']);
+    Route::post('cambiarTipoUsuario', [AdministradorController::class, 'cambiarTipoUsuario']);
 });
-Route::get('listarAdministrador', [AdministradorController::class, 'listarAdministrador']);
-Route::post('resetearPassword', [AdministradorController::class, 'resetPassword']);
-Route::post('cambiarTipoUsuario', [AdministradorController::class, 'cambiarTipoUsuario']);
