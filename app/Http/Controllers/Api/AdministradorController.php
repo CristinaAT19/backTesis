@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InsertarEmpleadoRequest;
 use App\Http\Requests\ActualizarEmpleadoRequest;
-use App\Http\Requests\EmpleadoRequest;
 use Illuminate\Support\Facades\DB;
 
 class AdministradorController extends Controller
 {
 
-    public function insertarEmpleado(EmpleadoRequest $request)
+    public function insertarEmpleado(InsertarEmpleadoRequest $request)
     {
         DB::statement("call pa_insertar_empleado('$request->emp_nombre', '$request->emp_apellido', 
         '$request->emp_fechabaja', '$request->emp_fec_inicio_prueba', '$request->emp_Fec_fin_prueba', 
