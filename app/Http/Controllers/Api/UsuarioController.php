@@ -14,7 +14,7 @@ class UsuarioController extends Controller
         $asistencias = DB::select("call pa_listar_asistencia_empleados_dni('$dni')");
         return response()->json([
             'respuesta' => 'true',
-            'Datos de asistencia' => $asistencias
+            'CalendarioAsistencia' => $asistencias
         ], 200);
     }
     public function dashboardUsuario($dni)
@@ -22,7 +22,7 @@ class UsuarioController extends Controller
         $asistencias_usuario = DB::select("call pa_contar_asistenciaDiaria_Dni('$dni')");
         return response()->json([
             'respuesta' => 'true',
-            'Datos de asistencia' => $asistencias_usuario
+            'DashboardAsistencia' => $asistencias_usuario
         ], 200);
     }
     public function cambiarPassword(CambiarPasswordRequest $request)

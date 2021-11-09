@@ -15,19 +15,7 @@ use App\Http\Controllers\Api\AdministradorController;
 
 class AutenticarController extends Controller
 {
-    public function registro(RegistroUserRequest $request)
-    {
-        $user = new User();
-        $user->usu_Id_Emp_fk = $request->id;
-        $user->usu_Password = bcrypt($request->password);
-        $user->usu_Tipo_User_Id_fk = $request->tipoUsuario;
-        $user->save();
 
-        return response()->json([
-            'res' => 'true',
-            'msg' => 'Usuario registrado :)'
-        ], 200);
-    }
     /**************************/
     //Inicio de Sesion
     /**************************/
@@ -56,7 +44,7 @@ class AutenticarController extends Controller
         return response()->json([
             'res' => 'true',
             'token' => $token,
-            'tipo de Usuario' => $msg,
+            'TipoUsuario' => $msg,
             'id_TipoUsuario' => $tipoUser
         ], 200);
     }

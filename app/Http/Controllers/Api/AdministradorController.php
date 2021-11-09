@@ -18,7 +18,7 @@ use App\Http\Requests\CambiarTipoUsuarioRequest;
 use App\Http\Requests\ResetearPasswordRequest;
 use App\Http\Requests\InsertarEmpleadoRequest;
 use App\Http\Requests\ActualizarEmpleadoRequest;
-  
+
 class AdministradorController extends Controller
 {
     public function listarAdministrador()
@@ -73,14 +73,14 @@ class AdministradorController extends Controller
     {
         $turno_m = DB::select("call pa_contar_asistenciaDiaria('1')");
         return response()->json([
-            'Asistencia Turno Mañana' => $turno_m
+            'AsistenciaTurnoM' => $turno_m
         ], 200);
     }
     public function dashboard_ta()
     {
         $turno_t = DB::select("call pa_contar_asistenciaDiaria('2')");
         return response()->json([
-            'Asistencia Turno Tarde' => $turno_t
+            'AsistenciaTurnoT' => $turno_t
         ], 200);
     }
     public function tablas_administrador()
@@ -88,8 +88,8 @@ class AdministradorController extends Controller
         $asistencia = DB::select("call pa_listar_asistencia_diaria()");
         $sin_marcar = DB::select("call pa_listar_empleados_sin_marcar()");
         return response()->json([
-            'Asistencia de empleados Diario' => $asistencia,
-            'Empleados sin marcar diario' => $sin_marcar
+            'AsistenciaEmpleadosDiario' => $asistencia,
+            'EmpleadosSinMarcarDiario' => $sin_marcar
         ], 200);
     }
 
@@ -100,36 +100,33 @@ class AdministradorController extends Controller
         return response()->json([
             'respuesta' => 'true',
             'empleados' => $empleados
-        ], 200); 
+        ], 200);
     }
 
-    public function actualizarEmpleado(ActualizarEmpleadoRequest $request,$id)
+    public function actualizarEmpleado(ActualizarEmpleadoRequest $request, $id)
     {
-        
+
         $todas_empleados = DB::select("call pa_listar_empleados");
         $resultadoEncontrado = false;
         foreach ($todas_empleados as $empleado) {
-            if((int)$id == (int)$empleado->Id )
-            {
+            if ((int)$id == (int)$empleado->Id) {
                 $resultadoEncontrado = true;
             }
-            if((string)$request->emp_dni == (string)$empleado->Dni)
-            {
-                if($resultadoEncontrado)
-                {
+            if ((string)$request->emp_dni == (string)$empleado->Dni) {
+                if ($resultadoEncontrado) {
                     continue;
-                }else{
+                } else {
                     return response()->json([
-                        "res"=>false,
-                        "msg"=>"Ese DNI insertado ya existe, intente con otro."
+                        "res" => false,
+                        "msg" => "Ese DNI insertado ya existe, intente con otro."
                     ]);
                 }
             }
         }
-        if($resultadoEncontrado == false){
+        if ($resultadoEncontrado == false) {
             return response()->json([
-                "res"=>false,
-                "msg"=>"No se encontro el registro. Vuelva a intentarlo"
+                "res" => false,
+                "msg" => "No se encontro el registro. Vuelva a intentarlo"
             ]);
         }
 
@@ -140,12 +137,11 @@ class AdministradorController extends Controller
         '$request->emp_dni','$request->emp_carrera','$request->emp_email',
         '$request->emp_telefono','$request->emp_link_cv',$request->Emp_Id_Condicion_capacitacion_fk,
         '$request->emp_link_calificaciones',$request->Emp_Id_Convenio_fk,'$request->emp_link_convenio',
-        '$request->emp_fechanac',$request->emp_dias_extra)"); 
+        '$request->emp_fechanac',$request->emp_dias_extra)");
         return response()->json([
             'respuesta' => 'true',
-            'msg' =>'empleado actualizado correctamente'
-        ], 200);   
-
+            'msg' => 'empleado actualizado correctamente'
+        ], 200);
     }
 
     // Manejo de faltas
@@ -159,7 +155,7 @@ class AdministradorController extends Controller
                 'msg' => $e->getMessage()
             ]);
         }
-        if ($todas_faltas==null) {
+        if ($todas_faltas == null) {
             return response()->json([
                 'res' => false,
                 'msg' => 'No se encontraron registros'
@@ -216,7 +212,5 @@ class AdministradorController extends Controller
                 'msg' => $e->getMessage()
             ]);
         }
-
     }
-
 }

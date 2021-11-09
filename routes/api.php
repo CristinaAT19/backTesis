@@ -10,7 +10,6 @@ use App\Http\Controllers\Api\UsuarioController;
 
 
 Route::post('marcar', [AsistenciaController::class, 'marcarAsistencia']);
-Route::post('registro', [AutenticarController::class, 'registro']);
 Route::post('acceso', [AutenticarController::class, 'acceso']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('dashboard_ma', [AdministradorController::class, 'dashboard_ma']); //mostrar el dashboard de asistencia del turno mañana 
@@ -32,4 +31,3 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('actualizarEmpleado/{id}', [AdministradorController::class, 'actualizarEmpleado']);
 });
-
