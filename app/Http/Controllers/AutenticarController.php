@@ -6,6 +6,7 @@ use App\Http\Requests\RegistroUserRequest;
 use App\Http\Requests\AccesoUserRequest;
 use App\Models\User;
 use App\Models\Empleado;
+use App\Models\Token;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -27,19 +28,23 @@ class AutenticarController extends Controller
             throw ValidationException::withMessages([
                 'smg' => ['El dni o la contraseña es incorrecto'],
             ]);
-        } else {
-            $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
-            $user = User::where('usu_Id_Emp_fk', $empleado->Emp_Id)->first();
-            //creacion del token
-            $token = $user->createToken($request->dni)->plainTextToken;
-            //mostrar el tipo de usuario en respuesta json
-            $tipoUser = $user->usu_Tipo_User_Id_fk;
-            if ($tipoUser == 1) {
-                $msg = "Administrador";
-            } else {
-                $msg = "Usuario";
-            }
         }
+        $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
+        $user = User::where('usu_Id_Emp_fk', $empleado->Emp_Id)->first();
+        //creacion del token
+        $token = Token::where('name', $request->dni)->first();
+        if ($token !== null) {
+            $token->delete();
+        }
+        $token = $user->createToken($request->dni)->plainTextToken;
+        //mostrar el tipo de usuario en respuesta json
+        $tipoUser = $user->usu_Tipo_User_Id_fk;
+        if ($tipoUser == 1) {
+            $msg = "Administrador";
+        } else {
+            $msg = "Usuario";
+        }
+
 
         return response()->json([
             'res' => 'true',

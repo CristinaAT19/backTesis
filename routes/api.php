@@ -30,4 +30,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('listarEmpleados', [AdministradorController::class, 'listarEmpleados']);
 
     Route::post('actualizarEmpleado/{id}', [AdministradorController::class, 'actualizarEmpleado']);
+    Route::post('marcarFaltasMa', [AsistenciaController::class, 'marcarFaltasMa']);
+    Route::post('marcarFaltasTa', [AsistenciaController::class, 'marcarFaltasTa']);
 });
