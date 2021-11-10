@@ -72,15 +72,36 @@ class AdministradorController extends Controller
     public function dashboard_ma()
     {
         $turno_m = DB::select("call pa_contar_asistenciaDiaria('1')");
+
         return response()->json([
-            'AsistenciaTurnoM' => $turno_m
+            // 'respuesta' => 'true',
+            'puntualidad' => $turno_m[0]->Estado,
+            'v_puntualidad' => $turno_m[0]->Cantidad,
+            'tardanza' => $turno_m[1]->Estado,
+            'v_tardanza' => $turno_m[1]->Cantidad,
+            'faltas_in' => $turno_m[2]->Estado,
+            'v_faltas_in' => $turno_m[2]->Cantidad,
+            'faltas_jus' => $turno_m[3]->Estado,
+            'v_faltas_jus' => $turno_m[3]->Cantidad,
+            'sin_marcar' => $turno_m[4]->Estado,
+            'v_sin_marcar' => $turno_m[4]->Cantidad
         ], 200);
     }
     public function dashboard_ta()
     {
         $turno_t = DB::select("call pa_contar_asistenciaDiaria('2')");
         return response()->json([
-            'AsistenciaTurnoT' => $turno_t
+            // 'respuesta' => 'true',
+            'puntualidad' => $turno_t[0]->Estado,
+            'v_puntualidad' => $turno_t[0]->Cantidad,
+            'tardanza' => $turno_t[1]->Estado,
+            'v_tardanza' => $turno_t[1]->Cantidad,
+            'faltas_in' => $turno_t[2]->Estado,
+            'v_faltas_in' => $turno_t[2]->Cantidad,
+            'faltas_jus' => $turno_t[3]->Estado,
+            'v_faltas_jus' => $turno_t[3]->Cantidad,
+            'sin_marcar' => $turno_t[4]->Estado,
+            'v_sin_marcar' => $turno_t[4]->Cantidad
         ], 200);
     }
     public function tablas_administrador()
@@ -88,6 +109,7 @@ class AdministradorController extends Controller
         $asistencia = DB::select("call pa_listar_asistencia_diaria()");
         $sin_marcar = DB::select("call pa_listar_empleados_sin_marcar()");
         return response()->json([
+            'respuesta' => 'true',
             'AsistenciaEmpleadosDiario' => $asistencia,
             'EmpleadosSinMarcarDiario' => $sin_marcar
         ], 200);
