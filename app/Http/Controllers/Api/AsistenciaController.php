@@ -55,4 +55,13 @@ class AsistenciaController extends Controller
 
         ], 200);
     }
+
+    public function marcarFaltasMa()
+    {
+        DB::select("call pa_insertar_faltas('1')");
+    }
+    public function marcarFaltasTa()
+    {
+        DB::select("call pa_insertar_faltas('2')");
+    }
 }
