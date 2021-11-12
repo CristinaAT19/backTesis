@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Empleado;
-use Illuminate\Http\Request;
-use App\Models\Asistencia;
 use App\Http\Requests\MarcarAsistenciaRequest;
 use Illuminate\Support\Facades\DB;
 use App\Custom\Validaciones;
-use Illuminate\Validation\ValidationException;
+
 
 class AsistenciaController extends Controller
 {
@@ -56,12 +54,8 @@ class AsistenciaController extends Controller
         ], 200);
     }
 
-    public function marcarFaltasMa()
+    public function marcarFaltas($turno)
     {
-        DB::select("call pa_insertar_faltas('1')");
-    }
-    public function marcarFaltasTa()
-    {
-        DB::select("call pa_insertar_faltas('2')");
+        DB::select("call pa_insertar_faltas('$turno')");
     }
 }

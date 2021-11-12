@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\UsuarioController;
 
 Route::post('marcar', [AsistenciaController::class, 'marcarAsistencia']);
 Route::post('acceso', [AutenticarController::class, 'acceso']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('dashboard_ma', [AdministradorController::class, 'dashboard_ma']); //mostrar el dashboard de asistencia del turno mañana 
     Route::get('dashboard_ta', [AdministradorController::class, 'dashboard_ta']); //mostrar el dashboard de asistencia del turno tarde
@@ -30,7 +31,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('listarEmpleados', [AdministradorController::class, 'listarEmpleados']);
 
     Route::post('actualizarEmpleado/{id}', [AdministradorController::class, 'actualizarEmpleado']);
-
-    Route::post('marcarFaltasMa', [AsistenciaController::class, 'marcarFaltasMa']);
-    Route::post('marcarFaltasTa', [AsistenciaController::class, 'marcarFaltasTa']);
 });
+Route::post('marcarFaltas/{turno}', [AsistenciaController::class, 'marcarFaltas']);
+// Route::post('marcarFaltasTa', [AsistenciaController::class, 'marcarFaltasTa']);

@@ -4,15 +4,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-
-
 use Exception;
-use Illuminate\Http\Request;
-
-use App\Models\Empleado;
-
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\FaltasCambioEstadoRequest;
 use App\Http\Requests\CambiarTipoUsuarioRequest;
 use App\Http\Requests\ResetearPasswordRequest;
