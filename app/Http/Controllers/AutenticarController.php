@@ -67,9 +67,9 @@ class AutenticarController extends Controller
     /**************************/
     public function eliminarTokenInactividad()
     {
-        $tokens = DB::table('personal_access_tokens')->get();
+        $tokens = PersonalAccessToken::all();
         foreach ($tokens as $token) {
-            if (!empty($token->last_used_at) && $token->last_used_at->addMinutes(30)->isBefore(Carbon::now())) {
+            if (!empty($token->last_used_at) && Carbon::parse($token->last_used_at)->addMinutes(30)->isBefore(Carbon::now())) {
                 $token->delete();
             }
         }
