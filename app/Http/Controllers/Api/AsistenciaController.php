@@ -7,6 +7,7 @@ use App\Models\Empleado;
 use App\Http\Requests\MarcarAsistenciaRequest;
 use Illuminate\Support\Facades\DB;
 use App\Custom\Validaciones;
+use Carbon\Carbon;
 
 
 class AsistenciaController extends Controller
@@ -56,6 +57,32 @@ class AsistenciaController extends Controller
 
     public function marcarFaltas($turno)
     {
-        DB::select("call pa_insertar_faltas('$turno')");
+        $fechaActual = Carbon::now();
+        $tActual = Carbon::createFromTime($fechaActual->hour, $fechaActual->minute);
+
+        if ($turno == 1) {
+            $tDestino = Carbon::createFromTime(18, 00);
+        } else if ($turno == 2) {
+            $tDestino = Carbon::createFromTime(24, 00);
+        } else {
+            return response()->json([
+                "msg" => "No se permite el uso de este metod"
+            ], 405);
+        }
+        if ($tActual->diffInMinutes($tDestino) <= 3) {
+            if ($turno == 1) {
+                DB::select("call pa_insertar_faltas('$turno')");
+            }
+            if ($turno == 2) {
+                DB::select("call pa_insertar_faltas('$turno')");
+            }
+            return response()->json([
+                'msg' => true,
+            ]);
+        } else {
+            return response()->json([
+                'msg' => "No se permite el uso de este metodo"
+            ], 405);
+        }
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Laravel\Sanctum\PersonalAccessToken;
-
+use Carbon\Carbon;
 
 class AutenticarController extends Controller
 {
@@ -61,5 +61,17 @@ class AutenticarController extends Controller
             'res' => 'true',
             'token' => 'Token eliminado correctamente'
         ], 200);
+    }
+    /**************************/
+    //Eliminar Token por inactividad
+    /**************************/
+    public function eliminarTokenInactividad()
+    {
+        $tokens = DB::table('personal_access_tokens')->get();
+        foreach ($tokens as $token) {
+            if (!empty($token->last_used_at) && $token->last_used_at->addMinutes(30)->isBefore(Carbon::now())) {
+                $token->delete();
+            }
+        }
     }
 }

@@ -33,4 +33,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('actualizarEmpleado/{id}', [AdministradorController::class, 'actualizarEmpleado']);
 });
 Route::post('marcarFaltas/{turno}', [AsistenciaController::class, 'marcarFaltas']);
-// Route::post('marcarFaltasTa', [AsistenciaController::class, 'marcarFaltasTa']);
+Route::get('inactividad', [AutenticarController::class, 'eliminarTokenInactividad']);
