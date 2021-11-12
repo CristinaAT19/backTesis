@@ -67,9 +67,9 @@ class AsistenciaController extends Controller
         } else {
             return response()->json([
                 "msg" => "No se permite el uso de este metod"
-            ], 405);
+            ]);
         }
-        if ($tActual->diffInMinutes($tDestino) <= 3) {
+        if ($tActual->diffInMinutes($tDestino) <= 5) {
             if ($turno == 1) {
                 DB::select("call pa_insertar_faltas('$turno')");
             }
@@ -82,7 +82,7 @@ class AsistenciaController extends Controller
         } else {
             return response()->json([
                 'msg' => "No se permite el uso de este metodo"
-            ], 405);
+            ]);
         }
     }
 }
