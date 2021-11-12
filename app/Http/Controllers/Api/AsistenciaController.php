@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Empleado;
-use Illuminate\Http\Request;
-use App\Models\Asistencia;
 use App\Http\Requests\MarcarAsistenciaRequest;
 use Illuminate\Support\Facades\DB;
 use App\Custom\Validaciones;
-use Illuminate\Validation\ValidationException;
+use Carbon\Carbon;
+
 
 class AsistenciaController extends Controller
 {
@@ -56,12 +55,34 @@ class AsistenciaController extends Controller
         ], 200);
     }
 
-    public function marcarFaltasMa()
+    public function marcarFaltas($turno)
     {
-        DB::select("call pa_insertar_faltas('1')");
-    }
-    public function marcarFaltasTa()
-    {
-        DB::select("call pa_insertar_faltas('2')");
+        $fechaActual = Carbon::now();
+        $tActual = Carbon::createFromTime($fechaActual->hour, $fechaActual->minute);
+
+        if ($turno == 1) {
+            $tDestino = Carbon::createFromTime(18, 00);
+        } else if ($turno == 2) {
+            $tDestino = Carbon::createFromTime(24, 00);
+        } else {
+            return response()->json([
+                "msg" => "No se permite el uso de este metod"
+            ], 405);
+        }
+        if ($tActual->diffInMinutes($tDestino) <= 3) {
+            if ($turno == 1) {
+                DB::select("call pa_insertar_faltas('$turno')");
+            }
+            if ($turno == 2) {
+                DB::select("call pa_insertar_faltas('$turno')");
+            }
+            return response()->json([
+                'msg' => true,
+            ]);
+        } else {
+            return response()->json([
+                'msg' => "No se permite el uso de este metodo"
+            ], 405);
+        }
     }
 }

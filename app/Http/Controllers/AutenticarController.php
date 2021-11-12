@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegistroUserRequest;
+
 use App\Http\Requests\AccesoUserRequest;
 use App\Models\User;
 use App\Models\Empleado;
-use App\Models\Token;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Api\AdministradorController;
-
+use Laravel\Sanctum\PersonalAccessToken;
+use Carbon\Carbon;
 
 class AutenticarController extends Controller
 {
@@ -32,7 +30,7 @@ class AutenticarController extends Controller
         $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
         $user = User::where('usu_Id_Emp_fk', $empleado->Emp_Id)->first();
         //creacion del token
-        $token = Token::where('name', $request->dni)->first();
+        $token = PersonalAccessToken::where('name', $request->dni)->first();
         if ($token !== null) {
             $token->delete();
         }
@@ -63,5 +61,17 @@ class AutenticarController extends Controller
             'res' => 'true',
             'token' => 'Token eliminado correctamente'
         ], 200);
+    }
+    /**************************/
+    //Eliminar Token por inactividad
+    /**************************/
+    public function eliminarTokenInactividad()
+    {
+        $tokens = DB::table('personal_access_tokens')->get();
+        foreach ($tokens as $token) {
+            if (!empty($token->last_used_at) && $token->last_used_at->addMinutes(30)->isBefore(Carbon::now())) {
+                $token->delete();
+            }
+        }
     }
 }
