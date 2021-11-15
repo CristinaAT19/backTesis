@@ -59,29 +59,24 @@ class AsistenciaController extends Controller
     {
         $fechaActual = Carbon::now();
         $tActual = Carbon::createFromTime($fechaActual->hour, $fechaActual->minute);
-
         if ($turno == 1) {
             $tDestino = Carbon::createFromTime(18, 00);
         } else if ($turno == 2) {
             $tDestino = Carbon::createFromTime(24, 00);
         } else {
             return response()->json([
-                "msg" => "No se permite el uso de este metod"
+                "msg" => "Error al insertar el turno"
             ]);
         }
-        if ($tActual->diffInMinutes($tDestino) <= 5) {
-            if ($turno == 1) {
-                DB::select("call pa_insertar_faltas('$turno')");
-            }
-            if ($turno == 2) {
-                DB::select("call pa_insertar_faltas('$turno')");
-            }
+        $tDiffInMinutes = $tActual->diffInMinutes($tDestino);
+        if ($tDiffInMinutes <= 5) {
+            DB::statement("call pa_insertar_faltas('$turno')");
             return response()->json([
                 'msg' => true,
             ]);
         } else {
             return response()->json([
-                'msg' => "No se permite el uso de este metodo"
+                'msg' => "No se permite el uso de este metodo : ".$tDiffInMinutes
             ]);
         }
     }
