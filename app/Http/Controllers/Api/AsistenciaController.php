@@ -62,7 +62,7 @@ class AsistenciaController extends Controller
         if ($turno == 1) {
             $tDestino = Carbon::createFromTime(18, 00);
         } else if ($turno == 2) {
-            $tDestino = Carbon::createFromTime(24, 00);
+            $tDestino = Carbon::createFromTime(00, 00);
         } else {
             return response()->json([
                 "msg" => "Error al insertar el turno"
