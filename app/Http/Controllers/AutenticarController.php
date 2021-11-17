@@ -30,9 +30,11 @@ class AutenticarController extends Controller
         $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
         $user = User::where('usu_Id_Emp_fk', $empleado->Emp_Id)->first();
         //creacion del token
-        $token = PersonalAccessToken::where('name', $request->dni)->first();
-        if ($token !== null) {
-            $token->delete();
+        $tokens = PersonalAccessToken::where('name', $request->dni)->get();
+        foreach ($tokens as $token) {
+            if ($token !== null) {
+                $token->delete();
+            }
         }
         $token = $user->createToken($request->dni)->plainTextToken;
         //mostrar el tipo de usuario en respuesta json
@@ -42,8 +44,6 @@ class AutenticarController extends Controller
         } else {
             $msg = "Usuario";
         }
-
-
         return response()->json([
             'res' => 'true',
             'token' => $token,
