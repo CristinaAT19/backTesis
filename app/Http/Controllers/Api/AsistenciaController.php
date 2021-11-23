@@ -66,7 +66,7 @@ class AsistenciaController extends Controller
             $tDestino = Carbon::createFromTime(24, 00);
         } else {
             return response()->json([
-                "msg" => "No se permite el uso de este metod"
+                "msg" => "No se permite el uso de este metodo"
             ]);
         }
         if ($tActual->diffInMinutes($tDestino) <= 5) {
@@ -84,5 +84,19 @@ class AsistenciaController extends Controller
                 'msg' => "No se permite el uso de este metodo"
             ]);
         }
+    }
+    public function limpiarFaltas()
+    {
+        DB::select("call pa_limpiar_tabla_faltas()");
+        return response()->json([
+            'msg' => true,
+        ]);
+    }
+    public function limpiarAsistencias()
+    {
+        DB::select("call pa_limpiar_tabla_asistencia()");
+        return response()->json([
+            'msg' => true,
+        ]);
     }
 }
