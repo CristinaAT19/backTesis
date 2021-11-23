@@ -66,7 +66,9 @@ class AsistenciaController extends Controller
             $tDestino = Carbon::createFromTime(19, 00);
         } else {
             return response()->json([
-                "msg" => "Error al insertar el turno"
+
+                "msg" => "No se permite el uso de este metodo"
+
             ]);
         }
         $tDiffInMinutes = $tActual->diffInMinutes($tDestino);
@@ -80,5 +82,19 @@ class AsistenciaController extends Controller
                 'msg' => "No se permite el uso de este metodo : ".$tDiffInMinutes
             ]);
         }
+    }
+    public function limpiarFaltas()
+    {
+        DB::select("call pa_limpiar_tabla_faltas()");
+        return response()->json([
+            'msg' => true,
+        ]);
+    }
+    public function limpiarAsistencias()
+    {
+        DB::select("call pa_limpiar_tabla_asistencia()");
+        return response()->json([
+            'msg' => true,
+        ]);
     }
 }

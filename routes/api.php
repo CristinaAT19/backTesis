@@ -34,3 +34,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 Route::get('marcarFaltas/{turno}', [AsistenciaController::class, 'marcarFaltas']);
 Route::get('inactividad', [AutenticarController::class, 'eliminarTokenInactividad']);
+Route::get('limpiarFaltas', [AsistenciaController::class, 'limpiarFaltas']);
+Route::get('limpiarAsistencias', [AsistenciaController::class, 'limpiarAsistencias']);
