@@ -28,7 +28,7 @@ class AdministradorController extends Controller
 
     public function resetPassword(ResetearPasswordRequest $request)
     {
-        $submit = DB::select("select fu_reestablecer_password('$request->dni')");
+        $submit = DB::select("select fu_reestablecer_password('$request->dni') AS restablecer");
         // return $submit;
 
         // return response()->json($submit);
