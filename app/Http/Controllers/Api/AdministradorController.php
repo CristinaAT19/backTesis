@@ -11,6 +11,7 @@ use App\Http\Requests\CambiarTipoUsuarioRequest;
 use App\Http\Requests\ResetearPasswordRequest;
 use App\Http\Requests\InsertarEmpleadoRequest;
 use App\Http\Requests\ActualizarEmpleadoRequest;
+use App\Http\Requests\TipoUsuarioRequest;
 
 class AdministradorController extends Controller
 {
@@ -19,7 +20,7 @@ class AdministradorController extends Controller
         $admin = DB::select("call pa_listar_administradores");
         // return response()->json($admin);
         return response()->json([
-            'res' => 'true',
+            'res' => true,
             // 'msg' => 'Listado Correcto :)',
             'administradores' => $admin
         ], 200);
@@ -32,7 +33,7 @@ class AdministradorController extends Controller
 
         // return response()->json($submit);
         return response()->json([
-            'res' => 'true',
+            'res' => true,
             'msg' => $submit,
         ], 200);
     }
@@ -42,7 +43,7 @@ class AdministradorController extends Controller
         $admin = DB::select("select fu_cambiar_tipoUsuario('$request->dni','$request->tipoUsuario')");
         // return response()->json($admin);
         return response()->json([
-            'res' => 'true',
+            'res' => true,
             'msg' => $admin,
         ], 200);
     }
@@ -58,7 +59,7 @@ class AdministradorController extends Controller
         $request->emp_dias_extra)");
 
         return response()->json([
-            'respuesta' => 'true',
+            'respuesta' => true,
             'mensaje' => "insertado correctamente"
         ], 200);
     }
@@ -102,7 +103,7 @@ class AdministradorController extends Controller
         $asistencia = DB::select("call pa_listar_asistencia_diaria()");
         $sin_marcar = DB::select("call pa_listar_empleados_sin_marcar()");
         return response()->json([
-            'respuesta' => 'true',
+            'respuesta' => true,
             'AsistenciaEmpleadosDiario' => $asistencia,
             'EmpleadosSinMarcarDiario' => $sin_marcar
         ], 200);
@@ -113,7 +114,7 @@ class AdministradorController extends Controller
     {
         $empleados = DB::select("call pa_listar_empleados");
         return response()->json([
-            'respuesta' => 'true',
+            'respuesta' => true,
             'empleados' => $empleados
         ], 200);
     }
@@ -154,7 +155,7 @@ class AdministradorController extends Controller
         '$request->emp_link_calificaciones',$request->Emp_Id_Convenio_fk,'$request->emp_link_convenio',
         '$request->emp_fechanac',$request->emp_dias_extra)");
         return response()->json([
-            'respuesta' => 'true',
+            'respuesta' => true,
             'msg' => 'empleado actualizado correctamente'
         ], 200);
     }
@@ -227,5 +228,15 @@ class AdministradorController extends Controller
                 'msg' => $e->getMessage()
             ]);
         }
+    }
+
+    public function mostrarTipoUsuario(TipoUsuarioRequest $request)
+    {
+        $usuario = DB::select("call pa_listar_detallesdeempleado_dni('$request->dni')");
+        return response()->json([
+            'res' => true,
+            // 'msg' => 'Listado Correcto :)',
+            'tipoUsuario' => $usuario[0]->Tipo_Usuario
+        ], 200);
     }
 }

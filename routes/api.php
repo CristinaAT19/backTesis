@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('listarEmpleados', [AdministradorController::class, 'listarEmpleados']);
 
     Route::post('actualizarEmpleado/{id}', [AdministradorController::class, 'actualizarEmpleado']);
+    Route::post('mostrarTipoUsuario', [AdministradorController::class, 'mostrarTipoUsuario']);
 });
 Route::get('marcarFaltas/{turno}', [AsistenciaController::class, 'marcarFaltas']);
 Route::get('inactividad', [AutenticarController::class, 'eliminarTokenInactividad']);
