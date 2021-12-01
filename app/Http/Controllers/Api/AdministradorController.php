@@ -40,7 +40,7 @@ class AdministradorController extends Controller
 
     public function cambiarTipoUsuario(CambiarTipoUsuarioRequest $request)
     {
-        $admin = DB::select("select fu_cambiar_tipoUsuario('$request->dni','$request->tipoUsuario')");
+        $admin = DB::select("select fu_cambiar_tipoUsuario('$request->dni','$request->tipoUsuario') AS cambiar");
         // return response()->json($admin);
         return response()->json([
             'res' => true,
@@ -233,10 +233,18 @@ class AdministradorController extends Controller
     public function mostrarTipoUsuario(TipoUsuarioRequest $request)
     {
         $usuario = DB::select("call pa_listar_detallesdeempleado_dni('$request->dni')");
-        return response()->json([
-            'res' => true,
-            // 'msg' => 'Listado Correcto :)',
-            'tipoUsuario' => $usuario[0]->Tipo_Usuario
-        ], 200);
+        if($usuario!=null){
+            return response()->json([
+                'res' => true,
+                // 'msg' => 'Listado Correcto :)',
+                'tipoUsuario' => 'El dni corresponde a un '.$usuario[0]->Tipo_Usuario
+            ], 200);
+        } else {
+            return response()->json([
+                'res' => true,
+                // 'msg' => 'Listado Correcto :)',
+                'tipoUsuario' => 'El dni ingresado no existe'
+            ], 200);
+        }  
     }
 }
