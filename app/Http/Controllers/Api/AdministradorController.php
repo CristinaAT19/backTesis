@@ -237,7 +237,16 @@ class AdministradorController extends Controller
             return response()->json([
                 'res' => true,
                 // 'msg' => 'Listado Correcto :)',
-                'tipoUsuario' => 'El dni corresponde a un '.$usuario[0]->Tipo_Usuario
+                'tipoUsuario' => 'El dni corresponde a un '.$usuario[0]->Tipo_Usuario,
+                'dni'=>$usuario[0]->Dni,
+                'nombre'=>$usuario[0]->Nombre,
+                'apellido'=>$usuario[0]->Apellido,
+                'perfil'=>$usuario[0]->Perfil,
+                'unidad'=>$usuario[0]->Unidad,
+                'turno'=>$usuario[0]->Turno,
+                'id'=>$usuario[0]->Id,
+                'soloTipoUsuario'=>$usuario[0]->Tipo_Usuario,
+
             ], 200);
         } else {
             return response()->json([
