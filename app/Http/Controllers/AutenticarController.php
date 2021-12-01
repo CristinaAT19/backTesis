@@ -44,11 +44,19 @@ class AutenticarController extends Controller
         } else {
             $msg = "Usuario";
         }
+        // Obtener detalles del usuario
+        $usuario = DB::select("call pa_listar_detallesdeempleado_dni('$request->dni')");
         return response()->json([
             'res' => 'true',
             'token' => $token,
             'TipoUsuario' => $msg,
-            'id_TipoUsuario' => $tipoUser
+            'id_TipoUsuario' => $tipoUser,
+            'dni'=>$usuario[0]->Dni,
+            'nombre'=>$usuario[0]->Nombre,
+            'apellido'=>$usuario[0]->Apellido,
+            'perfil'=>$usuario[0]->Perfil,
+            'unidad'=>$usuario[0]->Unidad,
+            'turno'=>$usuario[0]->Turno,
         ], 200);
     }
     /**************************/
