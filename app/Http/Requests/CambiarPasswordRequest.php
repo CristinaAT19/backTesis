@@ -24,7 +24,6 @@ class CambiarPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            "dni" => "required|max:8|min:8",
             "oldPassword" => "required",
             "newPassword" => "required"
         ];

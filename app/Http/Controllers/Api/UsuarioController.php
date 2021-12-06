@@ -26,8 +26,9 @@ class UsuarioController extends Controller
     }
     public function cambiarPassword(CambiarPasswordRequest $request)
     {
-
-        $cambiarPassword = DB::select("select fu_cambiar_contraseña('$request->dni','$request->oldPassword','$request->newPassword') AS mensaje");
+        // Validacion por token        
+        $userAux = $request->user()->currentAccessToken();
+        $cambiarPassword = DB::select("select fu_cambiar_contraseña('$userAux->name','$request->oldPassword','$request->newPassword') AS mensaje");
         return response()->json([
             'respuesta' => 'true',
             'mensaje' => $cambiarPassword[0]->mensaje

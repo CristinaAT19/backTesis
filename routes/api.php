@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('listarEmpleados', [AdministradorController::class, 'listarEmpleados']);
         Route::get('listarAdministrador', [AdministradorController::class, 'listarAdministrador']);
         Route::post('actualizarEmpleado/{id}', [AdministradorController::class, 'actualizarEmpleado']);
-                
+        Route::post('resetearPassword', [AdministradorController::class, 'resetPassword']);             
     });        
     //Manejo de faltas
 
@@ -33,7 +33,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('calendario/{dni}', [UsuarioController::class, 'calendarioUsuario']); //mostrar el calendario del usuario
     Route::post('cambiarPassword', [UsuarioController::class, 'cambiarPassword']);
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
-    Route::post('resetearPassword', [AdministradorController::class, 'resetPassword']);
     Route::post('mostrarTipoUsuario', [AdministradorController::class, 'mostrarTipoUsuario']);
     Route::get('seeMyRoutes', [AdministradorController::class, 'mostrarSoloTipoUsuario']);
     
