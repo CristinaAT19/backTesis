@@ -26,7 +26,6 @@ class InsertarEmpleadoRequest extends FormRequest
         return [
             "emp_nombre"=> "required|string",	
             "emp_apellido"=> "required|string",
-            "emp_fechabaja"=> "required|date",
             "emp_fec_inicio_prueba"=> "required|date",
             "emp_Fec_fin_prueba"=> "required|date",	
             "emp_TurnoId"=> "required|integer",
@@ -41,7 +40,6 @@ class InsertarEmpleadoRequest extends FormRequest
             "Emp_Id_Convenio_fk"=> "required|integer",
             "emp_link_convenio"=> "required|url",
             "emp_fechanac"=> "required|date",
-            "emp_dias_extra"=> "required|integer"
         ];
     }
 }
