@@ -251,19 +251,19 @@ class AdministradorController extends Controller
     public function mostrarTipoUsuario(TipoUsuarioRequest $request)
     {
         $usuario = DB::select("call pa_listar_detallesdeempleado_dni('$request->dni')");
-        
-        if($usuario!=null){
+
+        if ($usuario != null) {
             return response()->json([
                 'res' => true,
                 // 'msg' => 'Listado Correcto :)',
-                'tipoUsuario' => 'El dni corresponde a un '.$usuario[0]->Tipo_Usuario,
-                'dni'=>$usuario[0]->Dni,
-                'nombre'=>$usuario[0]->Nombre,
-                'apellido'=>$usuario[0]->Apellido,
-                'perfil'=>$usuario[0]->Perfil,
-                'unidad'=>$usuario[0]->Unidad,
-                'turno'=>$usuario[0]->Turno,
-                'id'=>$usuario[0]->Id,
+                'tipoUsuario' => 'El dni corresponde a un ' . $usuario[0]->Tipo_Usuario,
+                'dni' => $usuario[0]->Dni,
+                'nombre' => $usuario[0]->Nombre,
+                'apellido' => $usuario[0]->Apellido,
+                'perfil' => $usuario[0]->Perfil,
+                'unidad' => $usuario[0]->Unidad,
+                'turno' => $usuario[0]->Turno,
+                'id' => $usuario[0]->Id,
             ], 200);
         } else {
             return response()->json([
@@ -271,22 +271,22 @@ class AdministradorController extends Controller
                 // 'msg' => 'Listado Correcto :)',
                 'tipoUsuario' => 'El dni ingresado no existe'
             ], 200);
-        }  
+        }
     }
 
     public function mostrarSoloTipoUsuario(Request  $request)
     {
-        $userAux = $request->user()->currentAccessToken();        
-        if($userAux!=null){
+        $userAux = $request->user()->currentAccessToken();
+        if ($userAux != null) {
             return response()->json([
                 'res' => true,
-                'soloTipoUsuario'=>$userAux->tokenable->usu_Tipo_User_Id_fk,
+                'soloTipoUsuario' => $userAux->tokenable->usu_Tipo_User_Id_fk,
             ], 200);
         } else {
             return response()->json([
                 'res' => true,
                 'tipoUsuario' => 'Error, no se pudo encontrar  token. Vuelva a logearse'
             ], 200);
-        }  
-    }    
+        }
+    }
 }
