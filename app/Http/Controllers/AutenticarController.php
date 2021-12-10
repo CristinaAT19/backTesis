@@ -51,12 +51,12 @@ class AutenticarController extends Controller
             'token' => $token,
             'TipoUsuario' => $msg,
             'id_TipoUsuario' => $tipoUser,
-            'dni'=>$usuario[0]->Dni,
-            'nombre'=>$usuario[0]->Nombre,
-            'apellido'=>$usuario[0]->Apellido,
-            'perfil'=>$usuario[0]->Perfil,
-            'unidad'=>$usuario[0]->Unidad,
-            'turno'=>$usuario[0]->Turno,
+            'dni' => $usuario[0]->Dni,
+            'nombre' => $usuario[0]->Nombre,
+            'apellido' => $usuario[0]->Apellido,
+            'perfil' => $usuario[0]->Perfil,
+            'unidad' => $usuario[0]->Unidad,
+            'turno' => $usuario[0]->Turno,
         ], 200);
     }
     /**************************/
@@ -80,6 +80,20 @@ class AutenticarController extends Controller
             if (!empty($token->last_used_at) && Carbon::parse($token->last_used_at)->addMinutes(30)->isBefore(Carbon::now())) {
                 $token->delete();
             }
+        }
+    }
+    /**************************/
+    //Cerrar sesion por inactividad
+    /**************************/
+    public function verificarToken($dni)
+    {
+        $token = PersonalAccessToken::where('name', $dni)->get();
+        if ($token[0]->name !== null) {
+            return response()->json([
+                'res' => true,
+                'tokenDni' => $token[0]->name,
+                'dni' => $dni,
+            ], 200);
         }
     }
 }
