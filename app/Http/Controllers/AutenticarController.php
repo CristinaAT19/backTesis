@@ -85,14 +85,13 @@ class AutenticarController extends Controller
     /**************************/
     //Cerrar sesion por inactividad
     /**************************/
-    public function verificarToken($dni)
+    public function verificarToken($tokenId)
     {
-        $token = PersonalAccessToken::where('name', $dni)->get();
-        if ($token[0]->name !== null) {
+        $token = PersonalAccessToken::where('id', $tokenId)->get();
+        if ($token[0]->id !== null) {
             return response()->json([
                 'res' => true,
-                'tokenDni' => $token[0]->name,
-                'dni' => $dni,
+                'tokenId' => $token[0]->id,
             ], 200);
         }
     }
