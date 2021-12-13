@@ -24,7 +24,7 @@ class MarcarAsistenciaRequest extends FormRequest
     public function rules()
     {
         return [
-            "dni" => "required|min:8|max:8",
+            "dni" => "required|integer|digits:8|gt:0|regex:/^[0-9]+$/",
             "plataforma" => "required",
             "useragent" => "required",
             "usertime" => "required"
