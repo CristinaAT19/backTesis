@@ -42,3 +42,5 @@ Route::get('inactividad', [AutenticarController::class, 'eliminarTokenInactivida
 Route::get('limpiarFaltas', [AsistenciaController::class, 'limpiarFaltas']);
 Route::get('limpiarAsistencias', [AsistenciaController::class, 'limpiarAsistencias']);
 Route::get('verificarToken/{dni}', [AutenticarController::class, 'verificarToken']);
+Route::get('areas', [AdministradorController::class, 'listarAreas']);
+Route::get('unidades', [AdministradorController::class, 'listarUnidades']);

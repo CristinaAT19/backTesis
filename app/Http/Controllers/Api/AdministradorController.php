@@ -14,6 +14,8 @@ use App\Http\Requests\InsertarEmpleadoRequest;
 use App\Http\Requests\ActualizarEmpleadoRequest;
 use App\Http\Requests\TipoUsuarioRequest;
 use PhpParser\Node\Expr\Empty_;
+use App\Models\Area;
+use App\Models\Unidad;
 
 class AdministradorController extends Controller
 {
@@ -52,29 +54,31 @@ class AdministradorController extends Controller
     public function insertarEmpleado(InsertarEmpleadoRequest $request)
 
     {
-        $bajada=  '0000-01-01';
+        $bajada =  '0000-01-01';
         $dias = 0;
-        DB::statement('call pa_insertar_empleado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', 
-        [
-            $request->emp_nombre,
-            $request->emp_apellido,
-            $bajada,
-            $request->emp_fec_inicio_prueba,
-            $request->emp_Fec_fin_prueba,
-            $request->emp_TurnoId,
-            $request->emp_AreaId,
-            $request->emp_dni,
-            $request->emp_carrera,
-            $request->emp_email,
-            $request->emp_telefono,
-            $request->emp_link_cv,
-            $request->Emp_Id_Condicion_capacitacion_fk,
-            $request->emp_link_calificaciones,
-            $request->Emp_Id_Convenio_fk,
-            $request->emp_link_convenio,
-            $request->emp_fechanac,
-            $dias
-        ]);
+        DB::statement(
+            'call pa_insertar_empleado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            [
+                $request->emp_nombre,
+                $request->emp_apellido,
+                $bajada,
+                $request->emp_fec_inicio_prueba,
+                $request->emp_Fec_fin_prueba,
+                $request->emp_TurnoId,
+                $request->emp_AreaId,
+                $request->emp_dni,
+                $request->emp_carrera,
+                $request->emp_email,
+                $request->emp_telefono,
+                $request->emp_link_cv,
+                $request->Emp_Id_Condicion_capacitacion_fk,
+                $request->emp_link_calificaciones,
+                $request->Emp_Id_Convenio_fk,
+                $request->emp_link_convenio,
+                $request->emp_fechanac,
+                $dias
+            ]
+        );
         return response()->json([
             'respuesta' => true,
             'mensaje' => "insertado correctamente"
@@ -304,5 +308,29 @@ class AdministradorController extends Controller
                 'tipoUsuario' => 'Error, no se pudo encontrar  token. Vuelva a logearse'
             ], 200);
         }
+    }
+    public function listarAreas()
+    {
+        $areas = Area::all();
+        foreach ($areas as $area) {
+            $arreglo[] = $area->Area_Nombre;
+        }
+        return response()->json([
+            'res' => true,
+            // 'msg' => 'Listado Correcto :)',
+            'Areas' => $arreglo,
+        ], 200);
+    }
+    public function listarUnidades()
+    {
+        $unidades = Unidad::all();
+        foreach ($unidades as $unidad) {
+            $arreglo[] = $unidad->Unidad_Nombre;
+        }
+        return response()->json([
+            'res' => true,
+            // 'msg' => 'Listado Correcto :)',
+            'Unidades' => $arreglo,
+        ], 200);
     }
 }
