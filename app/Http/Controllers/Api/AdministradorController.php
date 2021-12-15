@@ -55,7 +55,7 @@ class AdministradorController extends Controller
     public function insertarEmpleado(InsertarEmpleadoRequest $request)
 
     {
-        $bajada =  '0000-01-01';
+        $bajada =  '0001-01-01';
         $dias = 0;
         DB::statement(
             'call pa_insertar_empleado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
