@@ -162,28 +162,35 @@ class AdministradorController extends Controller
 
         $todas_empleados = DB::select("call pa_listar_empleados");
         $resultadoEncontrado = false;
-        foreach ($todas_empleados as $empleado) {
-            if ((int)$id == (int)$empleado->Id) {
-                $resultadoEncontrado = true;
-            }
-            if ((string)$request->emp_dni == (string)$empleado->Dni) {
-                if ($resultadoEncontrado) {
-                    continue;
+        $empleadoActual  = Empleado::where('Emp_Id', $id)->first();
+        if (isset($empleadoActual)) {
+            $resultadoEncontrado = true;
+            // En caso de encontrar registro
+        } else {
+            // En caso de no encontrar registro
+        }
+        if ($resultadoEncontrado) {
+            foreach ($todas_empleados as $empleado) {
+
+                if ($empleadoActual->Emp_Id == $empleado->Id) {
+                    
                 } else {
-                    return response()->json([
-                        "res" => false,
-                        "msg" => "Ese DNI insertado ya existe, intente con otro."
-                    ]);
+                    if ($empleado->Dni == $request->emp_dni) {
+                        return response()->json([
+                            'respuesta' => false,
+                            'mensaje' => 'El DNI ya existe'
+                        ], 422);
+                    }
                 }
             }
-        }
-        if ($resultadoEncontrado == false) {
+
+        }else{
             return response()->json([
                 "res" => false,
                 "msg" => "No se encontro el registro. Vuelva a intentarlo"
             ]);
-        }
 
+        }
 
         DB::statement("call pa_actualizar_empleados('$id','$request->emp_nombre',
         '$request->emp_apellido','$request->emp_fechabaja','$request->emp_fec_inicio_prueba',
@@ -193,10 +200,11 @@ class AdministradorController extends Controller
         '$request->emp_link_calificaciones',$request->Emp_Id_Convenio_fk,'$request->emp_link_convenio',
         '$request->emp_fechanac',$request->emp_dias_extra)");
         return response()->json([
-            'respuesta' => true,
+            'respuesta' => 'true',
             'msg' => 'empleado actualizado correctamente'
         ], 200);
     }
+
 
     // Manejo de faltas
     public function listar_faltas()
