@@ -174,23 +174,24 @@ class AdministradorController extends Controller
             foreach ($todas_empleados as $empleado) {
 
                 if ($empleadoActual->Emp_Id == $empleado->Id) {
-                    
                 } else {
                     if ($empleado->Dni == $request->emp_dni) {
                         return response()->json([
                             'respuesta' => false,
-                            'mensaje' => 'El DNI ya existe'
+                            'errors' => [
+                                "emp_dni" => [
+                                    "El dni ya existe"
+                                ]
+                            ]
                         ], 422);
                     }
                 }
             }
-
-        }else{
+        } else {
             return response()->json([
                 "res" => false,
                 "msg" => "No se encontro el registro. Vuelva a intentarlo"
             ]);
-
         }
 
         DB::statement("call pa_actualizar_empleados('$id','$request->emp_nombre',
