@@ -31,7 +31,7 @@ class ActualizarEmpleadoRequest extends FormRequest
             'emp_Fec_fin_prueba'=>'required|date',
             'emp_TurnoId'=>'required|integer',
             'emp_AreaId'=>'required|integer',
-            'emp_dni'=>'required|string',
+            'emp_dni'=>'required|digits:8',
             'emp_carrera'=>'required',
             'emp_email'=>'required|email',
             'emp_telefono'=>'required|string|max:20|min:5',
