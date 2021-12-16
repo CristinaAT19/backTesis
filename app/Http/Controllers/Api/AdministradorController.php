@@ -193,7 +193,7 @@ class AdministradorController extends Controller
                 "msg" => "No se encontro el registro. Vuelva a intentarlo"
             ]);
         }
-
+        $request->emp_dias_extra = $request->emp_dias_extra == null ? 0 : $request->emp_dias_extra;
         DB::statement("call pa_actualizar_empleados('$id','$request->emp_nombre',
         '$request->emp_apellido','$request->emp_fechabaja','$request->emp_fec_inicio_prueba',
         '$request->emp_Fec_fin_prueba',$request->emp_TurnoId,$request->emp_AreaId,
