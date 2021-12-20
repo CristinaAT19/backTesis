@@ -17,6 +17,7 @@ use App\Http\Requests\TipoUsuarioRequest;
 use PhpParser\Node\Expr\Empty_;
 use App\Models\Area;
 use App\Models\Unidad;
+use DateTime;
 
 class AdministradorController extends Controller
 {
@@ -55,14 +56,14 @@ class AdministradorController extends Controller
     public function insertarEmpleado(InsertarEmpleadoRequest $request)
 
     {
-        $bajada =  '0001-01-01';
+        // $bajada =  '0001-01-01';
         $dias = 0;
         DB::statement(
             'call pa_insertar_empleado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
             [
                 $request->emp_nombre,
                 $request->emp_apellido,
-                $bajada,
+                $request->emp_fechabaja,
                 $request->emp_fec_inicio_prueba,
                 $request->emp_Fec_fin_prueba,
                 $request->emp_TurnoId,
@@ -193,14 +194,33 @@ class AdministradorController extends Controller
                 "msg" => "No se encontro el registro. Vuelva a intentarlo"
             ]);
         }
+
+
         $request->emp_dias_extra = $request->emp_dias_extra == null ? 0 : $request->emp_dias_extra;
-        DB::statement("call pa_actualizar_empleados('$id','$request->emp_nombre',
-        '$request->emp_apellido','$request->emp_fechabaja','$request->emp_fec_inicio_prueba',
-        '$request->emp_Fec_fin_prueba',$request->emp_TurnoId,$request->emp_AreaId,
-        '$request->emp_dni','$request->emp_carrera','$request->emp_email',
-        '$request->emp_telefono','$request->emp_link_cv',$request->Emp_Id_Condicion_capacitacion_fk,
-        '$request->emp_link_calificaciones',$request->Emp_Id_Convenio_fk,'$request->emp_link_convenio',
-        '$request->emp_fechanac',$request->emp_dias_extra)");
+        DB::statement(
+            'call pa_actualizar_empleados(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            [   
+                $id,
+                $request->emp_nombre,
+                $request->emp_apellido, 
+                $request->emp_fechabaja,
+                $request->emp_fec_inicio_prueba,
+                $request->emp_Fec_fin_prueba, 
+                $request->emp_TurnoId, 
+                $request->emp_AreaId,
+                $request->emp_dni, 
+                $request->emp_carrera,
+                $request->emp_email,
+                $request->emp_telefono,
+                $request->emp_link_cv,
+                $request->Emp_Id_Condicion_capacitacion_fk,
+                $request->emp_link_calificaciones, 
+                $request->Emp_Id_Convenio_fk,
+                $request->emp_link_convenio,
+                $request->emp_fechanac, 
+                $request->emp_dias_extra,
+            ]
+        );
         return response()->json([
             'respuesta' => 'true',
             'msg' => 'empleado actualizado correctamente'
