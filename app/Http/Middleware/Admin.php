@@ -23,10 +23,9 @@ class Admin
         $userAux = $request->user()->currentAccessToken();
 
         try {
-            if ($userAux->tokenable->usu_Tipo_User_Id_fk == 2) {
-                return response()->json(['error' => 'No tienes el rol para ejecutar esta accion'], 403);
-            }
             if ($userAux->tokenable->usu_Tipo_User_Id_fk == 1) {
+                return response()->json(['error' => 'No tienes el rol para ejecutar esta accion'], 403);
+            }else{
                 return $next($request);
             }
 

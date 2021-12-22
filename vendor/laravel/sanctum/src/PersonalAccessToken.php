@@ -26,6 +26,7 @@ class PersonalAccessToken extends Model implements HasAbilities
         'name',
         'token',
         'abilities',
+        'tokenable_id',
     ];
 
     /**

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Laravel\Sanctum\PersonalAccessToken;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class AutenticarController extends Controller
 {
@@ -22,13 +23,17 @@ class AutenticarController extends Controller
     {
         $validacion_login = DB::select("SELECT fu_verificar_login('$request->dni', '$request->password') AS validacion");
         $atributo = "validacion";
+        $user = null;
         if ($validacion_login[0]->$atributo == 1) {
+
             throw ValidationException::withMessages([
                 'smg' => ['El dni o la contraseña es incorrecto'],
             ]);
-        }
+        }        
         $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
         $user = User::where('usu_Id_Emp_fk', $empleado->Emp_Id)->first();
+        // Auth::login($user);
+        // return 
         //creacion del token
         $tokens = PersonalAccessToken::where('name', $request->dni)->get();
         foreach ($tokens as $token) {
@@ -36,13 +41,17 @@ class AutenticarController extends Controller
                 $token->delete();
             }
         }
+        // Coloca ID debido a que el campo que agarra por defecto no funciona
+        $user['id'] = $user['Id'];
         $token = $user->createToken($request->dni)->plainTextToken;
         //mostrar el tipo de usuario en respuesta json
         $tipoUser = $user->usu_Tipo_User_Id_fk;
-        if ($tipoUser == 1) {
-            $msg = "Administrador";
-        } else {
+        if ($tipoUser == 7) {
+            $tipoUser = 2;
             $msg = "Usuario";
+        } else {
+            $tipoUser = 1;
+            $msg = "Administrador";
         }
         // Obtener detalles del usuario
         $usuario = DB::select("call pa_listar_detallesdeempleado_dni('$request->dni')");
