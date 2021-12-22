@@ -25,7 +25,7 @@ class CambiarTipoUsuarioRequest extends FormRequest
     {
         return [
             "dni" => "required|min:8|max:8",
-            "tipoUsuario" => "required|integer|between:1,2"
+            "tipoUsuario" => "required|integer|min:1"
         ];
     }
 }

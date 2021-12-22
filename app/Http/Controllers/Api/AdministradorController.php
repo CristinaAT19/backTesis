@@ -301,12 +301,12 @@ class AdministradorController extends Controller
     public function mostrarTipoUsuario(TipoUsuarioRequest $request)
     {
         $usuario = DB::select("call pa_listar_detallesdeempleado_dni('$request->dni')");
-
         if ($usuario != null) {
+            $tipoUsuario = 'Tipo Usuario';
             return response()->json([
                 'res' => true,
                 // 'msg' => 'Listado Correcto :)',
-                'tipoUsuario' => 'El dni corresponde a un ' . $usuario[0]->Tipo_Usuario,
+                'tipoUsuario' => 'El dni corresponde a un ' . $usuario[0]->$tipoUsuario,
                 'dni' => $usuario[0]->Dni,
                 'nombre' => $usuario[0]->Nombre,
                 'apellido' => $usuario[0]->Apellido,
