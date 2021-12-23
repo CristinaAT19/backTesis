@@ -25,7 +25,6 @@ class AsistenciaController extends Controller
         $SO = $validaciones->getSO($request->useragent);
 
         $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
-
         $asis_estado = DB::select("select fu_verificar_puntualidad('$request->dni','$hora') AS Respuesta");
 
         $atributo = "Respuesta";
@@ -34,15 +33,7 @@ class AsistenciaController extends Controller
             $detalle_asi = (int)$asis_estado[0]->$atributo;
             if (!$empleado == null) {
                 $msg2 = DB::select("select fu_verificar_intentos('$fecha', '$hora', $empleado->Emp_Id, '$request->plataforma', '$SO', '$dispo', '$request->useragent', '$request->usertime', '$ipv6', $detalle_asi) AS respuesta");
-                if ($msg2[0]->respuesta == 1) {
-                    if ($detalle_asi == 1) {
-                        $msg = "Gracias " . $empleado->Emp_Nombre . ", marcaste asistencia puntual ";
-                    } else {
-                        $msg = "Gracias " . $empleado->Emp_Nombre . ", marcaste asistencia tarde ";
-                    }
-                } else {
-                    $msg = $empleado->Emp_Nombre . " ya marcaste asistencia.";
-                }
+                $msg = $msg2[0]->respuesta;
             }
         } else {
             $msg = $asis_estado[0]->$atributo;
