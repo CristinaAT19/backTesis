@@ -26,6 +26,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('listarAdministrador', [AdministradorController::class, 'listarAdministrador']);
         Route::post('actualizarEmpleado/{id}', [AdministradorController::class, 'actualizarEmpleado']);
         Route::post('resetearPassword', [AdministradorController::class, 'resetPassword']);
+        Route::get('filtradoFecha', [AdministradorController::class, 'filtradoFecha']);
+        Route::get('asistenciaTotal', [AdministradorController::class, 'asistenciaTotal']);
     });
 
     //Manejo de faltas
@@ -44,3 +46,6 @@ Route::get('limpiarAsistencias', [AsistenciaController::class, 'limpiarAsistenci
 Route::get('verificarToken/{dni}', [AutenticarController::class, 'verificarToken']);
 Route::get('areas', [AdministradorController::class, 'listarAreas']);
 Route::get('unidades', [AdministradorController::class, 'listarUnidades']);
+Route::get('subarea', [AdministradorController::class, 'listarSubareas']);
+Route::get('perfil', [AdministradorController::class, 'listarPerfiles']);
+Route::get('marcas', [AdministradorController::class, 'listarMarcas']);

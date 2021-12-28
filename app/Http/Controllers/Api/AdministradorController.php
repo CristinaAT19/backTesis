@@ -14,9 +14,13 @@ use App\Http\Requests\ResetearPasswordRequest;
 use App\Http\Requests\InsertarEmpleadoRequest;
 use App\Http\Requests\ActualizarEmpleadoRequest;
 use App\Http\Requests\TipoUsuarioRequest;
+use App\Http\Requests\ListarAsistenciaFecha;
 use PhpParser\Node\Expr\Empty_;
 use App\Models\Area;
 use App\Models\Unidad;
+use App\Models\Subarea;
+use App\Models\Perfil;
+use App\Models\Marca;
 use DateTime;
 
 class AdministradorController extends Controller
@@ -199,25 +203,25 @@ class AdministradorController extends Controller
         $request->emp_dias_extra = $request->emp_dias_extra == null ? 0 : $request->emp_dias_extra;
         DB::statement(
             'call pa_actualizar_empleados(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-            [   
+            [
                 $id,
                 $request->emp_nombre,
-                $request->emp_apellido, 
+                $request->emp_apellido,
                 $request->emp_fechabaja,
                 $request->emp_fec_inicio_prueba,
-                $request->emp_Fec_fin_prueba, 
-                $request->emp_TurnoId, 
+                $request->emp_Fec_fin_prueba,
+                $request->emp_TurnoId,
                 $request->emp_AreaId,
-                $request->emp_dni, 
+                $request->emp_dni,
                 $request->emp_carrera,
                 $request->emp_email,
                 $request->emp_telefono,
                 $request->emp_link_cv,
                 $request->Emp_Id_Condicion_capacitacion_fk,
-                $request->emp_link_calificaciones, 
+                $request->emp_link_calificaciones,
                 $request->Emp_Id_Convenio_fk,
                 $request->emp_link_convenio,
-                $request->emp_fechanac, 
+                $request->emp_fechanac,
                 $request->emp_dias_extra,
             ]
         );
@@ -339,6 +343,26 @@ class AdministradorController extends Controller
             ], 200);
         }
     }
+
+    public function filtradoFecha(ListarAsistenciaFecha $request)
+    {
+        $asistencias = DB::select("call pa_listar_asistencia_filtroFechas('$request->fecha_inicio','$request->fecha_fin')");
+
+        return response()->json([
+            'res' => true,
+            'Asistencia' => $asistencias,
+        ], 200);
+    }
+    public function asistenciaTotal()
+    {
+        $fechaActual = date('Y-m-d');
+        $asistencias = DB::select("call pa_listar_asistencia_filtroFechas('0001-01-01','$fechaActual')");
+        return response()->json([
+            'res' => true,
+            'Asistencias' => $asistencias,
+        ], 200);
+    }
+
     public function listarAreas()
     {
         $areas = Area::all();
@@ -361,6 +385,42 @@ class AdministradorController extends Controller
             'res' => true,
             // 'msg' => 'Listado Correcto :)',
             'Unidades' => $arreglo,
+        ], 200);
+    }
+    public function listarSubareas()
+    {
+        $subareas = Subarea::all();
+        foreach ($subareas as $subarea) {
+            $arreglo[] = $subarea->SubArea_Nombre;
+        }
+        return response()->json([
+            'res' => true,
+            // 'msg' => 'Listado Correcto :)',
+            'Subareas' => $arreglo,
+        ], 200);
+    }
+    public function listarPerfiles()
+    {
+        $perfiles = Perfil::all();
+        foreach ($perfiles as $perfil) {
+            $arreglo[] = $perfil->Perfil_Nombre;
+        }
+        return response()->json([
+            'res' => true,
+            // 'msg' => 'Listado Correcto :)',
+            'Perfiles' => $arreglo,
+        ], 200);
+    }
+    public function listarMarcas()
+    {
+        $marcas = Marca::all();
+        foreach ($marcas as $marca) {
+            $arreglo[] = $marca->Marca_Nombre;
+        }
+        return response()->json([
+            'res' => true,
+            // 'msg' => 'Listado Correcto :)',
+            'Marcas' => $arreglo,
         ], 200);
     }
 }
