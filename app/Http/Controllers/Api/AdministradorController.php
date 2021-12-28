@@ -18,6 +18,9 @@ use App\Http\Requests\ListarAsistenciaFecha;
 use PhpParser\Node\Expr\Empty_;
 use App\Models\Area;
 use App\Models\Unidad;
+use App\Models\Subarea;
+use App\Models\Perfil;
+use App\Models\Marca;
 use DateTime;
 
 class AdministradorController extends Controller
@@ -382,6 +385,42 @@ class AdministradorController extends Controller
             'res' => true,
             // 'msg' => 'Listado Correcto :)',
             'Unidades' => $arreglo,
+        ], 200);
+    }
+    public function listarSubareas()
+    {
+        $subareas = Subarea::all();
+        foreach ($subareas as $subarea) {
+            $arreglo[] = $subarea->SubArea_Nombre;
+        }
+        return response()->json([
+            'res' => true,
+            // 'msg' => 'Listado Correcto :)',
+            'Subareas' => $arreglo,
+        ], 200);
+    }
+    public function listarPerfiles()
+    {
+        $perfiles = Perfil::all();
+        foreach ($perfiles as $perfil) {
+            $arreglo[] = $perfil->Perfil_Nombre;
+        }
+        return response()->json([
+            'res' => true,
+            // 'msg' => 'Listado Correcto :)',
+            'Perfiles' => $arreglo,
+        ], 200);
+    }
+    public function listarMarcas()
+    {
+        $marcas = Marca::all();
+        foreach ($marcas as $marca) {
+            $arreglo[] = $marca->Marca_Nombre;
+        }
+        return response()->json([
+            'res' => true,
+            // 'msg' => 'Listado Correcto :)',
+            'Marcas' => $arreglo,
         ], 200);
     }
 }

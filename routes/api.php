@@ -46,3 +46,6 @@ Route::get('limpiarAsistencias', [AsistenciaController::class, 'limpiarAsistenci
 Route::get('verificarToken/{dni}', [AutenticarController::class, 'verificarToken']);
 Route::get('areas', [AdministradorController::class, 'listarAreas']);
 Route::get('unidades', [AdministradorController::class, 'listarUnidades']);
+Route::get('subarea', [AdministradorController::class, 'listarSubareas']);
+Route::get('perfil', [AdministradorController::class, 'listarPerfiles']);
+Route::get('marcas', [AdministradorController::class, 'listarMarcas']);
