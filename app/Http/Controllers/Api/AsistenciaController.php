@@ -29,8 +29,8 @@ class AsistenciaController extends Controller
         // $dispo=null ? "No encontro el dispositivo" : $dispo;
         // $ipv6 = null ? "No se encontro la ip" : $ipv6;
 
-        $SO = "SistemaOperativo";
-        $dispo = "Dispositivo";
+        // $SO = "SistemaOperativo";
+        // $dispo = "Dispositivo";
         $ipv6 = "IP";        
 
         $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
