@@ -13,6 +13,9 @@ Route::post('marcar', [AsistenciaController::class, 'marcarAsistencia']);
 Route::post('acceso', [AutenticarController::class, 'acceso']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    // Identificar segun el token enviado
+    Route::get('identificarPorToken', [AutenticarController::class, 'identificarPorToken']);
+
     Route::middleware(['admin'])->group(function () {
         Route::get('dashboard_ma', [AdministradorController::class, 'dashboard_ma']); //mostrar el dashboard de asistencia del turno mañana 
         Route::get('dashboard_ta', [AdministradorController::class, 'dashboard_ta']); //mostrar el dashboard de asistencia del turno tarde

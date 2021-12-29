@@ -104,4 +104,31 @@ class AutenticarController extends Controller
             ], 200);
         }
     }
+
+    public function identificarPorToken(Request $request){
+        $userAux = auth()->user()->currentAccessToken();
+        $usuario = DB::select("call pa_listar_detallesdeempleado_dni('$userAux->name')");
+        $token = $request->bearerToken();
+        $tipoUser = $userAux->usu_Tipo_User_Id_fk;
+        if ($tipoUser == 7) {
+            $tipoUser = 2;
+            $msg = "Usuario";
+        } else {
+            $tipoUser = 1;
+            $msg = "Administrador";
+        }
+
+        return response()->json([
+            'res' => 'true',
+            'token' => $token,
+            'TipoUsuario' => $msg,
+            'id_TipoUsuario' => $tipoUser,
+            'dni' => $usuario[0]->Dni,
+            'nombre' => $usuario[0]->Nombre,
+            'apellido' => $usuario[0]->Apellido,
+            'perfil' => $usuario[0]->Perfil,
+            'unidad' => $usuario[0]->Unidad,
+            'turno' => $usuario[0]->Turno,
+        ], 200);
+    }
 }
