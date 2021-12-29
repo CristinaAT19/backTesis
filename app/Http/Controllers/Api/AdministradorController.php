@@ -425,6 +425,7 @@ class AdministradorController extends Controller
     }
     
     public function pasarTokenAOtroRepo(){
-        return redirect()->route('login');
+        $userAux = $request->user()->currentAccessToken();
+        return redirect()->away('http://localhost:8080/api/login/token');
     }
 }
