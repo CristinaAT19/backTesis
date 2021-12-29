@@ -8,7 +8,7 @@ use App\Http\Requests\MarcarAsistenciaRequest;
 use Illuminate\Support\Facades\DB;
 use App\Custom\Validaciones;
 use Carbon\Carbon;
-
+use Exception;
 
 class AsistenciaController extends Controller
 {
@@ -28,9 +28,14 @@ class AsistenciaController extends Controller
         // $SO = null ? " No se ecnontro el sistema operativo" : $SO;
         // $dispo=null ? "No encontro el dispositivo" : $dispo;
         // $ipv6 = null ? "No se encontro la ip" : $ipv6;
-        if($ipv6 == "" || $ipv6 == null || $ipv6 == " " || $ipv6 == "unknown"){
-            $ipv6 = "No se encontro la ip";
-        }
+        // if($ipv6 == "" || $ipv6 == null || $ipv6 == " " || $ipv6 == "unknown"){
+        //     $ipv6 = "No se encontro la ip";
+        // }
+        return response()->json([
+            'respuesta' => 'true',
+            'mensaje' => $SO.' - '.$dispo.' - '.$ipv6. ' - '.$ipv4,
+
+        ], 200);        
 
         $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
         $asis_estado = DB::select("select fu_verificar_puntualidad('$request->dni','$hora') AS Respuesta");
