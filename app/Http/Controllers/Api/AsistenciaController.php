@@ -31,9 +31,11 @@ class AsistenciaController extends Controller
         // if($ipv6 == "" || $ipv6 == null || $ipv6 == " " || $ipv6 == "unknown"){
         //     $ipv6 = "No se encontro la ip";
         // }
+        inet_ntop($ipv6);
+
         return response()->json([
             'respuesta' => 'true',
-            'mensaje' => $SO.' - '.$dispo.' - '.$ipv6. ' - '.$ipv4,
+            'mensaje' => $SO.' - '.$dispo.' - '.$ipv6. ' - '.$ipv4.' - '.$ipv6,
 
         ], 200);        
 
