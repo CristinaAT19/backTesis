@@ -38,6 +38,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
     Route::post('mostrarTipoUsuario', [AdministradorController::class, 'mostrarTipoUsuario']);
     Route::get('seeMyRoutes', [AdministradorController::class, 'mostrarSoloTipoUsuario']);
+
+    // Pasar token a otro repositorio
+
+    Route::get('pasarTOkenAOtroRepo', [AdministradorController::class, 'pasarTokenAOtroRepo']);
 });
 Route::get('marcarFaltas/{turno}', [AsistenciaController::class, 'marcarFaltas']);
 Route::get('inactividad', [AutenticarController::class, 'eliminarTokenInactividad']);

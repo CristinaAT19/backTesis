@@ -423,4 +423,8 @@ class AdministradorController extends Controller
             'Marcas' => $arreglo,
         ], 200);
     }
+    
+    public function pasarTokenAOtroRepo(){
+        return redirect()->route('login');
+    }
 }
