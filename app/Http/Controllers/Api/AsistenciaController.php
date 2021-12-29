@@ -28,10 +28,9 @@ class AsistenciaController extends Controller
         // $SO = null ? " No se ecnontro el sistema operativo" : $SO;
         // $dispo=null ? "No encontro el dispositivo" : $dispo;
         // $ipv6 = null ? "No se encontro la ip" : $ipv6;
-
-        // $SO = "SistemaOperativo";
-        // $dispo = "Dispositivo";
-        $ipv6 = "IP";        
+        if($ipv6 == "" || $ipv6 == null || $ipv6 == " " || $ipv6 == "unknown"){
+            $ipv6 = "No se encontro la ip";
+        }
 
         $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
         $asis_estado = DB::select("select fu_verificar_puntualidad('$request->dni','$hora') AS Respuesta");
