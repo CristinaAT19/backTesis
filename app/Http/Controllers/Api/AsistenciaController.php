@@ -30,8 +30,7 @@ class AsistenciaController extends Controller
         // $ipv6 = null ? "No se encontro la ip" : $ipv6;
         // if($ipv6 == "" || $ipv6 == null || $ipv6 == " " || $ipv6 == "unknown"){
         //     $ipv6 = "No se encontro la ip";
-        // }
-
+        // }        
         return response()->json([
             'respuesta' => 'true',
             'mensaje' => $SO.' - '.$dispo.' - '.$ipv6. ' - '.$ipv4.' - '.$ipv6,
@@ -43,23 +42,32 @@ class AsistenciaController extends Controller
         $atributo = "Respuesta";
         // return response()->json(['res' => $asis_estado,'otra'=>$asis_estado[0],'nuevo'=>$asis_estado[0]->$atributo]);
         //  1 o 2 <-- Rango de fecha
-        if ($asis_estado[0]->$atributo == "2" || $asis_estado[0]->$atributo == "1") {
-            $detalle_asi = (int)$asis_estado[0]->$atributo;
-            // Exsistencia de empleado
-            if (!$empleado == null) {
-                $msg2 = DB::select("select fu_verificar_intentos('$fecha', '$hora', $empleado->Emp_Id, '$request->plataforma', '$SO', '$dispo', '$request->useragent', '$request->usertime', '$ipv6', $detalle_asi) AS Respuesta");
-                if($msg2[0]->$atributo == 1){
-                    if ($detalle_asi == 1 ) {
-                        $msg = "Gracias " . $empleado->Emp_Nombre . ", marcaste asistencia puntual ";
-                    } else if($detalle_asi == 2){
-                        $msg = "Gracias " . $empleado->Emp_Nombre . ", marcaste asistencia TARDE ";
+        try{
+            if ($asis_estado[0]->$atributo == "2" || $asis_estado[0]->$atributo == "1") {
+                $detalle_asi = (int)$asis_estado[0]->$atributo;
+                // Exsistencia de empleado
+                if (!$empleado == null) {
+                    $msg2 = DB::select("select fu_verificar_intentos('$fecha', '$hora', $empleado->Emp_Id, '$request->plataforma', '$SO', '$dispo', '$request->useragent', '$request->usertime', '$ipv6', $detalle_asi) AS Respuesta");
+                    if($msg2[0]->$atributo == 1){
+                        if ($detalle_asi == 1 ) {
+                            $msg = "Gracias " . $empleado->Emp_Nombre . ", marcaste asistencia puntual ";
+                        } else if($detalle_asi == 2){
+                            $msg = "Gracias " . $empleado->Emp_Nombre . ", marcaste asistencia TARDE ";
+                        }
+                    }else{
+                        $msg = "No puedes volver a marcar asistencia";
                     }
-                }else{
-                    $msg = "No puedes volver a marcar asistencia";
                 }
+            } else {
+                $msg = $asis_estado[0]->$atributo;
             }
-        } else {
-            $msg = $asis_estado[0]->$atributo;
+        }catch(Exception $e){
+            $msg = $e->getMessage();
+            return response()->json([
+                'respuesta' => 'true',
+                'mensaje' => $msg
+    
+            ], 500);
         }
 
         return response()->json([
