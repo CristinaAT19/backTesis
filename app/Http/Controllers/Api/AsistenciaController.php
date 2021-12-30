@@ -24,7 +24,19 @@ class AsistenciaController extends Controller
         $ipv6 = $validaciones->getRealIP();
         $ipv4 = hexdec(substr($ipv6, 0, 2)) . "." . hexdec(substr($ipv6, 2, 2)) . "." . hexdec(substr($ipv6, 5, 2)) . "." . hexdec(substr($ipv6, 7, 2));
         $SO = $validaciones->getSO($request->useragent);
-                
+             
+        // $SO = null ? " No se ecnontro el sistema operativo" : $SO;
+        // $dispo=null ? "No encontro el dispositivo" : $dispo;
+        // $ipv6 = null ? "No se encontro la ip" : $ipv6;
+        // if($ipv6 == "" || $ipv6 == null || $ipv6 == " " || $ipv6 == "unknown"){
+        //     $ipv6 = "No se encontro la ip";
+        // }
+
+        return response()->json([
+            'respuesta' => 'true',
+            'mensaje' => $SO.' - '.$dispo.' - '.$ipv6. ' - '.$ipv4.' - '.$ipv6,
+
+        ], 200);        
 
         $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
         $asis_estado = DB::select("select fu_verificar_puntualidad('$request->dni','$hora') AS Respuesta");
