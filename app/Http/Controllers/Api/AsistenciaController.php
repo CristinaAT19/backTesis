@@ -24,12 +24,7 @@ class AsistenciaController extends Controller
         $ipv6 = $validaciones->getRealIP();
         $ipv4 = hexdec(substr($ipv6, 0, 2)) . "." . hexdec(substr($ipv6, 2, 2)) . "." . hexdec(substr($ipv6, 5, 2)) . "." . hexdec(substr($ipv6, 7, 2));
         $SO = $validaciones->getSO($request->useragent);
-             
-        return response()->json([
-            'respuesta' => 'true',
-            'mensaje' => $SO.' - '.$dispo.' - '.$ipv6. ' - '.$ipv4.' - '.$ipv6,
-
-        ], 200);        
+                
 
         $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
         $asis_estado = DB::select("select fu_verificar_puntualidad('$request->dni','$hora') AS Respuesta");
