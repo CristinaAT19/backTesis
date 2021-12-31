@@ -15,12 +15,14 @@ use App\Http\Requests\InsertarEmpleadoRequest;
 use App\Http\Requests\ActualizarEmpleadoRequest;
 use App\Http\Requests\TipoUsuarioRequest;
 use App\Http\Requests\ListarAsistenciaFecha;
+use App\Http\Requests\InsertarFeriado;
 use PhpParser\Node\Expr\Empty_;
 use App\Models\Area;
 use App\Models\Unidad;
 use App\Models\Subarea;
 use App\Models\Perfil;
 use App\Models\Marca;
+use App\Models\Feriado;
 use DateTime;
 
 class AdministradorController extends Controller
@@ -423,9 +425,34 @@ class AdministradorController extends Controller
             'Marcas' => $arreglo,
         ], 200);
     }
-    
-    public function pasarTokenAOtroRepo(){
-        $userAux = $request->user()->currentAccessToken();
+
+    public function pasarTokenAOtroRepo()
+    {
+
         return redirect()->away('http://localhost:8080/api/login/token');
+    }
+
+    public function insertarFeriados(InsertarFeriado $request)
+    {
+        DB::statement(
+            'call pa_insertar_feriados(?,?)',
+            [
+                $request->fecha_feriado,
+                $request->dia_feriado,
+
+            ]
+        );
+        return response()->json([
+            'respuesta' => true,
+            'mensaje' => "Feriado insertado correctamente"
+        ], 200);
+    }
+    public function listarFeriados()
+    {
+        $feriados = Feriado::all();
+        return response()->json([
+            'res' => true,
+            'Feriados' => $feriados,
+        ], 200);
     }
 }

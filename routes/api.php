@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('resetearPassword', [AdministradorController::class, 'resetPassword']);
         Route::get('filtradoFecha', [AdministradorController::class, 'filtradoFecha']);
         Route::get('asistenciaTotal', [AdministradorController::class, 'asistenciaTotal']);
+        Route::post('insertarFeriados', [AdministradorController::class, 'insertarFeriados']);
+        Route::get('listarFeriados', [AdministradorController::class, 'listarFeriados']);
     });
 
     //Manejo de faltas
