@@ -6,8 +6,7 @@ use App\Http\Controllers\Api\AdministradorController;
 use App\Http\Controllers\Api\AsistenciaController;
 
 use App\Http\Controllers\Api\UsuarioController;
-
-
+use App\Http\Controllers\ReclutamientoController;
 
 Route::post('marcar', [AsistenciaController::class, 'marcarAsistencia']);
 Route::post('acceso', [AutenticarController::class, 'acceso']);
@@ -40,11 +39,21 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('cambiarPassword', [UsuarioController::class, 'cambiarPassword']);
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
     Route::post('mostrarTipoUsuario', [AdministradorController::class, 'mostrarTipoUsuario']);
-    Route::get('seeMyRoutes', [AdministradorController::class, 'mostrarSoloTipoUsuario']);
+    // Route::get('seeMyRoutes', [AdministradorController::class, 'mostrarSoloTipoUsuario']);
 
     // Pasar token a otro repositorio
 
     // Route::get('pasarTOkenAOtroRepo', [AdministradorController::class, 'pasarTokenAOtroRepo']);
+
+    // Requerimientos de personal
+    Route::get('requerimientos', [ReclutamientoController::class, 'mostrarRequerimientos']);
+
+    // Perfiles
+    Route::get('perfiles', [ReclutamientoController::class, 'mostrarPerfiles']);
+
+
+
+
 });
 Route::get('marcarFaltas/{turno}', [AsistenciaController::class, 'marcarFaltas']);
 Route::get('inactividad', [AutenticarController::class, 'eliminarTokenInactividad']);
@@ -56,3 +65,11 @@ Route::get('unidades', [AdministradorController::class, 'listarUnidades']);
 Route::get('subarea', [AdministradorController::class, 'listarSubareas']);
 Route::get('perfil', [AdministradorController::class, 'listarPerfiles']);
 Route::get('marcas', [AdministradorController::class, 'listarMarcas']);
+
+
+
+    // Manuel de competencias
+    Route::get('competencias', [ReclutamientoController::class, 'mostrarCompetencias']);
+    Route::post('competencias', [ReclutamientoController::class, 'agregarCompetencia']);
+    Route::put('competencias/{id}', [ReclutamientoController::class, 'modificarCompetencia']);
+    Route::delete('vacascompetencias/{id}', [ReclutamientoController::class, 'eliminarCompetencia']);
