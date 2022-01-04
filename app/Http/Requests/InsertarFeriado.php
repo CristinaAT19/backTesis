@@ -26,6 +26,7 @@ class InsertarFeriado extends FormRequest
         return [
             'fecha_feriado' => 'required|date',
             'dia_feriado' => 'required|string',
+            'tipo_feriado' => 'required|string',
         ];
     }
 }

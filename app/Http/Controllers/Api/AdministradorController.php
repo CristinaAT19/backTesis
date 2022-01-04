@@ -435,11 +435,11 @@ class AdministradorController extends Controller
     public function insertarFeriados(InsertarFeriado $request)
     {
         DB::statement(
-            'call pa_insertar_feriados(?,?)',
+            'call pa_insertar_feriados(?,?,?)',
             [
                 $request->fecha_feriado,
                 $request->dia_feriado,
-
+                $request->tipo_feriado,
             ]
         );
         return response()->json([
