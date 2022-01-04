@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AdministradorController;
 use App\Http\Controllers\Api\AsistenciaController;
 
 use App\Http\Controllers\Api\UsuarioController;
+use App\Http\Controllers\FeriadoController;
 use App\Http\Controllers\ReclutamientoController;
 
 Route::post('marcar', [AsistenciaController::class, 'marcarAsistencia']);
@@ -30,8 +31,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('resetearPassword', [AdministradorController::class, 'resetPassword']);
         Route::get('filtradoFecha', [AdministradorController::class, 'filtradoFecha']);
         Route::get('asistenciaTotal', [AdministradorController::class, 'asistenciaTotal']);
+
+        // Feriados
         Route::post('insertarFeriados', [AdministradorController::class, 'insertarFeriados']);
         Route::get('listarFeriados', [AdministradorController::class, 'listarFeriados']);
+        Route::put('feriados/{id}', [FeriadoController::class, 'update']);
+        Route::delete('feriados/{id}', [FeriadoController::class, 'delete']);
+
+        // Manuel de competencias
+        Route::get('competencias', [ReclutamientoController::class, 'mostrarCompetencias']);
+        Route::post('competencias', [ReclutamientoController::class, 'agregarCompetencia']);
+        Route::put('competencias/{id}', [ReclutamientoController::class, 'modificarCompetencia']);
+        Route::delete('vacascompetencias/{id}', [ReclutamientoController::class, 'eliminarCompetencia']);
     });
 
     //Manejo de faltas
@@ -70,8 +81,3 @@ Route::get('marcas', [AdministradorController::class, 'listarMarcas']);
 
 
 
-    // Manuel de competencias
-    Route::get('competencias', [ReclutamientoController::class, 'mostrarCompetencias']);
-    Route::post('competencias', [ReclutamientoController::class, 'agregarCompetencia']);
-    Route::put('competencias/{id}', [ReclutamientoController::class, 'modificarCompetencia']);
-    Route::delete('vacascompetencias/{id}', [ReclutamientoController::class, 'eliminarCompetencia']);
