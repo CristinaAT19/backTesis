@@ -35,10 +35,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // Feriados
         Route::post('insertarFeriados', [AdministradorController::class, 'insertarFeriados']);
         Route::get('listarFeriados', [AdministradorController::class, 'listarFeriados']);
-        Route::put('feriados/{id}', [FeriadoController::class, 'update']);
-        Route::delete('feriados/{id}', [FeriadoController::class, 'delete']);
-
-        // Manuel de competencias
+        Route::put('feriados', [FeriadoController::class, 'update']);
+        Route::delete('feriados', [FeriadoController::class, 'destroy']);
+        // Route::post('vadawd', [FeriadoController::class, 'update']);
+        
+        // Manual de competencias
         Route::get('competencias', [ReclutamientoController::class, 'mostrarCompetencias']);
         Route::post('competencias', [ReclutamientoController::class, 'agregarCompetencia']);
         Route::put('competencias/{id}', [ReclutamientoController::class, 'modificarCompetencia']);

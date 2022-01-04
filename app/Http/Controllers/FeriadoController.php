@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InsertarFeriado;
+use DateTime;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,24 +50,24 @@ class FeriadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(InsertarFeriado $request)
     {
-        
-        DB::statement(
-            'pa_actualizar_feriados(?,?,?)',
-            [
-                $request->fecha_feriado,
-                $request->dia_feriado,
-                $request->tipo_feriado
+        try{
+            DB::statement(
+                'call pa_actualizar_feriados(?,?,?)',
+                [
+                    $request->fecha_feriado,
+                    $request->dia_feriado,
+                    $request->tipo_feriado
+                ]
+            );    
 
-            ]
-        );
-
-        
+        }catch(Exception $e){
+            return response()->json(['msg'=>"Ocurrio un error en la base de datos. Reporte con el administrador"], 500);
+        }
         return response()->json([
-            'respuesta' => true,
-            'mensaje' => "Feriado insertado correctamente"
-        ], 201);
+            'res' => true,
+        ], 204);
     }
     /**
      * Remove the specified resource from storage.
@@ -72,8 +75,21 @@ class FeriadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        try{
+            DB::statement(
+                'call pa_eliminar_feriados(?)',
+                [
+                    $request->fecha_feriado
+                ]
+            );    
+
+        }catch(Exception $e){
+            return response()->json(['msg'=>"Ocurrio un error en la base de datos. Reporte con el administrador"], 500);
+        }
+        return response()->json([
+            'res' => true,
+        ], 204);
     }
 }
