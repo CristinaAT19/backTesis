@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Api;
 
 use App\Models\Empleado;
@@ -13,6 +12,12 @@ use App\Http\Requests\CambiarTipoUsuarioRequest;
 use App\Http\Requests\ResetearPasswordRequest;
 use App\Http\Requests\InsertarEmpleadoRequest;
 use App\Http\Requests\ActualizarEmpleadoRequest;
+use App\Http\Requests\ActualizarPerfilRequest;
+use App\Http\Requests\ActualizarPuntajeConductaRequest;
+use App\Http\Requests\ActualizarPuntajeConocimientosRequest;
+use App\Http\Requests\ActualizarPuntajeEntrevistaRequest;
+use App\Http\Requests\ActualizarPuntuacionCvRequest;
+use App\Http\Requests\InsertarPerfilRequest;
 use App\Http\Requests\TipoUsuarioRequest;
 use App\Http\Requests\ListarAsistenciaFecha;
 use PhpParser\Node\Expr\Empty_;
@@ -424,8 +429,206 @@ class AdministradorController extends Controller
         ], 200);
     }
     
-    public function pasarTokenAOtroRepo(){
+    /*public function pasarTokenAOtroRepo(){
         $userAux = $request->user()->currentAccessToken();
         return redirect()->away('http://localhost:8080/api/login/token');
+    }*/
+
+    ///////---- HU05 ----/////////
+
+    public function agregarPerfil(InsertarPerfilRequest $request)
+    {
+       /* DB::statement(
+            'call pa_insertar_perfil(?,?)',
+            [
+                $request->perfil_nombre,
+                $request->perfil_subarea,
+            ]
+        );*/
+
+        $perfil = Perfil::create([
+            "perfil_nombre" => $request->perfil_nombre,
+            "perfil_Id_Sub_Area_fk" => $request->perfil_subarea
+        ]);
+
+        return response()->json([
+            'respuesta' => true,
+            'mensaje' => "perfil insertado correctamente",
+            "perfil" =>$perfil
+        ], 201);
+    }
+
+    ///////---- HU06 ----/////////
+
+    public function actualizarPerfil(ActualizarPerfilRequest $request, $id)
+    {
+       /* DB::statement(
+            'call pa_actualizar_perfil(?,?,?)',
+            [
+                $id,
+                $request->perfil_nombre,
+                $request->perfil_subarea,
+            ]
+        );*/
+
+        $perfil = Perfil::find($id);
+        //$perfil->fill($request->all());
+        $perfil->perfil_nombre = $request->perfil_nombre;
+        $perfil->perfil_Id_Sub_Area_fk = $request->perfil_subarea;
+        $perfil->save();
+
+        return response()->json([
+            'respuesta' => true,
+            'mensaje' => "perfil actualizado correctamente"
+        ], 204);
+    }
+
+    ///////---- HU07 ----/////////
+
+    public function eliminarPerfil($id)
+    {
+     Perfil::where('perfil_Id', $id)->first()->delete();   
+        return response()->json([
+            'respuesta' => true,
+            'mensaje' => "perfil eliminado correctamente"
+        ], 204);
+    }
+
+    public function actualizarPuntuacionCv(ActualizarPuntuacionCvRequest $request, $id)
+    {
+        DB::statement(
+             'call pa_actualizar_revisioncv(?,?,?,?,?,?,?,?,?)',
+            [
+                $request->Puntaje1,
+                $request->Puntaje2,
+                $request->Puntaje3,
+                $request->Puntaje4,
+                $request->Puntaje5,
+                $request->Puntaje6,
+                $request->Puntaje7,
+                $request->Puntaje8,
+                $id,             
+            ]
+        );
+        return response()->json([
+            'respuesta' => true,
+            'mensaje' => "calificacion cv actualizado correctamente"
+        ], 200);
+    }
+
+    public function actualizarPuntajeConducta(ActualizarPuntajeConductaRequest $request, $id)
+    {
+        DB::statement(
+             'call pa_actualizar_observacionconducta(?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            [
+                $request->Puntaje1,
+                $request->Puntaje2,
+                $request->Puntaje3,
+                $request->Puntaje4,
+                $request->Puntaje5,
+                $request->Puntaje6,
+                $request->Puntaje7,
+                $request->Puntaje8,
+                $request->Puntaje9,
+                $request->Puntaje10,
+                $request->Puntaje11,
+                $request->Observaciones,
+                $id,             
+            ]
+        );
+        return response()->json([
+            'respuesta' => true,
+            'mensaje' => "calificacion conducta actualizada correctamente"
+        ], 200);
+    }
+
+    public function actualizarPuntajeEntrevista(ActualizarPuntajeEntrevistaRequest $request, $id)
+    {
+        DB::statement(
+             'call pa_actualizar_entrevistastar(?,?,?,?,?,?,?,?,?)',
+            [
+                $request->Puntaje1,
+                $request->Puntaje2,
+                $request->Puntaje3,
+                $request->Puntaje4,
+                $request->Puntaje5,
+                $request->Puntaje6,
+                $request->Puntaje7,
+                $request->Puntaje8,
+                $id,             
+            ]
+        );
+        return response()->json([
+            'respuesta' => true,
+            'mensaje' => "calificacion entrevista actualizada correctamente"
+        ], 200);
+    }
+
+    public function actualizarPuntajeConocimientos(ActualizarPuntajeConocimientosRequest $request, $id)
+    {
+        DB::statement(
+             'call pa_actualizar_evaluacionconocimientos(?,?,?,?,?)',
+            [
+                $request->Puntaje1,
+                $request->Puntaje2,
+                $request->Puntaje3,
+                $request->Puntaje4,
+                $id,             
+            ]
+        );
+        return response()->json([
+            'respuesta' => true,
+            'mensaje' => "calificacion conocimientos actualizada correctamente"
+        ], 200);
+    }
+
+    public function listarCalificacionGeneral( )
+    {
+        $calificaciones = DB::select("call pa_listar_calificaciongeneral");
+        return response()->json([
+            'respuesta' => true,
+            'empleados' => $calificaciones
+        ], 200);
+    }
+
+    public function listarRevisionCv( )
+    {
+        $cv = DB::select("call pa_listar_revisionCV");
+        return response()->json([
+            'respuesta' => true,
+            'empleados' => $cv
+        ], 200);
+    }
+    
+    public function listarObservacionConducta( )
+    {
+        $conducta = DB::select("call pa_listar_observacionConducta");
+        return response()->json([
+            'respuesta' => true,
+            'empleados' => $conducta
+        ], 200);
+    }
+
+    public function listarEntrevistaStar( )
+    {
+        $star = DB::select("call pa_listar_entrevistaSTAR");
+        return response()->json([
+            'respuesta' => true,
+            'empleados' => $star
+        ], 200);
+    }
+
+    public function listarEvaluacionConocimientos( )
+    {
+        $conocimientos = DB::select("call pa_listar_evaluacionConocimientos");
+        return response()->json([
+            'respuesta' => true,
+            'empleados' => $conocimientos
+        ], 200);
     }
 }
+
+
+
+
+

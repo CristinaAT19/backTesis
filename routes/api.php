@@ -56,3 +56,17 @@ Route::get('unidades', [AdministradorController::class, 'listarUnidades']);
 Route::get('subarea', [AdministradorController::class, 'listarSubareas']);
 Route::get('perfil', [AdministradorController::class, 'listarPerfiles']);
 Route::get('marcas', [AdministradorController::class, 'listarMarcas']);
+
+Route::post('agregarPerfil', [AdministradorController::class, 'agregarPerfil']); 
+Route::post('actualizarPerfil/{id}', [AdministradorController::class, 'actualizarPerfil']); 
+Route::post('eliminarPerfiles/{id}', [AdministradorController::class, 'eliminarPerfil']); 
+
+Route::post('actualizarPuntuacionCv/{id}', [AdministradorController::class, 'actualizarPuntuacionCv']); 
+Route::post('actualizarPuntajeConducta/{id}', [AdministradorController::class, 'actualizarPuntajeConducta']); 
+Route::post('actualizarPuntajeEntrevista/{id}', [AdministradorController::class, 'actualizarPuntajeEntrevista']); 
+Route::post('actualizarPuntajeConocimientos/{id}', [AdministradorController::class, 'actualizarPuntajeConocimientos']);
+Route::get('listarCalificacionGeneral', [AdministradorController::class, 'listarCalificacionGeneral']); 
+Route::get('listarRevisionCv', [AdministradorController::class, 'listarRevisionCv']); 
+Route::get('listarObservacionConducta', [AdministradorController::class, 'listarObservacionConducta']); 
+Route::get('listarEntrevistaStar', [AdministradorController::class, 'listarEntrevistaStar']); 
+Route::get('listarEvaluacionConocimientos', [AdministradorController::class, 'listarEvaluacionConocimientos']); 
