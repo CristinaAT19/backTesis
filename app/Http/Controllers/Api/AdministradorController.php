@@ -401,18 +401,6 @@ class AdministradorController extends Controller
             'Subareas' => $arreglo,
         ], 200);
     }
-    public function listarPerfiles()
-    {
-        $perfiles = Perfil::all();
-        foreach ($perfiles as $perfil) {
-            $arreglo[] = $perfil->Perfil_Nombre;
-        }
-        return response()->json([
-            'res' => true,
-            // 'msg' => 'Listado Correcto :)',
-            'Perfiles' => $arreglo,
-        ], 200);
-    }
     public function listarMarcas()
     {
         $marcas = Marca::all();

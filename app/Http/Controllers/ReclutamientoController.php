@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompetenciaRequest;
+use App\Models\Perfil;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ReclutamientoController extends Controller
@@ -15,19 +17,10 @@ class ReclutamientoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function mostrarPerfiles()
+    public function listarPerfiles()
     {
-        $perfiles = [];
-        try {
-            $perfiles = [
-                'nombre' => 'Juan',
-                'apellido' => 'Perez',
-                'edad' => '25',
-                'dni' => '12345678',
-                'direccion' => 'Av. Siempre Viva 123',
-                'telefono' => '12345678',
-                'email' => 'algo@algo.con'
-            ];
+        try {            
+            $perfiles = Perfil::all();
         } catch (Exception $e) {
             return response()->json(['error' => 'Ocurrio un error en el servidor'], 500);
         }
@@ -35,6 +28,24 @@ class ReclutamientoController extends Controller
             'res' => true,
             'perfiles' => $perfiles
         ], 200);
+    }
+
+    public function obtenerDatosPorPerfil($idPerfil){
+        try {         
+            $listado = DB::select(
+                'call pa_listar_estructura(?)',
+                [
+                    $idPerfil,
+                ]
+            );
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Ocurrio un error en el servidor'], 500);
+        }
+        return response()->json([
+            'res' => true,
+            'perfiles' => $listado
+        ], 200);
+
     }
 
     public function mostrarRequerimientos()

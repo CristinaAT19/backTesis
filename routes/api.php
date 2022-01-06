@@ -63,8 +63,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('requerimientos', [ReclutamientoController::class, 'mostrarRequerimientos']);
 
     // Perfiles
-    Route::get('perfiles', [ReclutamientoController::class, 'mostrarPerfiles']);
-
+    Route::get('perfil', [ReclutamientoController::class, 'listarPerfiles']);
+    // Route::get('perfil', [AdministradorController::class, 'listarPerfiles']);
+    Route::get('perfil/{id}', [ReclutamientoController::class, 'obtenerDatosPorPerfil']);
+    Route::get('unidades', [AdministradorController::class, 'listarUnidades']);
 
 
 
@@ -75,9 +77,7 @@ Route::get('limpiarFaltas', [AsistenciaController::class, 'limpiarFaltas']);
 Route::get('limpiarAsistencias', [AsistenciaController::class, 'limpiarAsistencias']);
 Route::get('verificarToken/{dni}', [AutenticarController::class, 'verificarToken']);
 Route::get('areas', [AdministradorController::class, 'listarAreas']);
-Route::get('unidades', [AdministradorController::class, 'listarUnidades']);
 Route::get('subarea', [AdministradorController::class, 'listarSubareas']);
-Route::get('perfil', [AdministradorController::class, 'listarPerfiles']);
 Route::get('marcas', [AdministradorController::class, 'listarMarcas']);
 
 
