@@ -619,17 +619,25 @@ class AdministradorController extends Controller
 
     public function insertarFeriados(InsertarFeriado $request)
     {
-        DB::statement(
-            'call pa_insertar_feriados(?,?,?)',
-            [
-                $request->fecha_feriado,
-                $request->dia_feriado,
-                $request->tipo_feriado,
-            ]
-        );
+        try{
+            DB::statement(
+                'call pa_insertar_feriados(?,?,?)',
+                [
+                    $request->fecha_feriado,
+                    $request->dia_feriado,
+                    $request->tipo_feriado,
+                ]
+            );
+    
+        }catch(Exception $e){
+            return response()->json([
+                'res' => false,
+                'msg' => "La fecha ya existe o no se pudo insertar. Verifique los datos"
+            ],500);
+        }
         return response()->json([
             'respuesta' => true,
-            'mensaje' => "Feriado insertado correctamente"
+            'msg' => "Feriado insertado correctamente"
         ], 200);
     }
     public function listarFeriados()
