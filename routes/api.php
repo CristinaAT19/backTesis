@@ -6,8 +6,8 @@ use App\Http\Controllers\Api\AdministradorController;
 use App\Http\Controllers\Api\AsistenciaController;
 
 use App\Http\Controllers\Api\UsuarioController;
-
-
+use App\Http\Controllers\FeriadoController;
+use App\Http\Controllers\ReclutamientoController;
 
 Route::post('marcar', [AsistenciaController::class, 'marcarAsistencia']);
 Route::post('acceso', [AutenticarController::class, 'acceso']);
@@ -31,6 +31,19 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('resetearPassword', [AdministradorController::class, 'resetPassword']);
         Route::get('filtradoFecha', [AdministradorController::class, 'filtradoFecha']);
         Route::get('asistenciaTotal', [AdministradorController::class, 'asistenciaTotal']);
+
+        // Feriados
+        Route::post('insertarFeriados', [AdministradorController::class, 'insertarFeriados']);
+        Route::get('listarFeriados', [AdministradorController::class, 'listarFeriados']);
+        Route::put('feriados', [FeriadoController::class, 'update']);
+        Route::delete('feriados', [FeriadoController::class, 'destroy']);
+        // Route::post('vadawd', [FeriadoController::class, 'update']);
+        
+        // Manual de competencias
+        Route::get('competencias', [ReclutamientoController::class, 'mostrarCompetencias']);
+        Route::post('competencias', [ReclutamientoController::class, 'agregarCompetencia']);
+        Route::put('competencias/{id}', [ReclutamientoController::class, 'modificarCompetencia']);
+        Route::delete('vacascompetencias/{id}', [ReclutamientoController::class, 'eliminarCompetencia']);
     });
 
     //Manejo de faltas
@@ -40,11 +53,23 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('cambiarPassword', [UsuarioController::class, 'cambiarPassword']);
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
     Route::post('mostrarTipoUsuario', [AdministradorController::class, 'mostrarTipoUsuario']);
-    Route::get('seeMyRoutes', [AdministradorController::class, 'mostrarSoloTipoUsuario']);
+    // Route::get('seeMyRoutes', [AdministradorController::class, 'mostrarSoloTipoUsuario']);
 
     // Pasar token a otro repositorio
 
     // Route::get('pasarTOkenAOtroRepo', [AdministradorController::class, 'pasarTokenAOtroRepo']);
+
+    // Requerimientos de personal
+    Route::get('requerimientos', [ReclutamientoController::class, 'mostrarRequerimientos']);
+
+    // Perfiles
+    Route::get('perfil', [ReclutamientoController::class, 'listarPerfiles']);
+    // Route::get('perfil', [AdministradorController::class, 'listarPerfiles']);
+    Route::get('perfil/{id}', [ReclutamientoController::class, 'obtenerDatosPorPerfil']);
+    Route::get('unidades', [AdministradorController::class, 'listarUnidades']);
+
+
+
 });
 Route::get('marcarFaltas/{turno}', [AsistenciaController::class, 'marcarFaltas']);
 Route::get('inactividad', [AutenticarController::class, 'eliminarTokenInactividad']);
@@ -52,9 +77,7 @@ Route::get('limpiarFaltas', [AsistenciaController::class, 'limpiarFaltas']);
 Route::get('limpiarAsistencias', [AsistenciaController::class, 'limpiarAsistencias']);
 Route::get('verificarToken/{dni}', [AutenticarController::class, 'verificarToken']);
 Route::get('areas', [AdministradorController::class, 'listarAreas']);
-Route::get('unidades', [AdministradorController::class, 'listarUnidades']);
 Route::get('subarea', [AdministradorController::class, 'listarSubareas']);
-Route::get('perfil', [AdministradorController::class, 'listarPerfiles']);
 Route::get('marcas', [AdministradorController::class, 'listarMarcas']);
 
 Route::post('agregarPerfil', [AdministradorController::class, 'agregarPerfil']); 

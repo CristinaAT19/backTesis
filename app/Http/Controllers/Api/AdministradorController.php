@@ -20,12 +20,14 @@ use App\Http\Requests\ActualizarPuntuacionCvRequest;
 use App\Http\Requests\InsertarPerfilRequest;
 use App\Http\Requests\TipoUsuarioRequest;
 use App\Http\Requests\ListarAsistenciaFecha;
+use App\Http\Requests\InsertarFeriado;
 use PhpParser\Node\Expr\Empty_;
 use App\Models\Area;
 use App\Models\Unidad;
 use App\Models\Subarea;
 use App\Models\Perfil;
 use App\Models\Marca;
+use App\Models\Feriado;
 use DateTime;
 
 class AdministradorController extends Controller
@@ -404,18 +406,6 @@ class AdministradorController extends Controller
             'Subareas' => $arreglo,
         ], 200);
     }
-    public function listarPerfiles()
-    {
-        $perfiles = Perfil::all();
-        foreach ($perfiles as $perfil) {
-            $arreglo[] = $perfil->Perfil_Nombre;
-        }
-        return response()->json([
-            'res' => true,
-            // 'msg' => 'Listado Correcto :)',
-            'Perfiles' => $arreglo,
-        ], 200);
-    }
     public function listarMarcas()
     {
         $marcas = Marca::all();
@@ -624,6 +614,30 @@ class AdministradorController extends Controller
         return response()->json([
             'respuesta' => true,
             'empleados' => $conocimientos
+        ], 200);
+    }
+
+    public function insertarFeriados(InsertarFeriado $request)
+    {
+        DB::statement(
+            'call pa_insertar_feriados(?,?,?)',
+            [
+                $request->fecha_feriado,
+                $request->dia_feriado,
+                $request->tipo_feriado,
+            ]
+        );
+        return response()->json([
+            'respuesta' => true,
+            'mensaje' => "Feriado insertado correctamente"
+        ], 200);
+    }
+    public function listarFeriados()
+    {
+        $feriados = Feriado::all();
+        return response()->json([
+            'res' => true,
+            'Feriados' => $feriados,
         ], 200);
     }
 }
