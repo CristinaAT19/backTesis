@@ -24,10 +24,10 @@ class ActualizarPuntajeConocimientosRequest extends FormRequest
     public function rules()
     {
         return [
-            'Puntaje1'=>'required|integer',
-            'Puntaje2'=>'required|integer',
-            'Puntaje3'=>'required|integer',
-            'Puntaje4'=>'required|integer',
+            'Puntaje1'=>'required|integer|between:0,2',
+            'Puntaje2'=>'required|integer|between:0,2',
+            'Puntaje3'=>'required|integer|between:0,2',
+            'Puntaje4'=>'required|integer|between:0,2',
         ];
     }
 }

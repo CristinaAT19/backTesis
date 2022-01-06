@@ -24,17 +24,17 @@ class ActualizarPuntajeConductaRequest extends FormRequest
     public function rules()
     {
         return [
-            'Puntaje1'=>'required|integer',
-            'Puntaje2'=>'required|integer',
-            'Puntaje3'=>'required|integer',
-            'Puntaje4'=>'required|integer',
-            'Puntaje5'=>'required|integer',
-            'Puntaje6'=>'required|integer',
-            'Puntaje7'=>'required|integer',
-            'Puntaje8'=>'required|integer',
-            'Puntaje9'=>'required|integer',
-            'Puntaje10'=>'required|integer',
-            'Puntaje11'=>'required|integer',
+            'Puntaje1'=>'required|integer|between:0,1',
+            'Puntaje2'=>'required|integer|between:0,1',
+            'Puntaje3'=>'required|integer|between:0,1',
+            'Puntaje4'=>'required|integer|between:0,1',
+            'Puntaje5'=>'required|integer|between:0,1',
+            'Puntaje6'=>'required|integer|between:0,1',
+            'Puntaje7'=>'required|integer|between:0,1',
+            'Puntaje8'=>'required|integer|between:0,1',
+            'Puntaje9'=>'required|integer|between:0,1',
+            'Puntaje10'=>'required|integer|between:0,1',
+            'Puntaje11'=>'required|integer|between:0,1',
             'Observaciones'=>'required|string',
         ];
     }

@@ -24,14 +24,14 @@ class ActualizarPuntajeEntrevistaRequest extends FormRequest
     public function rules()
     {
         return [
-            'Puntaje1'=>'required|integer',
-            'Puntaje2'=>'required|integer',
-            'Puntaje3'=>'required|integer',
-            'Puntaje4'=>'required|integer',
-            'Puntaje5'=>'required|integer',
-            'Puntaje6'=>'required|integer',
-            'Puntaje7'=>'required|integer',
-            'Puntaje8'=>'required|integer',
+            'Puntaje1'=>'required|integer|between:0,5',
+            'Puntaje2'=>'required|integer|between:0,5',
+            'Puntaje3'=>'required|integer|between:0,5',
+            'Puntaje4'=>'required|integer|between:0,5',
+            'Puntaje5'=>'required|integer|between:0,5',
+            'Puntaje6'=>'required|integer|between:0,5',
+            'Puntaje7'=>'required|integer|between:0,5',
+            'Puntaje8'=>'required|integer|between:0,5',
         ];
     }
 }

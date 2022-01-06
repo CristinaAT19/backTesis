@@ -586,7 +586,7 @@ class AdministradorController extends Controller
         $cv = DB::select("call pa_listar_revisionCV");
         return response()->json([
             'respuesta' => true,
-            'empleados' => $cv
+            'evaluacion' => $cv
         ], 200);
     }
     
@@ -595,7 +595,7 @@ class AdministradorController extends Controller
         $conducta = DB::select("call pa_listar_observacionConducta");
         return response()->json([
             'respuesta' => true,
-            'empleados' => $conducta
+            'evaluacion' => $conducta
         ], 200);
     }
 
@@ -604,7 +604,7 @@ class AdministradorController extends Controller
         $star = DB::select("call pa_listar_entrevistaSTAR");
         return response()->json([
             'respuesta' => true,
-            'empleados' => $star
+            'evaluacion' => $star
         ], 200);
     }
 
@@ -613,7 +613,7 @@ class AdministradorController extends Controller
         $conocimientos = DB::select("call pa_listar_evaluacionConocimientos");
         return response()->json([
             'respuesta' => true,
-            'empleados' => $conocimientos
+            'evaluacion' => $conocimientos
         ], 200);
     }
 
