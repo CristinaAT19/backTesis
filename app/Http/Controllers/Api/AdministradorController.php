@@ -484,7 +484,7 @@ class AdministradorController extends Controller
         ], 204);
     }
 
-    public function actualizarPuntuacionCv(ActualizarPuntuacionCvRequest $request, $id)
+    public function actualizarPuntajeCv(ActualizarPuntuacionCvRequest $request, $id)
     {
         DB::statement(
              'call pa_actualizar_revisioncv(?,?,?,?,?,?,?,?,?)',

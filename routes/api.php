@@ -44,6 +44,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('competencias', [ReclutamientoController::class, 'agregarCompetencia']);
         Route::put('competencias/{id}', [ReclutamientoController::class, 'modificarCompetencia']);
         Route::delete('vacascompetencias/{id}', [ReclutamientoController::class, 'eliminarCompetencia']);
+        
+        // Califiaciones
+        Route::post('actualizarPuntajeCv/{id}', [AdministradorController::class, 'actualizarPuntajeCv']); 
+        Route::post('actualizarPuntajeConducta/{id}', [AdministradorController::class, 'actualizarPuntajeConducta']); 
+        Route::post('actualizarPuntajeEntrevista/{id}', [AdministradorController::class, 'actualizarPuntajeEntrevista']); 
+        Route::post('actualizarPuntajeConocimientos/{id}', [AdministradorController::class, 'actualizarPuntajeConocimientos']);
+        Route::get('listarCalificacionGeneral', [AdministradorController::class, 'listarCalificacionGeneral']); 
+        Route::get('listarRevisionCv', [AdministradorController::class, 'listarRevisionCv']); 
+        Route::get('listarObservacionConducta', [AdministradorController::class, 'listarObservacionConducta']); 
+        Route::get('listarEntrevistaStar', [AdministradorController::class, 'listarEntrevistaStar']); 
+        Route::get('listarEvaluacionConocimientos', [AdministradorController::class, 'listarEvaluacionConocimientos']); 
+   
     });
 
     //Manejo de faltas
@@ -84,12 +96,4 @@ Route::post('agregarPerfil', [AdministradorController::class, 'agregarPerfil']);
 Route::post('actualizarPerfil/{id}', [AdministradorController::class, 'actualizarPerfil']); 
 Route::post('eliminarPerfiles/{id}', [AdministradorController::class, 'eliminarPerfil']); 
 
-Route::post('actualizarPuntuacionCv/{id}', [AdministradorController::class, 'actualizarPuntuacionCv']); 
-Route::post('actualizarPuntajeConducta/{id}', [AdministradorController::class, 'actualizarPuntajeConducta']); 
-Route::post('actualizarPuntajeEntrevista/{id}', [AdministradorController::class, 'actualizarPuntajeEntrevista']); 
-Route::post('actualizarPuntajeConocimientos/{id}', [AdministradorController::class, 'actualizarPuntajeConocimientos']);
-Route::get('listarCalificacionGeneral', [AdministradorController::class, 'listarCalificacionGeneral']); 
-Route::get('listarRevisionCv', [AdministradorController::class, 'listarRevisionCv']); 
-Route::get('listarObservacionConducta', [AdministradorController::class, 'listarObservacionConducta']); 
-Route::get('listarEntrevistaStar', [AdministradorController::class, 'listarEntrevistaStar']); 
-Route::get('listarEvaluacionConocimientos', [AdministradorController::class, 'listarEvaluacionConocimientos']); 
+
