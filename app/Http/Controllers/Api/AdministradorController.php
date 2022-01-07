@@ -577,7 +577,7 @@ class AdministradorController extends Controller
         $calificaciones = DB::select("call pa_listar_calificaciongeneral");
         return response()->json([
             'respuesta' => true,
-            'empleados' => $calificaciones
+            'evaluacion' => $calificaciones
         ], 200);
     }
 
