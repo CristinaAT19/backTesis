@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- Styles -->
     <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
@@ -61,9 +61,9 @@
                 <div class="tab-content paddding-bottom:3px paddding-right:3px" id="v-pills-tabContent">
 
                     <div class="tab-pane fade" id="v-pills-marcarAsistencia" role="tabpanel" aria-labelledby="v-pills-marcarAsistencia-tab">
-                        <strong>Ruta: </strong >
+                        <strong>Ruta: </strong>
                         <label id="p1">https://desarrollo.consigueventas.com/Backend/public/api/marcar</label></br>
-                            
+
                         <label><strong>Descripcion: </strong>Sirve para marcar asistencia</label></br>
                         <label><strong>Requisitos: </strong>Todos los datos deben ser varchar</label></br>
                         <label><strong>Metodos: </strong><strong>POST</strong></label></br>
@@ -78,8 +78,8 @@
                         </label></br>
 
                         <button onclick="copyToClipboard('#p1')"><i class="far fa-copy"></i></button>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                         <input type="text" placeholder="Pega aquí para probar" />
                         <label><strong>Token: </strong>No</label></br>
                         <label><strong>Tipo de Usuario: </strong>Administrador</label>
@@ -481,8 +481,6 @@
                         <label><strong>Metodos: </strong><strong>GET</strong></label></br>
                         <label><strong>Campos Requeridos: </strong> </label></br>
                         <label><strong>Ejemplo: </strong></br>
-
-
                         </label></br>
                         <label><strong>Token: </strong>No</label> </br>
                         <label><strong>Tipo de Usuario: </strong>Cualquiera</label>
@@ -493,15 +491,25 @@
 
         </div>
     </div>
+
+    <div class=" mx-auto sm:px-6 lg:px-8 d-flex align-items-start">
+        <button type="button">
+            <strong> <a href="./asistencia">Ir a Documentacion Asistencia</a></strong>
+        </button>
+        <button type="button">
+            <strong> <a href="./ERP">Ir a Documentacion ERP</a></strong>
+        </button>
     </div>
+
+
     <script>
         function copyToClipboard(elemento) {
-  var $temp = $("<input>")
-  $("body").append($temp);
-  $temp.val($(elemento).text()).select();
-  document.execCommand("copy");
-  $temp.remove();
-}
+            var $temp = $("<input>")
+            $("body").append($temp);
+            $temp.val($(elemento).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
     </script>
 </body>
 
