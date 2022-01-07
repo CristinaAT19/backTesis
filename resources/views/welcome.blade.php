@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Documentacion de API</title>
+    <title>APIS</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -13,8 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- Styles -->
     <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
@@ -61,28 +61,34 @@
                 <div class="tab-content paddding-bottom:3px paddding-right:3px" id="v-pills-tabContent">
 
                     <div class="tab-pane fade" id="v-pills-marcarAsistencia" role="tabpanel" aria-labelledby="v-pills-marcarAsistencia-tab">
-                        <strong>Ruta: </strong>
-                        <label id="p1">https://desarrollo.consigueventas.com/Backend/public/api/marcar</label></br>
-
-                        <label><strong>Descripcion: </strong>Sirve para marcar asistencia</label></br>
-                        <label><strong>Requisitos: </strong>Todos los datos deben ser varchar</label></br>
-                        <label><strong>Metodos: </strong><strong>POST</strong></label></br>
-                        <label><strong>Campos Requeridos: </strong>"dni,plataforma,useragent,usertime"</label></br>
-                        <label><strong>Ejemplo: </strong></br>
-                            {
-                            "dni" : "73615048",
-                            "plataforma" : "web",
-                            "useragent" : "agente",
-                            "usertime" : "tiempo marcado"
-                            }
-                        </label></br>
-
-                        <button onclick="copyToClipboard('#p1')"><i class="far fa-copy"></i></button>
-                        <br />
-                        <br />
-                        <input type="text" placeholder="Pega aquí para probar" />
-                        <label><strong>Token: </strong>No</label></br>
-                        <label><strong>Tipo de Usuario: </strong>Administrador</label>
+                        <h3>Ruta: </h3 >
+                        <label class="ruta alerta" id="p1">https://desarrollo.consigueventas.com/Backend/public/api/marcar</label>
+                        <button class="btn btn-outline-primary" onclick="copyToClipboard('#p1')"><i class="far fa-copy"></i></button>
+                        <span id="alerta">Copiado!!</span>
+                        <br>
+                        <h3>Descripción:</h3>
+                        <p>Sirve para marcar asistencia</p>
+                        <h3>Requisitos:</h3>
+                        <p>Todos los datos deben ser varchar</p>
+                        <h3>Metodo:</h3>
+                        <p>Post</p>
+                        <h3>Campos Requeridos: </h3>
+                        <p>"dni, plataforma, useragent, usertime"</p>
+                        <h3>Ejemplo: </h3>
+                        <div  class="json">
+<pre>
+    {
+        "dni" : "73615048",
+        "plataforma" : "web",
+        "useragent" : "agente",
+        "usertime" : "tiempo marcado"
+    }
+</pre>
+                            </div>
+                        <h3>Token:</h3>
+                        <p>No</p>
+                        <h3>Tipo de Usuario:</h3>
+                        <p>Administrador</p>
                     </div>
 
 
@@ -481,6 +487,7 @@
                         <label><strong>Metodos: </strong><strong>GET</strong></label></br>
                         <label><strong>Campos Requeridos: </strong> </label></br>
                         <label><strong>Ejemplo: </strong></br>
+
                         </label></br>
                         <label><strong>Token: </strong>No</label> </br>
                         <label><strong>Tipo de Usuario: </strong>Cualquiera</label>
@@ -491,17 +498,10 @@
 
         </div>
     </div>
-
-    <div class=" mx-auto sm:px-6 lg:px-8 d-flex align-items-start">
-        <button type="button">
-            <strong> <a href="./asistencia">Ir a Documentacion Asistencia</a></strong>
-        </button>
-        <button type="button">
-            <strong> <a href="./ERP">Ir a Documentacion ERP</a></strong>
-        </button>
     </div>
+    <script>
 
-
+    </script>
     <script>
         function copyToClipboard(elemento) {
             var $temp = $("<input>")
@@ -509,8 +509,16 @@
             $temp.val($(elemento).text()).select();
             document.execCommand("copy");
             $temp.remove();
+            var x = document.getElementById('alerta');
+            if (x.style.display === 'none') {
+                x.style.display = 'inline';
+            }else{
+                x.style.display = 'none';
+            }
         }
     </script>
+
+
 </body>
 
 </html>

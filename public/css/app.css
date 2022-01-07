@@ -163,7 +163,9 @@ video {
 .overflow-hidden {
     overflow: hidden;
 }
-
+.ruta {
+    display: inline-block;
+}
 .p-6 {
     padding: 1.5rem;
 }
@@ -264,7 +266,16 @@ video {
 .w-8 {
     width: 2rem;
 }
-
+#alerta {
+    display: none;
+    color: rgb(31, 93, 163);
+}
+.json {
+    background-color: rgb(200, 200, 200);
+    width: 50%;
+    margin: 2rem;
+    border-radius: 1rem;
+}
 .w-auto {
     width: auto;
 }
