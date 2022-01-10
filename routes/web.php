@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,10 @@ Route::get('/asistencia', function () {
     return view('welcome');
 });
 
+// Para documentacion de apis
+Route::get('readFileJson',[DocumentController::class,'readFileJson'])->name('readFileJson');
+Route::get('writeFileJson',[DocumentController::class,'writeFileJson'])->name('writeFileJson');
+Route::get('newRegister',[DocumentController::class,'registerApi'])->name('register.api');
 Route::get('/ERP', function () {
     return view('list');
 });
