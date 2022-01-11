@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('resetearPassword', [AdministradorController::class, 'resetPassword']);
         Route::get('filtradoFecha', [AdministradorController::class, 'filtradoFecha']);
         Route::get('asistenciaTotal', [AdministradorController::class, 'asistenciaTotal']);
+        Route::put('recurso', [AdministradorController::class, 'actualizarRecurso']);
     });
 
     //Manejo de faltas
@@ -49,3 +50,4 @@ Route::get('unidades', [AdministradorController::class, 'listarUnidades']);
 Route::get('subarea', [AdministradorController::class, 'listarSubareas']);
 Route::get('perfil', [AdministradorController::class, 'listarPerfiles']);
 Route::get('marcas', [AdministradorController::class, 'listarMarcas']);
+Route::get('auspm', [AdministradorController::class, 'listarAUSPM']);

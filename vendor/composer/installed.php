@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '4850b60c365c046860b5cb6d8580b19e95b580c2',
+        'reference' => 'f6bda0b9b0befb67350ad80a5c3fb9ab181ef83c',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -26,6 +26,24 @@
             'install_path' => __DIR__ . '/../brick/math',
             'aliases' => array(),
             'reference' => 'ca57d18f028f84f777b2168cd1911b0dee2343ae',
+            'dev_requirement' => false,
+        ),
+        'cloudcreativity/json-api-testing' => array(
+            'pretty_version' => 'v3.3.0',
+            'version' => '3.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../cloudcreativity/json-api-testing',
+            'aliases' => array(),
+            'reference' => '2d35574b78f5073d1f465cad3cba34b7a613ab58',
+            'dev_requirement' => true,
+        ),
+        'cloudcreativity/laravel-json-api' => array(
+            'pretty_version' => 'v3.3.0',
+            'version' => '3.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../cloudcreativity/laravel-json-api',
+            'aliases' => array(),
+            'reference' => '30247140e1e83692f963c6aa009e4ef9c054da98',
             'dev_requirement' => false,
         ),
         'cordoval/hamcrest-php' => array(
@@ -400,7 +418,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '4850b60c365c046860b5cb6d8580b19e95b580c2',
+            'reference' => 'f6bda0b9b0befb67350ad80a5c3fb9ab181ef83c',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -511,6 +529,15 @@
                 0 => '1.10.2',
             ),
         ),
+        'neomerx/json-api' => array(
+            'pretty_version' => 'v1.0.9',
+            'version' => '1.0.9.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../neomerx/json-api',
+            'aliases' => array(),
+            'reference' => 'c911b7494496e79f9de72ee40d6a2b791caaf95b',
+            'dev_requirement' => false,
+        ),
         'nesbot/carbon' => array(
             'pretty_version' => '2.54.0',
             'version' => '2.54.0.0',
@@ -556,6 +583,15 @@
             'reference' => '3004cfa49c022183395eabc6d0e5207dfe498d00',
             'dev_requirement' => true,
         ),
+        'nyholm/psr7' => array(
+            'pretty_version' => '1.4.1',
+            'version' => '1.4.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nyholm/psr7',
+            'aliases' => array(),
+            'reference' => '2212385b47153ea71b1c1b1374f8cb5e4f7892ec',
+            'dev_requirement' => false,
+        ),
         'opis/closure' => array(
             'pretty_version' => '3.6.2',
             'version' => '3.6.2.0',
@@ -582,6 +618,15 @@
             'aliases' => array(),
             'reference' => 'bae7c545bef187884426f042434e561ab1ddb182',
             'dev_requirement' => true,
+        ),
+        'php-http/message-factory' => array(
+            'pretty_version' => 'v1.0.2',
+            'version' => '1.0.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-http/message-factory',
+            'aliases' => array(),
+            'reference' => 'a478cb11f66a6ac48d8954216cfed9aa06a501a1',
+            'dev_requirement' => false,
         ),
         'phpdocumentor/reflection-common' => array(
             'pretty_version' => '2.2.0',
@@ -769,8 +814,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -1185,6 +1230,15 @@
             'install_path' => __DIR__ . '/../symfony/process',
             'aliases' => array(),
             'reference' => '38f26c7d6ed535217ea393e05634cb0b244a1967',
+            'dev_requirement' => false,
+        ),
+        'symfony/psr-http-message-bridge' => array(
+            'pretty_version' => 'v2.1.2',
+            'version' => '2.1.2.0',
+            'type' => 'symfony-bridge',
+            'install_path' => __DIR__ . '/../symfony/psr-http-message-bridge',
+            'aliases' => array(),
+            'reference' => '22b37c8a3f6b5d94e9cdbd88e1270d96e2f97b34',
             'dev_requirement' => false,
         ),
         'symfony/routing' => array(
