@@ -8,12 +8,13 @@ use App\Http\Requests\MarcarAsistenciaRequest;
 use Illuminate\Support\Facades\DB;
 use App\Custom\Validaciones;
 use Carbon\Carbon;
-
+use Exception;
 
 class AsistenciaController extends Controller
 {
     public function marcarAsistencia(MarcarAsistenciaRequest $request)
     {
+        // En la tarde no hay doble validacion en la tarde
 
         $validaciones = new Validaciones();
         date_default_timezone_set('America/Lima');
@@ -23,22 +24,58 @@ class AsistenciaController extends Controller
         $ipv6 = $validaciones->getRealIP();
         $ipv4 = hexdec(substr($ipv6, 0, 2)) . "." . hexdec(substr($ipv6, 2, 2)) . "." . hexdec(substr($ipv6, 5, 2)) . "." . hexdec(substr($ipv6, 7, 2));
         $SO = $validaciones->getSO($request->useragent);
+             
+        // $SO = null ? " No se ecnontro el sistema operativo" : $SO;
+        // $dispo=null ? "No encontro el dispositivo" : $dispo;
+        // $ipv6 = null ? "No se encontro la ip" : $ipv6;
+        // if($ipv6 == "" || $ipv6 == null || $ipv6 == " " || $ipv6 == "unknown"){
+        //     $ipv6 = "No se encontro la ip";
+        // }        
+        // return response()->json([
+        //     'respuesta' => 'true',
+        //     'mensaje' => $SO.' - '.$dispo.' - '.$ipv6. ' - '.$ipv4.' - '.$ipv6,
+
+        // ], 200);        
 
         $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
         $asis_estado = DB::select("select fu_verificar_puntualidad('$request->dni','$hora') AS Respuesta");
-
         $atributo = "Respuesta";
+        
+        // return response()->json(['res' => $asis_estado,'otra'=>$asis_estado[0],'nuevo'=>$asis_estado[0]->$atributo]);
+        //  1 o 2 <-- Rango de fecha
+        try{
+            if ($asis_estado[0]->$atributo == "2" || $asis_estado[0]->$atributo == "1") {
+                $detalle_asi = (int)$asis_estado[0]->$atributo;
+                // Exsistencia de empleado
+                if (!$empleado == null) {
+                    $msg2 = DB::select("select fu_verificar_intentos('$fecha', '$hora', $empleado->Emp_Id, '$request->plataforma', '$SO', '$dispo', '$request->useragent', '$request->usertime', '$ipv6', $detalle_asi) AS Respuesta");
 
-        if ($asis_estado[0]->$atributo == "2" || $asis_estado[0]->$atributo == "1") {
-            $detalle_asi = (int)$asis_estado[0]->$atributo;
-            if (!$empleado == null) {
-                $msg2 = DB::select("select fu_verificar_intentos('$fecha', '$hora', $empleado->Emp_Id, '$request->plataforma', '$SO', '$dispo', '$request->useragent', '$request->usertime', '$ipv6', $detalle_asi) AS respuesta");
-                $msg = $msg2[0]->respuesta;
+                    // return response()->json([
+                    //     'respuesta' => 'true',
+                    //     'mensaje' => $msg2[0]->$atributo
+                    // ], 200);
+            
+                    if($msg2[0]->$atributo == 1){
+                        if ($detalle_asi == 1 ) {
+                            $msg = "Gracias " . $empleado->Emp_Nombre . ", marcaste asistencia puntual ";
+                        } else if($detalle_asi == 2){
+                            $msg = "Gracias " . $empleado->Emp_Nombre . ", marcaste asistencia TARDE ";
+                        }
+                    }else{
+                        $msg = "No puedes volver a marcar asistencia";
+                    }
+                }
+            } else {
+                $msg = $asis_estado[0]->$atributo;
             }
-        } else {
-            $msg = $asis_estado[0]->$atributo;
+        }catch(Exception $e){
+            $msg = "Error en el servidor, no eres tu somos nostros";
+            return response()->json([
+                'respuesta' => 'true',
+                'mensaje' => $msg
+    
+            ], 200);
         }
-
         return response()->json([
             'respuesta' => 'true',
             'mensaje' => $msg

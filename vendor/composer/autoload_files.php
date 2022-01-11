@@ -36,4 +36,5 @@ return array(
     'b6b991a57620e2fb6b2f66f03fe9ddc2' => $vendorDir . '/symfony/string/Resources/functions.php',
     '7c2aa1c225ac1b68f2a3196e894faa92' => $vendorDir . '/cloudcreativity/laravel-json-api/helpers.php',
     'ed962a97bd972bc82007176b647d4e36' => $vendorDir . '/facade/ignition/src/helpers.php',
+    'd21d43db5f6e840ee7b10744ec7fdf66' => $baseDir . '/app/Helpers/helpers.php',
 );
