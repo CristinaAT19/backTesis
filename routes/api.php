@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('listarEvaluacionConocimientos', [AdministradorController::class, 'listarEvaluacionConocimientos']); 
 
         // Recursos
+        Route::put('recurso', [AdministradorController::class, 'actualizarRecurso']);
         Route::post('agregarRecurso', [AdministradorController::class, 'agregarRecurso']);
     });
 

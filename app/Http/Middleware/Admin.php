@@ -21,7 +21,7 @@ class Admin
         // 2 : Usuario
         // 1 : Administrador
         $userAux = $request->user()->currentAccessToken();
-
+                        
         try {
             if ($userAux->tokenable->usu_Tipo_User_Id_fk == 1) {
                 return $next($request);

@@ -660,6 +660,23 @@ class AdministradorController extends Controller
             'Feriados' => $feriados,
         ], 200);
     }
+    
+    public function actualizarRecurso(Request $request)
+    {
+        DB::statement('call pa_actualizar_recursos(?,?,?,?,?,?,?)',[
+            $request->rec_nombre,
+            $request->rec_enlace,
+            $request->rec_categoria_id_pk,
+            $request->rec_perfil_id_pk,
+            $request->rec_subarea_id_pk,
+            $request->rec_area_id_pk,
+            $request->rec_id
+        ]);
+        return response()->json([
+            'res' => true,
+            'msg' => 'Recurso Actualizado.'
+        ]);
+    }
 
     public function agregarRecurso(InsertarRecursoRequest $request)
     {
