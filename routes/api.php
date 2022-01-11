@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('competencias/{id}', [ReclutamientoController::class, 'modificarCompetencia']);
         Route::delete('vacascompetencias/{id}', [ReclutamientoController::class, 'eliminarCompetencia']);
         
-        // Califiaciones
+        // Calificaciones
         Route::post('actualizarPuntajeCv/{id}', [AdministradorController::class, 'actualizarPuntajeCv']); 
         Route::post('actualizarPuntajeConducta/{id}', [AdministradorController::class, 'actualizarPuntajeConducta']); 
         Route::post('actualizarPuntajeEntrevista/{id}', [AdministradorController::class, 'actualizarPuntajeEntrevista']); 
@@ -55,7 +55,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('listarObservacionConducta', [AdministradorController::class, 'listarObservacionConducta']); 
         Route::get('listarEntrevistaStar', [AdministradorController::class, 'listarEntrevistaStar']); 
         Route::get('listarEvaluacionConocimientos', [AdministradorController::class, 'listarEvaluacionConocimientos']); 
-   
+
+        // Recursos
+        Route::post('agregarRecurso', [AdministradorController::class, 'agregarRecurso']);
     });
 
     //Manejo de faltas
