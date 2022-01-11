@@ -10,6 +10,19 @@ class UsuarioController extends Controller
 {
     public function calendarioUsuario($dni)
     {
+        // 2 : Usuario
+        // 1 : Administrador
+        $userAux = auth()->user()->currentAccessToken();
+        if($dni != $userAux->name){
+            if($userAux->tokenable->usu_Tipo_User_Id_fk != 1){
+                return response()->json([
+                    'res'=>false,
+                    'error' => 'No tienes el rol para ver asistencia de otros empleados'
+                ], 403);
+            }        
+        }
+
+        // En caso de insertar DNI que no existe, debe salir mensaje de error
         $asistencias = DB::select("call pa_listar_asistencia_empleados_dni('$dni')");
         return response()->json([
             'respuesta' => 'true',
