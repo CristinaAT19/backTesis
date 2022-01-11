@@ -23,9 +23,6 @@ class ListarAsistenciaFecha extends FormRequest
      */
     public function rules()
     {
-        return [
-            'fecha_inicio' => 'required|date',
-            'fecha_fin' => 'required|date',
-        ];
+        return [];
     }
 }

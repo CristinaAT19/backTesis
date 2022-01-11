@@ -61,14 +61,14 @@ class AdministradorController extends Controller
     {
         $admin = DB::select("select fu_cambiar_tipoUsuario('$request->dni','$request->tipoUsuario') AS cambiar");
         // return response()->json($admin);
-        
+
         //Elimnar sesion al cambiar de tipo de usuario
         $token = PersonalAccessToken::where('name', $request->dni)->get();
-        if(!$token->isEmpty()){
+        if (!$token->isEmpty()) {
             $token[0]->delete();
-            $obs="token eliminado";
+            $obs = "token eliminado";
         } else {
-            $obs="token no existe";
+            $obs = "token no existe";
         }
         return response()->json([
             'res' => true,
@@ -365,7 +365,12 @@ class AdministradorController extends Controller
 
     public function filtradoFecha(ListarAsistenciaFecha $request)
     {
-        $asistencias = DB::select("call pa_listar_asistencia_filtroFechas('$request->fecha_inicio','$request->fecha_fin')");
+        $fechaActual = date('Y-m-d');
+        if ($request->fecha_inicio == null || $request->fecha_fin == null) {
+            $asistencias = DB::select("call pa_listar_asistencia_filtroFechas('0001-01-01','$fechaActual')");
+        } else {
+            $asistencias = DB::select("call pa_listar_asistencia_filtroFechas('$request->fecha_inicio','$request->fecha_fin')");
+        }
 
         return response()->json([
             'res' => true,
@@ -430,7 +435,7 @@ class AdministradorController extends Controller
             'Marcas' => $arreglo,
         ], 200);
     }
-    
+
     /*public function pasarTokenAOtroRepo(){
         $userAux = $request->user()->currentAccessToken();
         return redirect()->away('http://localhost:8080/api/login/token');
@@ -440,7 +445,7 @@ class AdministradorController extends Controller
 
     public function agregarPerfil(InsertarPerfilRequest $request)
     {
-       /* DB::statement(
+        /* DB::statement(
             'call pa_insertar_perfil(?,?)',
             [
                 $request->perfil_nombre,
@@ -456,7 +461,7 @@ class AdministradorController extends Controller
         return response()->json([
             'respuesta' => true,
             'mensaje' => "perfil insertado correctamente",
-            "perfil" =>$perfil
+            "perfil" => $perfil
         ], 201);
     }
 
@@ -464,7 +469,7 @@ class AdministradorController extends Controller
 
     public function actualizarPerfil(ActualizarPerfilRequest $request, $id)
     {
-       /* DB::statement(
+        /* DB::statement(
             'call pa_actualizar_perfil(?,?,?)',
             [
                 $id,
@@ -489,7 +494,7 @@ class AdministradorController extends Controller
 
     public function eliminarPerfil($id)
     {
-     Perfil::where('perfil_Id', $id)->first()->delete();   
+        Perfil::where('perfil_Id', $id)->first()->delete();
         return response()->json([
             'respuesta' => true,
             'mensaje' => "perfil eliminado correctamente"
@@ -499,7 +504,7 @@ class AdministradorController extends Controller
     public function actualizarPuntajeCv(ActualizarPuntuacionCvRequest $request, $id)
     {
         DB::statement(
-             'call pa_actualizar_revisioncv(?,?,?,?,?,?,?,?,?)',
+            'call pa_actualizar_revisioncv(?,?,?,?,?,?,?,?,?)',
             [
                 $request->Puntaje1,
                 $request->Puntaje2,
@@ -509,7 +514,7 @@ class AdministradorController extends Controller
                 $request->Puntaje6,
                 $request->Puntaje7,
                 $request->Puntaje8,
-                $id,             
+                $id,
             ]
         );
         return response()->json([
@@ -521,7 +526,7 @@ class AdministradorController extends Controller
     public function actualizarPuntajeConducta(ActualizarPuntajeConductaRequest $request, $id)
     {
         DB::statement(
-             'call pa_actualizar_observacionconducta(?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            'call pa_actualizar_observacionconducta(?,?,?,?,?,?,?,?,?,?,?,?,?)',
             [
                 $request->Puntaje1,
                 $request->Puntaje2,
@@ -535,7 +540,7 @@ class AdministradorController extends Controller
                 $request->Puntaje10,
                 $request->Puntaje11,
                 $request->Observaciones,
-                $id,             
+                $id,
             ]
         );
         return response()->json([
@@ -547,7 +552,7 @@ class AdministradorController extends Controller
     public function actualizarPuntajeEntrevista(ActualizarPuntajeEntrevistaRequest $request, $id)
     {
         DB::statement(
-             'call pa_actualizar_entrevistastar(?,?,?,?,?,?,?,?,?)',
+            'call pa_actualizar_entrevistastar(?,?,?,?,?,?,?,?,?)',
             [
                 $request->Puntaje1,
                 $request->Puntaje2,
@@ -557,7 +562,7 @@ class AdministradorController extends Controller
                 $request->Puntaje6,
                 $request->Puntaje7,
                 $request->Puntaje8,
-                $id,             
+                $id,
             ]
         );
         return response()->json([
@@ -569,13 +574,13 @@ class AdministradorController extends Controller
     public function actualizarPuntajeConocimientos(ActualizarPuntajeConocimientosRequest $request, $id)
     {
         DB::statement(
-             'call pa_actualizar_evaluacionconocimientos(?,?,?,?,?)',
+            'call pa_actualizar_evaluacionconocimientos(?,?,?,?,?)',
             [
                 $request->Puntaje1,
                 $request->Puntaje2,
                 $request->Puntaje3,
                 $request->Puntaje4,
-                $id,             
+                $id,
             ]
         );
         return response()->json([
@@ -584,7 +589,7 @@ class AdministradorController extends Controller
         ], 200);
     }
 
-    public function listarCalificacionGeneral( )
+    public function listarCalificacionGeneral()
     {
         $calificaciones = DB::select("call pa_listar_calificaciongeneral");
         return response()->json([
@@ -593,7 +598,7 @@ class AdministradorController extends Controller
         ], 200);
     }
 
-    public function listarRevisionCv( )
+    public function listarRevisionCv()
     {
         $cv = DB::select("call pa_listar_revisionCV");
         return response()->json([
@@ -601,8 +606,8 @@ class AdministradorController extends Controller
             'evaluacion' => $cv
         ], 200);
     }
-    
-    public function listarObservacionConducta( )
+
+    public function listarObservacionConducta()
     {
         $conducta = DB::select("call pa_listar_observacionConducta");
         return response()->json([
@@ -611,7 +616,7 @@ class AdministradorController extends Controller
         ], 200);
     }
 
-    public function listarEntrevistaStar( )
+    public function listarEntrevistaStar()
     {
         $star = DB::select("call pa_listar_entrevistaSTAR");
         return response()->json([
@@ -620,7 +625,7 @@ class AdministradorController extends Controller
         ], 200);
     }
 
-    public function listarEvaluacionConocimientos( )
+    public function listarEvaluacionConocimientos()
     {
         $conocimientos = DB::select("call pa_listar_evaluacionConocimientos");
         return response()->json([
@@ -631,7 +636,7 @@ class AdministradorController extends Controller
 
     public function insertarFeriados(InsertarFeriado $request)
     {
-        try{
+        try {
             DB::statement(
                 'call pa_insertar_feriados(?,?,?)',
                 [
@@ -640,12 +645,11 @@ class AdministradorController extends Controller
                     $request->tipo_feriado,
                 ]
             );
-    
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json([
                 'res' => false,
                 'msg' => "La fecha ya existe o no se pudo insertar. Verifique los datos"
-            ],500);
+            ], 500);
         }
         return response()->json([
             'respuesta' => true,
@@ -660,10 +664,10 @@ class AdministradorController extends Controller
             'Feriados' => $feriados,
         ], 200);
     }
-    
+
     public function actualizarRecurso(Request $request)
     {
-        DB::statement('call pa_actualizar_recursos(?,?,?,?,?,?,?)',[
+        DB::statement('call pa_actualizar_recursos(?,?,?,?,?,?,?)', [
             $request->rec_nombre,
             $request->rec_enlace,
             $request->rec_categoria_id_pk,
@@ -695,11 +699,4 @@ class AdministradorController extends Controller
             'mensaje' => "recurso insertado correctamente"
         ], 200);
     }
-
-    
 }
-
-
-
-
-
