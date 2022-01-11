@@ -406,7 +406,6 @@
         </div>
     </div>
 
-
     <div class=" mx-auto sm:px-6 lg:px-8 d-flex align-items-start">
         <button type="button">
             <strong> <a href="./asistencia">Ir a Documentacion Asistencia</a></strong>
@@ -415,8 +414,6 @@
             <strong> <a href="./ERP">Ir a Documentacion ERP</a></strong>
         </button>
     </div>
-
-
     <script>
         function copyToClipboard(elemento) {
             var $temp = $("<input>")

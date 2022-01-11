@@ -21,6 +21,7 @@ use App\Http\Requests\InsertarPerfilRequest;
 use App\Http\Requests\TipoUsuarioRequest;
 use App\Http\Requests\ListarAsistenciaFecha;
 use App\Http\Requests\InsertarFeriado;
+use App\Http\Requests\InsertarRecursoRequest;
 use PhpParser\Node\Expr\Empty_;
 use App\Models\Area;
 use App\Models\Unidad;
@@ -648,6 +649,43 @@ class AdministradorController extends Controller
             'Feriados' => $feriados,
         ], 200);
     }
+    
+    public function actualizarRecurso(Request $request)
+    {
+        DB::statement('call pa_actualizar_recursos(?,?,?,?,?,?,?)',[
+            $request->rec_nombre,
+            $request->rec_enlace,
+            $request->rec_categoria_id_pk,
+            $request->rec_perfil_id_pk,
+            $request->rec_subarea_id_pk,
+            $request->rec_area_id_pk,
+            $request->rec_id
+        ]);
+        return response()->json([
+            'res' => true,
+            'msg' => 'Recurso Actualizado.'
+        ]);
+    }
+
+    public function agregarRecurso(InsertarRecursoRequest $request)
+    {
+        DB::statement(
+            'call pa_insertar_recurso(?,?,?,?)',
+            [
+                $request->recurso_categoria_id,
+                $request->dominio_id,
+                $request->rec_nombre,
+                $request->rec_enlace
+            ]
+        );
+
+        return response()->json([
+            'respuesta' => true,
+            'mensaje' => "recurso insertado correctamente"
+        ], 200);
+    }
+
+    
 }
 
 
