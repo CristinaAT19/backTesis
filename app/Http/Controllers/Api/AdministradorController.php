@@ -6,6 +6,7 @@ use App\Models\Empleado;
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
+use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\FaltasCambioEstadoRequest;
 use App\Http\Requests\CambiarTipoUsuarioRequest;
@@ -60,9 +61,19 @@ class AdministradorController extends Controller
     {
         $admin = DB::select("select fu_cambiar_tipoUsuario('$request->dni','$request->tipoUsuario') AS cambiar");
         // return response()->json($admin);
+        
+        //Elimnar sesion al cambiar de tipo de usuario
+        $token = PersonalAccessToken::where('name', $request->dni)->get();
+        if(!$token->isEmpty()){
+            $token[0]->delete();
+            $obs="token eliminado";
+        } else {
+            $obs="token no existe";
+        }
         return response()->json([
             'res' => true,
             'msg' => $admin,
+            'obs' => $obs
         ], 200);
     }
     public function insertarEmpleado(InsertarEmpleadoRequest $request)
