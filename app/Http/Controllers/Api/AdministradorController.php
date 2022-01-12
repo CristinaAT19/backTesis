@@ -224,7 +224,7 @@ class AdministradorController extends Controller
 
         $request->emp_dias_extra = $request->emp_dias_extra == null ? 0 : $request->emp_dias_extra;
         DB::statement(
-            'call pa_actualizar_empleados(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            'call pa_actualizar_empleados(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
             [
                 $id,
                 $request->emp_nombre,
@@ -404,6 +404,18 @@ class AdministradorController extends Controller
             'Areas' => $arreglo,
         ], 200);
     }
+    public function listarPerfiles()
+    {
+        $perfiles = Perfil::all();
+        foreach ($perfiles as $perfil) {
+            $arreglo[] = $perfil->perfil_nombre;
+        }
+        return response()->json([
+            'res' => true,
+            // 'msg' => 'Listado Correcto :)',
+            'Perfiles' => $arreglo,
+        ], 200);
+    }
     public function listarUnidades()
     {
         $unidades = Unidad::all();
@@ -420,7 +432,7 @@ class AdministradorController extends Controller
     {
         $subareas = Subarea::all();
         foreach ($subareas as $subarea) {
-            $arreglo[] = $subarea->SubArea_Nombre;
+            $arreglo[] = $subarea->subArea_nombre;
         }
         return response()->json([
             'res' => true,
@@ -432,7 +444,7 @@ class AdministradorController extends Controller
     {
         $marcas = Marca::all();
         foreach ($marcas as $marca) {
-            $arreglo[] = $marca->Marca_Nombre;
+            $arreglo[] = $marca->mEmp_nombre;
         }
         return response()->json([
             'res' => true,
