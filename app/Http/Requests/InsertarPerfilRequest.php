@@ -24,8 +24,9 @@ class InsertarPerfilRequest extends FormRequest
     public function rules()
     {
         return [
-            'perfil_nombre'=>'required|string',
+            
             'perfil_subarea'=>'required|integer',
+            'perfil_nombre'=>'required|string',
         ];
     }
 }
