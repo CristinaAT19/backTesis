@@ -36,7 +36,7 @@ class InsertarEmpleadoRequest extends FormRequest
             'Emp_Perfiles_Id' => 'required|integer',
             'Emp_Unidad_Id_fk' => 'required|integer',
             'Emp_Marca_Id_fk' => 'required|integer',
-            'emp_dni' => 'required|digits:8',
+            'emp_dni' => 'required|digits:8|unique:empleados,emp_dni',
             'emp_carrera' => 'required|string|max:100|min:3',
             'emp_email' => 'required|email|max:100|min:3',
             'emp_telefono' => 'required|string|max:20|min:5',
