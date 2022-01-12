@@ -445,23 +445,23 @@ class AdministradorController extends Controller
 
     public function agregarPerfil(InsertarPerfilRequest $request)
     {
-        /* DB::statement(
-            'call pa_insertar_perfil(?,?)',
+        $res="";
+     try{
+         DB::statement(
+            'call pa_insertar_perfiles(?,?)',
             [
-                $request->perfil_nombre,
                 $request->perfil_subarea,
+                $request->perfil_nombre,
             ]
-        );*/
-
-        $perfil = Perfil::create([
-            "perfil_nombre" => $request->perfil_nombre,
-            "perfil_Id_Sub_Area_fk" => $request->perfil_subarea
-        ]);
-
+         );
+         $res="Perfil agregado correctamente";
+        }    
+    catch(Exception $e){
+        $res="Ocurrió un error";
+    }
         return response()->json([
             'respuesta' => true,
-            'mensaje' => "perfil insertado correctamente",
-            "perfil" => $perfil
+            'mensaje' => $res
         ], 201);
     }
 
