@@ -222,7 +222,7 @@ class AdministradorController extends Controller
 
         $request->emp_dias_extra = $request->emp_dias_extra == null ? 0 : $request->emp_dias_extra;
         DB::statement(
-            'call pa_actualizar_empleados(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            'call pa_actualizar_empleados(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
             [
                 $id,
                 $request->emp_nombre,
@@ -239,7 +239,6 @@ class AdministradorController extends Controller
                 $request->emp_email,
                 $request->emp_telefono,
                 $request->emp_link_cv,
-                $request->Emp_Id_Condicion_capacitacion_fk,
                 $request->emp_link_calificaciones,
                 $request->Emp_Id_Convenio_fk,
                 $request->emp_link_convenio,
