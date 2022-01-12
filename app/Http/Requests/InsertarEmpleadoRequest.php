@@ -41,7 +41,6 @@ class InsertarEmpleadoRequest extends FormRequest
             'emp_email' => 'required|email|max:100|min:3',
             'emp_telefono' => 'required|string|max:20|min:5',
             'emp_link_cv' => 'nullable|url',
-            'Emp_Id_Condicion_capacitacion_fk' => 'required|integer|min:0',
             'emp_link_calificaciones' => 'nullable|url',
             'Emp_Id_Convenio_fk' => 'required|integer|min:0',
             'emp_link_convenio' => 'nullable|url',

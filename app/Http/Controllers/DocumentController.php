@@ -19,20 +19,20 @@ class DocumentController extends Controller
         $data = [
             'success'=>true,
             'apiAsistencia' => array(
-                array('Nombre'=>'Marcar asistencia', 'Ruta'=>'https://desarrollo.consigueventas.com/Backend/public/api/marcar','Descripcion'=>"Sirve para marcar asistencia",'Requisitos'=>'Todos los datos deben ser varchar',
+                array('id'=>0,'Nombre'=>'Marcar asistencia', 'Ruta'=>'https://desarrollo.consigueventas.com/Backend/public/api/marcar','Descripcion'=>"Sirve para marcar asistencia",'Requisitos'=>'Todos los datos deben ser varchar',
                         'Metodo'=>'POST','CamposRequeridos'=>"dni,plataforma,useragent,usertime",
                         'Ejemplo'=>['{"dni" : "73615048","plataforma" : "web","useragent" : "agente","usertime" : "tiempo marcado"}']),
         
-                array('Nombre'=>'Ver lista de feriados', 'Ruta'=>'https://desarrollo.consigueventas.com/Backend/public/api/marcar','Descripcion'=>"Sirve para marcar asistencia",'Requisitos'=>'Todos los datos deben ser varchar',
+                array('id'=>1,'Nombre'=>'Ver lista de feriados', 'Ruta'=>'https://desarrollo.consigueventas.com/Backend/public/api/marcar','Descripcion'=>"Sirve para marcar asistencia",'Requisitos'=>'Todos los datos deben ser varchar',
                 'Metodo'=>'get','CamposRequeridos'=>"dni,plataforma,useragent,usertime",
                 'Ejemplo'=>['{"dni" : "73615048","plataforma" : "web","useragent" : "agente","usertime" : "tiempo marcado"}']),
     
             ),
             'apiErp' => array(
-                array('Nombre'=>'Sistema ERP 1', 'Ruta'=>'https://desarrollo.consigueventas.com/Backend/public/api/marcar','Descripcion'=>"Sirve para marcar asistencia",'Requisitos'=>'Todos los datos deben ser varchar',
+                array('id'=>0,'Nombre'=>'Sistema ERP 1', 'Ruta'=>'https://desarrollo.consigueventas.com/Backend/public/api/marcar','Descripcion'=>"Sirve para marcar asistencia",'Requisitos'=>'Todos los datos deben ser varchar',
                 'Metodo'=>'get','CamposRequeridos'=>"dni,plataforma,useragent,usertime",
                 'Ejemplo'=>['{"dni" : "73615048","plataforma" : "web","useragent" : "agente","usertime" : "tiempo marcado"}']),
-                array('Nombre'=>'Sistema ERP 2', 'Ruta'=>'https://desarrollo.consigueventas.com/Backend/public/api/marcar','Descripcion'=>"Sirve para marcar asistencia",'Requisitos'=>'Todos los datos deben ser varchar',
+                array('id'=>1,'Nombre'=>'Sistema ERP 2', 'Ruta'=>'https://desarrollo.consigueventas.com/Backend/public/api/marcar','Descripcion'=>"Sirve para marcar asistencia",'Requisitos'=>'Todos los datos deben ser varchar',
                 'Metodo'=>'get','CamposRequeridos'=>"dni,plataforma,useragent,usertime",
                 'Ejemplo'=>['{"dni" : "73615048","plataforma" : "web","useragent" : "agente","usertime" : "tiempo marcado"}']),
                 )
@@ -67,5 +67,12 @@ class DocumentController extends Controller
         $file = 'clientes.json';
         file_put_contents($file, $json_asistencia);
         return redirect()->route('readFileJson');
+    }
+
+    public function mostrarApisAsistencia(){
+        $datos_clientes = file_get_contents("clientes.json");
+        $json_clientes = json_decode($datos_clientes);
+        $json_clientes =collect($json_clientes);
+        return view('welcome', compact('json_clientes'));
     }
 }

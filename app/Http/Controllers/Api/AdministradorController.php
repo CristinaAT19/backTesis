@@ -82,7 +82,7 @@ class AdministradorController extends Controller
         // $bajada =  '0001-01-01';
         $dias = 0;
         DB::statement(
-            'call pa_insertar_empleado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            'call pa_insertar_empleado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
             [
                 $request->emp_nombre,
                 $request->emp_apellido,
@@ -98,12 +98,10 @@ class AdministradorController extends Controller
                 $request->emp_email,
                 $request->emp_telefono,
                 $request->emp_link_cv,
-                $request->Emp_Id_Condicion_capacitacion_fk,
                 $request->emp_link_calificaciones,
                 $request->Emp_Id_Convenio_fk,
                 $request->emp_link_convenio,
                 $request->emp_fechanac,
-                $request->emp_dias_extra,
                 $dias
             ]
         );

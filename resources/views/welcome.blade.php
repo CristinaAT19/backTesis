@@ -32,7 +32,10 @@
 
             <div class="d-flex align-items-start">
                 <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <button class="nav-link active" id="v-pills-marcarAsistencia-tab" data-bs-toggle="pill" data-bs-target="#v-pills-marcarAsistencia" type="button" role="tab" aria-controls="v-pills-marcarAsistencia" aria-selected="true">Marcar Asistencia</button>
+                    @foreach ($json_clientes['apiAsistencia'] as $cliente)
+                        <button class="nav-link" id="v-pills-acceder-tab" data-bs-toggle="pill" data-bs-target={{ "#v-pills-".$cliente->Nombre }} type="button" role="tab" aria-controls="v-pills-acceder" aria-selected="false">{{ $cliente->Nombre }} </button>
+                    @endforeach
+                    {{-- <button class="nav-link active" id="v-pills-marcarAsistencia-tab" data-bs-toggle="pill" data-bs-target="#v-pills-marcarAsistencia" type="button" role="tab" aria-controls="v-pills-marcarAsistencia" aria-selected="true">Marcar Asistencia</button>
                     <button class="nav-link" id="v-pills-acceder-tab" data-bs-toggle="pill" data-bs-target="#v-pills-acceder" type="button" role="tab" aria-controls="v-pills-acceder" aria-selected="false">Acceder </button>
                     <button class="nav-link" id="v-pills-cerrarSesion-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cerrarSesion" type="button" role="tab" aria-controls="v-pills-cerrarSesion" aria-selected="false">Cerrar sesión</button>
                     <button class="nav-link" id="v-pills-mostrarAsistencia-tab" data-bs-toggle="pill" data-bs-target="#v-pills-mostrarAsistencia" type="button" role="tab" aria-controls="v-pills-mostrarAsistencia" aria-selected="false">Mostrar asistencia - Tarde</button>
@@ -55,44 +58,46 @@
                     <button class="nav-link" id="v-pills-mostrarAreas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-mostrarAreas" type="button" role="tab" aria-controls="v-pills-mostrarAreas" aria-selected="false">Mostrar areas</button>
                     <button class="nav-link" id="v-pills-mostrarUnidades-tab" data-bs-toggle="pill" data-bs-target="#v-pills-mostrarUnidades" type="button" role="tab" aria-controls="v-pills-mostrarUnidades" aria-selected="false">Mostrar unidades</button>
                     <button class="nav-link" id="v-pills-mostrarPerfiles-tab" data-bs-toggle="pill" data-bs-target="#v-pills-mostrarPerfiles" type="button" role="tab" aria-controls="v-pills-mostrarPerfiles" aria-selected="false">Mostrar perfiles</button>
-                    <button class="nav-link" id="v-pills-mostrarMarcas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-mostrarMarcas" type="button" role="tab" aria-controls="v-pills-mostrarMarcas" aria-selected="false">Mostrar marcas</button>
+                    <button class="nav-link" id="v-pills-mostrarMarcas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-mostrarMarcas" type="button" role="tab" aria-controls="v-pills-mostrarMarcas" aria-selected="false">Mostrar marcas</button> --}}
                 </div>
 
                 <div class="tab-content paddding-bottom:3px paddding-right:3px" id="v-pills-tabContent">
-
-                    <div class="tab-pane fade" id="v-pills-marcarAsistencia" role="tabpanel" aria-labelledby="v-pills-marcarAsistencia-tab">
-                        <h3>Ruta: </h3 >
-                        <label class="ruta alerta" id="p1">https://desarrollo.consigueventas.com/Backend/public/api/marcar</label>
-                        <button class="btn btn-outline-primary" onclick="copyToClipboard('#p1')"><i class="far fa-copy"></i></button>
-                        <span id="alerta">Copiado!!</span>
-                        <br>
-                        <h3>Descripción:</h3>
-                        <p>Sirve para marcar asistencia</p>
-                        <h3>Requisitos:</h3>
-                        <p>Todos los datos deben ser varchar</p>
-                        <h3>Metodo:</h3>
-                        <p>Post</p>
-                        <h3>Campos Requeridos: </h3>
-                        <p>"dni, plataforma, useragent, usertime"</p>
-                        <h3>Ejemplo: </h3>
-                        <div  class="json">
-<pre>
-    {
-        "dni" : "73615048",
-        "plataforma" : "web",
-        "useragent" : "agente",
-        "usertime" : "tiempo marcado"
-    }
-</pre>
+                    @foreach ($json_clientes['apiAsistencia'] as $cliente)
+                        <div class="tab-pane fade" id={{ "v-pills-".$cliente->Nombre }} role="tabpanel" aria-labelledby="v-pills-marcarAsistencia-tab">
+                            <h3>Ruta: </h3 >
+                            <label class="ruta alerta" id="p1">https://desarrollo.consigueventas.com/Backend/public/api/marcar</label>
+                            <button class="btn btn-outline-primary" onclick="copyToClipboard('#p1')"><i class="far fa-copy"></i></button>
+                            <span id="alerta">Copiado!!</span>
+                            <br>
+                            <h3>Descripción:</h3>
+                            <p>Sirve para marcar asistencia</p>
+                            <h3>Requisitos:</h3>
+                            <p>Todos los datos deben ser varchar</p>
+                            <h3>Metodo:</h3>
+                            <p>Post</p>
+                            <h3>Campos Requeridos: </h3>
+                            <p>"dni, plataforma, useragent, usertime"</p>
+                            <h3>Ejemplo: </h3>
+                            <div  class="json">
+                                <pre>
+                                    {
+                                        "dni" : "73615048",
+                                        "plataforma" : "web",
+                                        "useragent" : "agente",
+                                        "usertime" : "tiempo marcado"
+                                    }
+                                </pre>
                             </div>
-                        <h3>Token:</h3>
-                        <p>No</p>
-                        <h3>Tipo de Usuario:</h3>
-                        <p>Administrador</p>
-                    </div>
+                            <h3>Token:</h3>
+                            <p>No</p>
+                            <h3>Tipo de Usuario:</h3>
+                            <p>Administrador</p>
+                        </div>
+
+                    @endforeach
 
 
-                    <div class="tab-pane fade" id="v-pills-acceder" role="tabpanel" aria-labelledby="v-pills-acceder-tab">
+                    {{-- <div class="tab-pane fade" id="v-pills-acceder" role="tabpanel" aria-labelledby="v-pills-acceder-tab">
                         <label><strong>Ruta: </strong> https://desarrollo.consigueventas.com/Backend/public/api/acceso </label></br>
                         <label><strong>Descripcion: </strong>Sirve para marcar asistencia</label></br>
                         <label><strong>Requisitos: </strong>Para iniciar sesion solo se necesita dni y password, los datos son varchar y por defecto el usuario y la contraseña son su dni</label></br>
@@ -491,7 +496,7 @@
                         </label></br>
                         <label><strong>Token: </strong>No</label> </br>
                         <label><strong>Tipo de Usuario: </strong>Cualquiera</label>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>

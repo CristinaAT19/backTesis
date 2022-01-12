@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/asistencia', function () {
-    return view('welcome');
-});
+Route::get('/asistencia', [DocumentController::class,'mostrarApisAsistencia'])->name('asistencia');
 
 // Para documentacion de apis
 Route::get('readFileJson',[DocumentController::class,'readFileJson'])->name('readFileJson');
