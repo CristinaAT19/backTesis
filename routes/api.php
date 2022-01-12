@@ -38,23 +38,23 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('feriados', [FeriadoController::class, 'update']);
         Route::delete('feriados', [FeriadoController::class, 'destroy']);
         // Route::post('vadawd', [FeriadoController::class, 'update']);
-        
+
         // Manual de competencias
         Route::get('competencias', [ReclutamientoController::class, 'mostrarCompetencias']);
         Route::post('competencias', [ReclutamientoController::class, 'agregarCompetencia']);
         Route::put('competencias/{id}', [ReclutamientoController::class, 'modificarCompetencia']);
         Route::delete('vacascompetencias/{id}', [ReclutamientoController::class, 'eliminarCompetencia']);
-        
+
         // Calificaciones
-        Route::post('actualizarPuntajeCv/{id}', [AdministradorController::class, 'actualizarPuntajeCv']); 
-        Route::post('actualizarPuntajeConducta/{id}', [AdministradorController::class, 'actualizarPuntajeConducta']); 
-        Route::post('actualizarPuntajeEntrevista/{id}', [AdministradorController::class, 'actualizarPuntajeEntrevista']); 
+        Route::post('actualizarPuntajeCv/{id}', [AdministradorController::class, 'actualizarPuntajeCv']);
+        Route::post('actualizarPuntajeConducta/{id}', [AdministradorController::class, 'actualizarPuntajeConducta']);
+        Route::post('actualizarPuntajeEntrevista/{id}', [AdministradorController::class, 'actualizarPuntajeEntrevista']);
         Route::post('actualizarPuntajeConocimientos/{id}', [AdministradorController::class, 'actualizarPuntajeConocimientos']);
-        Route::get('listarCalificacionGeneral', [AdministradorController::class, 'listarCalificacionGeneral']); 
-        Route::get('listarRevisionCv', [AdministradorController::class, 'listarRevisionCv']); 
-        Route::get('listarObservacionConducta', [AdministradorController::class, 'listarObservacionConducta']); 
-        Route::get('listarEntrevistaStar', [AdministradorController::class, 'listarEntrevistaStar']); 
-        Route::get('listarEvaluacionConocimientos', [AdministradorController::class, 'listarEvaluacionConocimientos']); 
+        Route::get('listarCalificacionGeneral', [AdministradorController::class, 'listarCalificacionGeneral']);
+        Route::get('listarRevisionCv', [AdministradorController::class, 'listarRevisionCv']);
+        Route::get('listarObservacionConducta', [AdministradorController::class, 'listarObservacionConducta']);
+        Route::get('listarEntrevistaStar', [AdministradorController::class, 'listarEntrevistaStar']);
+        Route::get('listarEvaluacionConocimientos', [AdministradorController::class, 'listarEvaluacionConocimientos']);
 
         // Recursos
         Route::put('recurso', [AdministradorController::class, 'actualizarRecurso']);
@@ -81,22 +81,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('perfil', [ReclutamientoController::class, 'listarPerfiles']);
     // Route::get('perfil', [AdministradorController::class, 'listarPerfiles']);
     Route::get('perfil/{id}', [ReclutamientoController::class, 'obtenerDatosPorPerfil']);
-    Route::get('unidades', [AdministradorController::class, 'listarUnidades']);
-
-
-
 });
 Route::get('marcarFaltas/{turno}', [AsistenciaController::class, 'marcarFaltas']);
 Route::get('inactividad', [AutenticarController::class, 'eliminarTokenInactividad']);
 Route::get('limpiarFaltas', [AsistenciaController::class, 'limpiarFaltas']);
 Route::get('limpiarAsistencias', [AsistenciaController::class, 'limpiarAsistencias']);
 Route::get('verificarToken/{dni}', [AutenticarController::class, 'verificarToken']);
+Route::get('unidades', [AdministradorController::class, 'listarUnidades']);
 Route::get('areas', [AdministradorController::class, 'listarAreas']);
-Route::get('subarea', [AdministradorController::class, 'listarSubareas']);
+Route::get('subareas', [AdministradorController::class, 'listarSubareas']);
 Route::get('marcas', [AdministradorController::class, 'listarMarcas']);
+Route::get('perfiles', [AdministradorController::class, 'listarPerfiles']);
 
-Route::post('agregarPerfil', [AdministradorController::class, 'agregarPerfil']); 
-Route::post('actualizarPerfil/{id}', [AdministradorController::class, 'actualizarPerfil']); 
-Route::post('eliminarPerfiles/{id}', [AdministradorController::class, 'eliminarPerfil']); 
-
-
+Route::post('agregarPerfil', [AdministradorController::class, 'agregarPerfil']);
+Route::post('actualizarPerfil/{id}', [AdministradorController::class, 'actualizarPerfil']);
+Route::post('eliminarPerfiles/{id}', [AdministradorController::class, 'eliminarPerfil']);
