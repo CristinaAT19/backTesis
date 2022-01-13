@@ -392,16 +392,13 @@ class AdministradorController extends Controller
     public function listarAreas()
     {
         $areas = Area::all();        
-        // foreach ($areas as $area) {
-        //     $arreglo[] = $area->Area_Nombre;
-        //     $id[] = $area->Area_Id;
-        // }
+        foreach ($areas as $area) {
+            $arreglo[] = $area->Area_Nombre;
+        }
         return response()->json([
             'res' => true,
             // 'msg' => 'Listado Correcto :)',
-            "Areas"=>$areas
-            // 'Area_Id' => $id,
-            // 'Areas' => $arreglo,
+            'Areas' => $arreglo,
         ], 200);
     }
     public function listarPerfiles()
@@ -715,5 +712,11 @@ class AdministradorController extends Controller
             'respuesta' => true,
             'mensaje' => "recurso insertado correctamente"
         ], 200);
+    }
+
+    public function listarAreasEmpleados(){
+        $areas = Area::get(['Area_Nombre','Area_Id']);        
+        return response()->json(['res'=>true,'Areas'=>$areas],200);
+
     }
 }
