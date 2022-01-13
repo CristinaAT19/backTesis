@@ -391,14 +391,17 @@ class AdministradorController extends Controller
 
     public function listarAreas()
     {
-        $areas = Area::all();
-        foreach ($areas as $area) {
-            $arreglo[] = $area->Area_Nombre;
-        }
+        $areas = Area::all();        
+        // foreach ($areas as $area) {
+        //     $arreglo[] = $area->Area_Nombre;
+        //     $id[] = $area->Area_Id;
+        // }
         return response()->json([
             'res' => true,
             // 'msg' => 'Listado Correcto :)',
-            'Areas' => $arreglo,
+            "Areas"=>$areas
+            // 'Area_Id' => $id,
+            // 'Areas' => $arreglo,
         ], 200);
     }
     public function listarPerfiles()
