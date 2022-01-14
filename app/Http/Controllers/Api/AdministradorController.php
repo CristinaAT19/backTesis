@@ -82,7 +82,7 @@ class AdministradorController extends Controller
         // $bajada =  '0001-01-01';
         $dias = 0;
         DB::statement(
-            'call pa_insertar_empleado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            'call pa_insertar_empleado(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
             [
                 $request->emp_nombre,
                 $request->emp_apellido,
@@ -91,6 +91,7 @@ class AdministradorController extends Controller
                 $request->emp_Fec_fin_prueba,
                 $request->emp_TurnoId,
                 $request->Emp_Perfiles_Id,
+                $request->Emp_Area_Id,
                 $request->Emp_Unidad_Id_fk,
                 $request->Emp_Marca_Id_fk,
                 $request->emp_dni,
@@ -222,7 +223,7 @@ class AdministradorController extends Controller
 
         $request->emp_dias_extra = $request->emp_dias_extra == null ? 0 : $request->emp_dias_extra;
         DB::statement(
-            'call pa_actualizar_empleados(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            'call pa_actualizar_empleados(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
             [
                 $id,
                 $request->emp_nombre,
@@ -232,6 +233,7 @@ class AdministradorController extends Controller
                 $request->emp_Fec_fin_prueba,
                 $request->emp_TurnoId,
                 $request->Emp_Perfiles_Id,
+                $request->Emp_Area_Id,
                 $request->Emp_Unidad_Id_fk,
                 $request->Emp_Marca_Id_fk,
                 $request->emp_dni,
