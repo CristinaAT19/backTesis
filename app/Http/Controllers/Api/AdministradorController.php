@@ -345,7 +345,6 @@ class AdministradorController extends Controller
         } else {
             return response()->json([
                 'res' => true,
-                // 'msg' => 'Listado Correcto :)',
                 'tipoUsuario' => 'El dni ingresado no existe'
             ], 200);
         }
