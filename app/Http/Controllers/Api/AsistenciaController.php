@@ -61,8 +61,10 @@ class AsistenciaController extends Controller
                         } else if($detalle_asi == 2){
                             $msg = "Gracias " . $empleado->Emp_Nombre . ", marcaste asistencia TARDE ";
                         }
-                    }else{
+                    }else if($msg2[0]->$atributo == 2){
                         $msg = "No puedes volver a marcar asistencia";
+                    }else if($msg2[0]->$atributo == 3){
+                        $msg = "Hoy es feriado, no puedes marcar asistencia";
                     }
                 }
             } else {
