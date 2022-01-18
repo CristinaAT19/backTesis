@@ -43,7 +43,7 @@ class AsistenciaController extends Controller
         
         // return response()->json(['res' => $asis_estado,'otra'=>$asis_estado[0],'nuevo'=>$asis_estado[0]->$atributo]);
         //  1 o 2 <-- Rango de fecha
-        try{
+        // try{
             if ($asis_estado[0]->$atributo == "2" || $asis_estado[0]->$atributo == "1") {
                 $detalle_asi = (int)$asis_estado[0]->$atributo;
                 // Exsistencia de empleado
@@ -68,14 +68,14 @@ class AsistenciaController extends Controller
             } else {
                 $msg = $asis_estado[0]->$atributo;
             }
-        }catch(Exception $e){
-            $msg = "Error en el servidor, no eres tu somos nostros";
-            return response()->json([
-                'respuesta' => 'true',
-                'mensaje' => $msg
+        // }catch(Exception $e){
+            // $msg = "Error en el servidor, no eres tu somos nostros";
+            // return response()->json([
+            //     'respuesta' => 'true',
+            //     'mensaje' => $msg
     
-            ], 200);
-        }
+            // ], 200);
+        // }
         return response()->json([
             'respuesta' => 'true',
             'mensaje' => $msg
