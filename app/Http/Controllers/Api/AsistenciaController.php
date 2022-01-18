@@ -48,7 +48,7 @@ class AsistenciaController extends Controller
                 $detalle_asi = (int)$asis_estado[0]->$atributo;
                 // Exsistencia de empleado
                 if (!$empleado == null) {
-                    $msg2 = DB::select("select fu_verificar_intentos('$fecha', '$hora', $empleado->Emp_Id, '$request->plataforma', '$SO', '$dispo', '$request->useragent', '$request->usertime', '$ipv6', $detalle_asi) AS Respuesta");
+                    $msg2 = DB::select("select fu_verificar_intentos('$fecha', '$hora', '$request->dni', '$request->plataforma', '$SO', '$dispo', '$request->useragent', '$request->usertime', '$ipv6', $detalle_asi) AS Respuesta");
 
                     // return response()->json([
                     //     'respuesta' => 'true',
