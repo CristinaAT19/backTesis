@@ -33,7 +33,7 @@ class InsertarEmpleadoRequest extends FormRequest
             'emp_fec_inicio_prueba' => 'required|date',
             'emp_Fec_fin_prueba' => 'required|date',
             'emp_TurnoId' => 'required|integer',
-            'Emp_Perfiles_Id' => 'required|integer',
+            'Emp_Perfiles_Id' => 'nullable|integer',
             'Emp_Unidad_Id_fk' => 'required|integer',
             'Emp_Marca_Id_fk' => 'required|integer',
             'emp_dni' => 'required|digits:8|unique:empleados,emp_dni',
