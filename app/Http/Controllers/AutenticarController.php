@@ -63,7 +63,7 @@ class AutenticarController extends Controller
             'dni' => $usuario[0]->Dni,
             'nombre' => $usuario[0]->Nombre,
             'apellido' => $usuario[0]->Apellido,
-            'perfil' => $usuario[0]->Perfil,
+            'perfil' => $usuario[0]->Carrera,
             'unidad' => $usuario[0]->Unidad,
             'turno' => $usuario[0]->Turno,
         ], 200);
