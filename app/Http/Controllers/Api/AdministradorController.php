@@ -419,10 +419,11 @@ class AdministradorController extends Controller
         $unidades = Unidad::all();
         foreach ($unidades as $unidad) {
             $arreglo[] = $unidad->Unidad_Nombre;
+            $idUnidades[] = $unidad->Unidad_Id;
         }
         return response()->json([
             'res' => true,
-            // 'msg' => 'Listado Correcto :)',
+            'id'=>$idUnidades,
             'Unidades' => $arreglo,
         ], 200);
     }
