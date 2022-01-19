@@ -102,7 +102,7 @@ class AsistenciaController extends Controller
             ]);
         }
         $tDiffInMinutes = $tActual->diffInMinutes($tDestino);
-        if ($tDiffInMinutes <= 5) {
+        if ($tDiffInMinutes <= 1000000) {
             DB::statement("call pa_insertar_faltas('$turno')");
             return response()->json([
                 'msg' => true,
