@@ -356,12 +356,12 @@ class AdministradorController extends Controller
         if ($reporte != null) {
             return response()->json([
                 'res' => true,
-                $reporte
+                'data'=>$reporte
             ], 200);
         } else {
             return response()->json([
-                'res' => true,
-                'tipoUsuario' => 'El dni ingresado no existe'
+                'res' => false,
+                'msg' => 'El dni ingresado no existe'
             ], 200);
         }
     }
