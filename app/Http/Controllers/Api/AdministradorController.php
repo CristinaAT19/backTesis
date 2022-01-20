@@ -408,7 +408,7 @@ class AdministradorController extends Controller
         $perfiles = Perfil::all();
         foreach ($perfiles as $perfil) {
             $arreglo[] = $perfil->perfil_nombre;
-            $idPerfil[] = $perfil->perfil_id;
+            $idPerfil[] = $perfil->perfil_Id;
         }
         return response()->json([
             'res' => true,
@@ -446,7 +446,7 @@ class AdministradorController extends Controller
         $marcas = Marca::all();
         foreach ($marcas as $marca) {
             $arreglo[] = $marca->mEmp_nombre;
-            $idMarcas[] = $marca->nEmp_id;
+            $idMarcas[] = $marca->mEmp_id;
         }
         return response()->json([
             'res' => true,
