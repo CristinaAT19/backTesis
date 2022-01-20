@@ -244,7 +244,8 @@ class AdministradorController extends Controller
                 $request->emp_link_calificaciones,
                 $request->Emp_Id_Convenio_fk,
                 $request->emp_link_convenio,
-                $request->emp_fechanac            
+                $request->emp_fechanac,
+                $request->emp_dias_extra     
             ]
         );
         return response()->json([
