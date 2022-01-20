@@ -56,8 +56,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('listarEntrevistaStar', [AdministradorController::class, 'listarEntrevistaStar']);
         Route::get('listarEvaluacionConocimientos', [AdministradorController::class, 'listarEvaluacionConocimientos']);
 
-        // Generar reporte de Asistencia
-        Route::get('generarReporteAsistencia/{dni}', [AdministradorController::class, 'generarReporteAsistencia']);
         
         // Recursos
         Route::put('recurso', [AdministradorController::class, 'actualizarRecurso']);
@@ -84,6 +82,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('perfil', [ReclutamientoController::class, 'listarPerfiles']);
     // Route::get('perfil', [AdministradorController::class, 'listarPerfiles']);
     Route::get('perfil/{id}', [ReclutamientoController::class, 'obtenerDatosPorPerfil']);
+
+    // Generar reporte de Asistencia
+    Route::get('generarReporteAsistencia/{dni}', [AdministradorController::class, 'generarReporteAsistencia']);
+
 });
 Route::get('marcarFaltas/{turno}', [AsistenciaController::class, 'marcarFaltas']);
 Route::get('inactividad', [AutenticarController::class, 'eliminarTokenInactividad']);
