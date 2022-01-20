@@ -395,10 +395,11 @@ class AdministradorController extends Controller
         $areas = Area::all();        
         foreach ($areas as $area) {
             $arreglo[] = $area->Area_Nombre;
+            $idArea[] = $area->Area_Id;
         }
         return response()->json([
             'res' => true,
-            // 'msg' => 'Listado Correcto :)',
+            'id'=> $idArea,
             'Areas' => $arreglo,
         ], 200);
     }
@@ -407,10 +408,11 @@ class AdministradorController extends Controller
         $perfiles = Perfil::all();
         foreach ($perfiles as $perfil) {
             $arreglo[] = $perfil->perfil_nombre;
+            $idPerfil[] = $perfil->perfil_id;
         }
         return response()->json([
             'res' => true,
-            // 'msg' => 'Listado Correcto :)',
+            'id' => $idPerfil,
             'Perfiles' => $arreglo,
         ], 200);
     }
@@ -444,10 +446,11 @@ class AdministradorController extends Controller
         $marcas = Marca::all();
         foreach ($marcas as $marca) {
             $arreglo[] = $marca->mEmp_nombre;
+            $idMarcas[] = $marca->nEmp_id;
         }
         return response()->json([
             'res' => true,
-            // 'msg' => 'Listado Correcto :)',
+            'id' => $idMarcas,
             'Marcas' => $arreglo,
         ], 200);
     }
