@@ -56,6 +56,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('listarEntrevistaStar', [AdministradorController::class, 'listarEntrevistaStar']);
         Route::get('listarEvaluacionConocimientos', [AdministradorController::class, 'listarEvaluacionConocimientos']);
 
+        // Generar reporte de Asistencia
+        Route::get('generarReporteAsistencia/{dni}', [AdministradorController::class, 'generarReporteAsistencia']);
+        
         // Recursos
         Route::put('recurso', [AdministradorController::class, 'actualizarRecurso']);
         Route::post('agregarRecurso', [AdministradorController::class, 'agregarRecurso']);

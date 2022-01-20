@@ -244,8 +244,7 @@ class AdministradorController extends Controller
                 $request->emp_link_calificaciones,
                 $request->Emp_Id_Convenio_fk,
                 $request->emp_link_convenio,
-                $request->emp_fechanac,
-                $request->emp_dias_extra,
+                $request->emp_fechanac            
             ]
         );
         return response()->json([
@@ -350,6 +349,23 @@ class AdministradorController extends Controller
         }
     }
 
+    public function generarReporteAsistencia(Request $request){
+
+
+        $reporte = DB::select("call pa_generar_reportes_asistencia('$request->dni')");
+        if ($reporte != null) {
+            return response()->json([
+                'res' => true,
+                $reporte
+            ], 200);
+        } else {
+            return response()->json([
+                'res' => true,
+                'tipoUsuario' => 'El dni ingresado no existe'
+            ], 200);
+        }
+    }
+    
     public function mostrarSoloTipoUsuario(Request  $request)
     {
         $userAux = $request->user()->currentAccessToken();

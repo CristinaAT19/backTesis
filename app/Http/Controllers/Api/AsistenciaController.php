@@ -39,8 +39,7 @@ class AsistenciaController extends Controller
 
         $empleado = Empleado::where('Emp_Dni', $request->dni)->first();
         $asis_estado = DB::select("select fu_verificar_puntualidad('$request->dni','$hora') AS Respuesta");
-        $atributo = "Respuesta";
-        
+        $atributo = "Respuesta";        
         // return response()->json(['res' => $asis_estado,'otra'=>$asis_estado[0],'nuevo'=>$asis_estado[0]->$atributo]);
         //  1 o 2 <-- Rango de fecha
         try{
