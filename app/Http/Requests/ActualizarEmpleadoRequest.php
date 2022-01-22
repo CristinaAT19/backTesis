@@ -46,6 +46,7 @@ class ActualizarEmpleadoRequest extends FormRequest
             'emp_link_convenio' => 'nullable|url',
             "emp_fechanac" => 'required|date|before_or_equal:' . $date,
             'Emp_Area_Id'=> 'nullable|integer|min:0',
+            'emp_estado' => 'required|integer|min:0',
         ];
     }
 }
